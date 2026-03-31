@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio Insights Tool | TheFinVerge Services</title>
+<meta name="description" content="Free Portfolio Tracker India — XIRR calculator, mutual fund overlap checker, sector allocation, P&L analysis. Educational tool for Indian investors."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy-950:#040d1e;--navy-900:#070f26;--navy-800:#0d1f45;
+  --navy-700:#102258;--navy-600:#1a3270;
+  --gold-500:#c9a84c;--gold-400:#d4b96a;--gold-glow:rgba(201,168,76,0.15);
+  --slate:#8a9ab5;--slate-light:#b0bfd4;
+  --white:#f4f6fa;--white-dim:rgba(244,246,250,0.06);
+  --green:#4caf82;--green-dim:rgba(76,175,130,0.12);
+  --red:#e05252;--red-dim:rgba(224,82,82,0.1);
+  --blue:#4a9eff;--blue-dim:rgba(74,158,255,0.1);
+  --orange:#f59e42;
+  --border:rgba(201,168,76,0.2);--border-soft:rgba(255,255,255,0.07);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius:12px;--radius-lg:18px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--navy-950);color:var(--white);overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(4,13,30,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--gold-500)}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{color:var(--slate-light);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold-400)}
+.nav-back{background:var(--white-dim);border:1px solid var(--border-soft);color:var(--slate-light)!important;padding:8px 16px;border-radius:6px;font-size:0.8rem!important}
+.nav-back:hover{border-color:var(--border)!important;color:var(--gold-400)!important}
+
+/* HERO */
+.hero-band{position:relative;z-index:1;background:linear-gradient(135deg,var(--navy-800),var(--navy-700));border-bottom:1px solid var(--border);padding:48px 48px 40px;overflow:hidden}
+.hero-band::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);border-radius:50%}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:0.72rem;color:var(--slate);margin-bottom:16px}
+.breadcrumb a{color:var(--gold-400);text-decoration:none}
+.hero-band h1{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:10px}
+.hero-band h1 span{color:var(--gold-500)}
+.hero-band p{color:var(--slate-light);font-size:1rem;max-width:600px}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.hbadge{font-family:var(--font-mono);font-size:0.7rem;font-weight:500;padding:5px 12px;border-radius:50px}
+.hbadge.live{background:var(--green-dim);border:1px solid rgba(76,175,130,0.3);color:var(--green)}
+.hbadge.gold{background:var(--gold-glow);border:1px solid var(--border);color:var(--gold-400)}
+.hbadge.warn{background:var(--red-dim);border:1px solid rgba(224,82,82,0.3);color:var(--red)}
+
+/* PAGE */
+.page-body{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 48px 80px}
+
+/* TABS */
+.tab-bar{display:flex;gap:4px;margin-bottom:28px;background:var(--white-dim);border:1px solid var(--border-soft);border-radius:10px;padding:4px;flex-wrap:wrap}
+.tab-btn{font-family:var(--font-body);font-size:0.82rem;font-weight:500;padding:9px 18px;border-radius:7px;border:none;cursor:pointer;background:transparent;color:var(--slate);transition:all 0.2s;white-space:nowrap}
+.tab-btn.active{background:var(--navy-800);color:var(--white);border:1px solid var(--border)}
+.tab-btn:hover:not(.active){color:var(--gold-400)}
+
+/* CARDS */
+.card{background:var(--navy-800);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;transition:border-color 0.3s}
+.card:hover{border-color:var(--border)}
+.card-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card-sub{font-size:0.82rem;color:var(--slate);margin-bottom:20px;line-height:1.5}
+
+/* SECTION LABEL */
+.slbl{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-500);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* FORM */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:4px}
+.fg label{font-size:0.78rem;font-weight:500;color:var(--slate-light)}
+.fg label small{font-weight:400;color:var(--slate);font-family:var(--font-mono);font-size:0.7rem}
+.fg input,.fg select{background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-family:var(--font-body);font-size:0.88rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
+.fg input:focus,.fg select:focus{border-color:var(--gold-500);box-shadow:0 0 0 3px var(--gold-glow)}
+.fg select option{background:var(--navy-900)}
+
+/* BUTTONS */
+.btn-gold{background:var(--gold-500);color:var(--navy-950);padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.85rem;border:none;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;display:inline-block;text-decoration:none}
+.btn-gold:hover{background:var(--gold-400);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--white);padding:10px 20px;border-radius:8px;font-weight:600;font-size:0.85rem;border:1px solid rgba(255,255,255,0.15);cursor:pointer;font-family:var(--font-body);transition:all 0.2s}
+.btn-outline:hover{border-color:var(--gold-400);color:var(--gold-400)}
+.btn-sm{padding:6px 14px;font-size:0.78rem;border-radius:6px}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,0.3);padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:var(--font-body);transition:all 0.2s}
+.btn-danger:hover{background:rgba(224,82,82,0.2)}
+
+/* NOTE BOXES */
+.note-box{background:var(--blue-dim);border:1px solid rgba(74,158,255,0.2);border-radius:8px;padding:10px 14px;font-size:0.78rem;color:var(--slate-light);line-height:1.6;margin-bottom:14px}
+.note-box b{color:var(--blue)}
+.warn-box{background:var(--red-dim);border:1px solid rgba(224,82,82,0.2);border-radius:8px;padding:10px 14px;font-size:0.78rem;color:var(--slate-light);line-height:1.6;margin-bottom:14px}
+.warn-box b{color:var(--red)}
+
+/* METRICS */
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.metric-card{background:var(--navy-800);border:1px solid var(--border-soft);border-radius:var(--radius);padding:18px 16px;text-align:center;transition:all 0.3s}
+.metric-card:hover{border-color:var(--border)}
+.metric-lbl{font-size:0.72rem;color:var(--slate);margin-bottom:6px;font-weight:500}
+.metric-val{font-family:var(--font-display);font-size:1.5rem;font-weight:700;line-height:1}
+.metric-sub{font-size:0.68rem;color:var(--slate);margin-top:4px;font-family:var(--font-mono)}
+
+/* HOLDINGS TABLE */
+.holdings-table{width:100%;border-collapse:collapse}
+.holdings-table th{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--slate);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border-soft)}
+.holdings-table td{padding:10px 14px;font-size:0.83rem;border-bottom:1px solid rgba(255,255,255,0.04)}
+.holdings-table tr:last-child td{border-bottom:none}
+.holdings-table tr:hover{background:var(--white-dim)}
+.pnl-pos{color:var(--green);font-family:var(--font-mono)}
+.pnl-neg{color:var(--red);font-family:var(--font-mono)}
+.pnl-neu{color:var(--slate);font-family:var(--font-mono)}
+
+/* SECTOR BARS */
+.sector-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sector-name{font-size:0.78rem;color:var(--slate-light);width:140px;flex-shrink:0;text-align:right}
+.sector-track{flex:1;height:24px;background:var(--navy-950);border-radius:4px;overflow:hidden;position:relative}
+.sector-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;font-size:0.72rem;font-weight:600;transition:width 0.6s ease;white-space:nowrap}
+.sector-pct{font-size:0.72rem;color:var(--slate);width:42px;text-align:right;flex-shrink:0;font-family:var(--font-mono)}
+
+/* OVERLAP */
+.overlap-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.overlap-card{background:var(--navy-950);border:1px solid var(--border-soft);border-radius:var(--radius);padding:18px}
+.overlap-card h4{font-size:0.85rem;font-weight:600;margin-bottom:12px;color:var(--white)}
+.overlap-tag{display:inline-flex;align-items:center;gap:6px;background:var(--white-dim);border:1px solid var(--border-soft);padding:4px 10px;border-radius:50px;font-size:0.72rem;margin:3px;color:var(--slate-light);font-family:var(--font-mono)}
+.overlap-tag.high{background:var(--red-dim);border-color:rgba(224,82,82,0.3);color:var(--red)}
+.overlap-tag.med{background:rgba(245,158,66,0.1);border-color:rgba(245,158,66,0.3);color:var(--orange)}
+.overlap-tag.low{background:var(--green-dim);border-color:rgba(76,175,130,0.3);color:var(--green)}
+
+/* XIRR */
+.xirr-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;margin-bottom:10px;align-items:end}
+
+/* VERDICT */
+.verdict{border-radius:var(--radius-lg);padding:20px 24px;margin:16px 0;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.verdict.good{background:var(--green-dim);border:1px solid rgba(76,175,130,0.25)}
+.verdict.warn{background:var(--red-dim);border:1px solid rgba(224,82,82,0.25)}
+.verdict.info{background:var(--gold-glow);border:1px solid var(--border)}
+.verdict-icon{font-size:1.6rem;flex-shrink:0}
+.verdict-text h3{font-size:0.95rem;font-weight:600;margin-bottom:4px}
+.verdict-text p{font-size:0.8rem;color:var(--slate-light);line-height:1.6}
+
+/* PROGRESS */
+.progress-track{height:8px;background:var(--navy-950);border-radius:50px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:50px;transition:width 0.5s ease}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border-soft);margin:20px 0}
+
+/* CTA */
+.cta-band{background:linear-gradient(135deg,var(--navy-800),var(--navy-700));border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:32px;flex-wrap:wrap}
+.cta-band h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.cta-band p{font-size:0.82rem;color:var(--slate-light)}
+
+/* DISCLAIMER */
+.disclaimer{background:rgba(201,168,76,0.04);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:0.76rem;color:var(--slate);line-height:1.6;margin-top:20px}
+.disclaimer b{color:var(--gold-400)}
+
+.hidden{display:none!important}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;font-size:0.78rem;color:var(--slate);flex-wrap:wrap;gap:12px}
+footer a{color:var(--gold-400);text-decoration:none}
+
+/* DONUT */
+.donut-wrap{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.donut-legend{display:flex;flex-direction:column;gap:8px;flex:1;min-width:180px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:0.78rem}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  .hero-band,.page-body{padding-left:24px;padding-right:24px}
+  .g2,.g3{grid-template-columns:1fr 1fr}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  .xirr-row{grid-template-columns:1fr 1fr}
+  .overlap-grid{grid-template-columns:1fr}
+  .cta-band{flex-direction:column;align-items:flex-start}
+  footer{flex-direction:column;padding:20px 24px}
+}
+@media(max-width:600px){
+  .g2,.g3{grid-template-columns:1fr}
+  .xirr-row{grid-template-columns:1fr 1fr;gap:8px}
+  .sector-name{width:90px;font-size:0.7rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">The<span>FinVerge</span></a>
+  <ul class="nav-links">
+    <li><a href="calculator.html">Tax Calculator</a></li>
+    <li><a href="capital-gains.html">Capital Gains</a></li>
+    <li><a href="sip-planner.html">SIP Planner</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html" class="nav-back">← Home</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>/</span>
+      <a href="index.html#tools">Tools</a><span>/</span>
+      <span>Portfolio Insights</span>
+    </div>
+    <h1>Portfolio Insights Tool<br/><span>XIRR · Overlap · Allocation</span></h1>
+    <p>Track your investments, calculate real returns (XIRR), check mutual fund overlap, and analyse sector allocation — all in one place. 100% educational, no data stored.</p>
+    <div class="hero-badges">
+      <span class="hbadge live">● Live Tool</span>
+      <span class="hbadge gold">XIRR Calculator</span>
+      <span class="hbadge gold">MF Overlap Checker</span>
+      <span class="hbadge gold">Sector Allocation</span>
+      <span class="hbadge warn">⚠ Educational Use Only</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="page-body">
+
+  <div class="warn-box">
+    <b>Important:</b> This tool is for <b>educational purposes only</b>. TheFinVerge Services is not a SEBI-registered Investment Adviser. No data entered here is stored or transmitted anywhere — everything runs locally in your browser. This tool does not constitute investment advice.
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('pnl')">📊 P&amp;L Tracker</button>
+    <button class="tab-btn" onclick="showTab('xirr')">📈 XIRR Calculator</button>
+    <button class="tab-btn" onclick="showTab('overlap')">🔍 MF Overlap Checker</button>
+    <button class="tab-btn" onclick="showTab('sector')">🏭 Sector Allocation</button>
+    <button class="tab-btn" onclick="showTab('health')">🩺 Portfolio Health</button>
+  </div>
+
+  <!-- ===== P&L TRACKER ===== -->
+  <div id="tab-pnl">
+    <div class="card">
+      <div class="card-title">📊 Holdings — P&amp;L Tracker</div>
+      <div class="card-sub">Add your investments below. Enter buy price and current price to see real-time P&amp;L, gain%, and absolute return.</div>
+
+      <div class="slbl">Add Investment</div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:16px" id="add-row">
+        <div class="fg" style="margin:0">
+          <label>Scrip / Fund Name</label>
+          <input type="text" id="h-name" placeholder="e.g. Axis Bluechip Fund"/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label>Asset Type</label>
+          <select id="h-type">
+            <option>Equity MF</option>
+            <option>Debt MF</option>
+            <option>Direct Equity</option>
+            <option>ETF</option>
+            <option>Gold</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg" style="margin:0">
+          <label>Invested (₹)</label>
+          <input type="number" id="h-invested" placeholder="100000"/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label>Current Value (₹)</label>
+          <input type="number" id="h-current" placeholder="135000"/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label>Buy Date</label>
+          <input type="date" id="h-date"/>
+        </div>
+        <button class="btn-gold btn-sm" onclick="addHolding()" style="margin-bottom:4px">+ Add</button>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="holdings-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Invested</th>
+              <th>Current Value</th>
+              <th>P&amp;L (₹)</th>
+              <th>Return %</th>
+              <th>CAGR %</th>
+              <th>Weight</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="holdings-tbody">
+            <tr id="empty-row">
+              <td colspan="9" style="text-align:center;color:var(--slate);padding:32px;font-size:0.85rem">
+                Add your first holding above to see your portfolio analysis ↑
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO SUMMARY -->
+    <div id="portfolio-summary" class="hidden">
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-lbl">Total Invested</div>
+          <div class="metric-val" id="pm-invested" style="color:var(--blue)">—</div>
+          <div class="metric-sub">across all holdings</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-lbl">Current Value</div>
+          <div class="metric-val" id="pm-current" style="color:var(--gold-400)">—</div>
+          <div class="metric-sub">today's worth</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-lbl">Total P&amp;L</div>
+          <div class="metric-val" id="pm-pnl">—</div>
+          <div class="metric-sub" id="pm-pnl-pct">—</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-lbl">Best Performer</div>
+          <div class="metric-val" id="pm-best" style="color:var(--green);font-size:1rem">—</div>
+          <div class="metric-sub" id="pm-best-sub">—</div>
+        </div>
+      </div>
+
+      <div id="pnl-verdict" class="verdict info">
+        <div class="verdict-icon" id="pnl-v-icon">📊</div>
+        <div class="verdict-text">
+          <h3 id="pnl-v-title">—</h3>
+          <p id="pnl-v-desc">—</p>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:12px">
+        <button class="btn-outline btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="btn-danger" onclick="clearAll()">🗑 Clear All</button>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <b>Disclaimer:</b> All data entered is processed locally in your browser only. Nothing is sent to any server. CAGR is approximate — it assumes a single lump sum investment. For accurate returns use the XIRR Calculator tab.
+    </div>
+  </div>
+
+  <!-- ===== XIRR CALCULATOR ===== -->
+  <div id="tab-xirr" class="hidden">
+    <div class="card">
+      <div class="card-title">📈 XIRR Calculator — True Return on SIP / Multiple Investments</div>
+      <div class="card-sub">XIRR gives you the actual annualised return accounting for when each investment was made. Far more accurate than simple return % for SIPs and multiple purchases.</div>
+
+      <div class="note-box">
+        <b>How to use:</b> Enter each investment date and amount (negative = money invested, positive = current value / redemption). Add a final row with today's date and current portfolio value as a positive number.
+      </div>
+
+      <div class="slbl">Cash Flow Entries</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:6px">
+        <div style="font-size:0.72rem;color:var(--slate);font-weight:600;padding:0 2px">Date</div>
+        <div style="font-size:0.72rem;color:var(--slate);font-weight:600;padding:0 2px">Amount (₹) — negative = outflow, positive = inflow/current value</div>
+        <div></div>
+      </div>
+
+      <div id="xirr-rows"></div>
+
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+        <button class="btn-outline btn-sm" onclick="addXIRRRow()">+ Add Row</button>
+        <button class="btn-outline btn-sm" onclick="addXIRRRow('current')">+ Add Current Value Row</button>
+        <button class="btn-outline btn-sm" onclick="loadXIRRExample()">Load Example (12-month SIP)</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <button class="btn-gold" onclick="calcXIRR()">Calculate XIRR →</button>
+        <div id="xirr-result" style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--green)"></div>
+        <div id="xirr-label" style="font-size:0.82rem;color:var(--slate-light)"></div>
+      </div>
+
+      <div id="xirr-interpretation" class="hidden" style="margin-top:16px"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💡 XIRR vs Simple Return — What's the Difference?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--red);margin-bottom:8px">❌ Simple Return (Misleading)</div>
+          <div style="font-size:0.8rem;color:var(--slate-light);line-height:1.7">
+            Invested ₹1,20,000 over 12 months (₹10,000/month)<br/>
+            Current value: ₹1,35,000<br/>
+            Simple return = <span style="color:var(--red)">12.5%</span><br/>
+            <small style="color:var(--slate)">But your first SIP was invested for 12 months, last SIP for only 1 month!</small>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:0.82rem;font-weight:600;color:var(--green);margin-bottom:8px">✅ XIRR (Accurate)</div>
+          <div style="font-size:0.8rem;color:var(--slate-light);line-height:1.7">
+            Same investment, same value<br/>
+            XIRR = <span style="color:var(--green)">~22-24% p.a.</span><br/>
+            Accounts for timing of each cash flow<br/>
+            <small style="color:var(--slate)">This is what your fund statement shows as "absolute return"</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MF OVERLAP CHECKER ===== -->
+  <div id="tab-overlap" class="hidden">
+    <div class="card">
+      <div class="card-title">🔍 Mutual Fund Overlap Checker</div>
+      <div class="card-sub">Check which stocks overlap across your mutual funds. High overlap means you're paying multiple expense ratios for the same underlying stocks.</div>
+
+      <div class="note-box">
+        <b>Note:</b> This uses indicative top holdings data for major Indian funds. For exact real-time overlap, check your fund's latest factsheet from AMFI (amfiindia.com). This tool gives an educational estimate based on known fund categories.
+      </div>
+
+      <div class="slbl">Select Your Funds (pick 2 or more)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
+        <div class="fg">
+          <label>Fund 1</label>
+          <select id="fund1" onchange="calcOverlap()">
+            <option value="">-- Select Fund --</option>
+            <option value="axis_bluechip">Axis Bluechip Fund</option>
+            <option value="mirae_largecap">Mirae Large Cap Fund</option>
+            <option value="sbi_bluechip">SBI Bluechip Fund</option>
+            <option value="hdfc_top100">HDFC Top 100 Fund</option>
+            <option value="icici_bluechip">ICICI Pru Bluechip Fund</option>
+            <option value="parag_flexi">Parag Parikh Flexi Cap</option>
+            <option value="axis_midcap">Axis Midcap Fund</option>
+            <option value="kotak_emerging">Kotak Emerging Equity</option>
+            <option value="nippon_smallcap">Nippon India Small Cap</option>
+            <option value="sbi_smallcap">SBI Small Cap Fund</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Fund 2</label>
+          <select id="fund2" onchange="calcOverlap()">
+            <option value="">-- Select Fund --</option>
+            <option value="axis_bluechip">Axis Bluechip Fund</option>
+            <option value="mirae_largecap">Mirae Large Cap Fund</option>
+            <option value="sbi_bluechip">SBI Bluechip Fund</option>
+            <option value="hdfc_top100">HDFC Top 100 Fund</option>
+            <option value="icici_bluechip">ICICI Pru Bluechip Fund</option>
+            <option value="parag_flexi">Parag Parikh Flexi Cap</option>
+            <option value="axis_midcap">Axis Midcap Fund</option>
+            <option value="kotak_emerging">Kotak Emerging Equity</option>
+            <option value="nippon_smallcap">Nippon India Small Cap</option>
+            <option value="sbi_smallcap">SBI Small Cap Fund</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Fund 3 (Optional)</label>
+          <select id="fund3" onchange="calcOverlap()">
+            <option value="">-- None --</option>
+            <option value="axis_bluechip">Axis Bluechip Fund</option>
+            <option value="mirae_largecap">Mirae Large Cap Fund</option>
+            <option value="sbi_bluechip">SBI Bluechip Fund</option>
+            <option value="hdfc_top100">HDFC Top 100 Fund</option>
+            <option value="icici_bluechip">ICICI Pru Bluechip Fund</option>
+            <option value="parag_flexi">Parag Parikh Flexi Cap</option>
+            <option value="axis_midcap">Axis Midcap Fund</option>
+            <option value="kotak_emerging">Kotak Emerging Equity</option>
+            <option value="nippon_smallcap">Nippon India Small Cap</option>
+            <option value="sbi_smallcap">SBI Small Cap Fund</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="overlap-result"></div>
+    </div>
+  </div>
+
+  <!-- ===== SECTOR ALLOCATION ===== -->
+  <div id="tab-sector" class="hidden">
+    <div class="card">
+      <div class="card-title">🏭 Sector Allocation Analyser</div>
+      <div class="card-sub">Enter your portfolio holdings to see sector-wise concentration and identify over/under-exposure.</div>
+
+      <div class="slbl">Add Holding with Sector</div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:16px">
+        <div class="fg" style="margin:0">
+          <label>Stock / Fund Name</label>
+          <input type="text" id="sec-name" placeholder="e.g. Reliance Industries"/>
+        </div>
+        <div class="fg" style="margin:0">
+          <label>Sector</label>
+          <select id="sec-sector">
+            <option>Financial Services</option>
+            <option>Information Technology</option>
+            <option>FMCG</option>
+            <option>Healthcare / Pharma</option>
+            <option>Energy / Oil & Gas</option>
+            <option>Automobiles</option>
+            <option>Capital Goods</option>
+            <option>Metals & Mining</option>
+            <option>Real Estate</option>
+            <option>Telecom</option>
+            <option>Consumer Durables</option>
+            <option>Infrastructure</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg" style="margin:0">
+          <label>Value (₹)</label>
+          <input type="number" id="sec-value" placeholder="50000"/>
+        </div>
+        <button class="btn-gold btn-sm" onclick="addSector()" style="margin-bottom:4px">+ Add</button>
+      </div>
+
+      <div id="sector-result">
+        <div style="text-align:center;color:var(--slate);padding:32px;font-size:0.85rem">
+          Add holdings above to see your sector allocation ↑
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PORTFOLIO HEALTH ===== -->
+  <div id="tab-health" class="hidden">
+    <div class="card">
+      <div class="card-title">🩺 Portfolio Health Score</div>
+      <div class="card-sub">Answer a few questions to get an educational health score and actionable insights for your portfolio.</div>
+
+      <div class="slbl">Your Portfolio Profile</div>
+      <div class="g2">
+        <div class="fg">
+          <label>How many mutual funds do you hold?</label>
+          <select id="h-funds" onchange="calcHealth()">
+            <option value="1">1–2 funds</option>
+            <option value="2" selected>3–5 funds</option>
+            <option value="3">6–10 funds</option>
+            <option value="4">More than 10 funds</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>What is your asset allocation?</label>
+          <select id="h-alloc" onchange="calcHealth()">
+            <option value="1">100% equity</option>
+            <option value="2" selected>70-80% equity, rest debt/gold</option>
+            <option value="3">50-60% equity, rest debt/gold</option>
+            <option value="4">Less than 50% equity</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Do you have an emergency fund (3-6 months expenses)?</label>
+          <select id="h-emergency" onchange="calcHealth()">
+            <option value="3" selected>Yes, fully funded</option>
+            <option value="2">Partially funded</option>
+            <option value="1">No</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>How often do you review your portfolio?</label>
+          <select id="h-review" onchange="calcHealth()">
+            <option value="3">Quarterly or half-yearly</option>
+            <option value="2" selected>Once a year</option>
+            <option value="1">Rarely or never</option>
+            <option value="0">Too frequently (monthly)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Do you have adequate term insurance (10x annual income)?</label>
+          <select id="h-insurance" onchange="calcHealth()">
+            <option value="3" selected>Yes</option>
+            <option value="1">Partial coverage</option>
+            <option value="0">No term insurance</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Are your SIPs linked to specific financial goals?</label>
+          <select id="h-goals" onchange="calcHealth()">
+            <option value="3" selected>Yes, goal-based</option>
+            <option value="1">Some are goal-based</option>
+            <option value="0">No, investing randomly</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Do you have exposure to direct equity / stocks?</label>
+          <select id="h-direct" onchange="calcHealth()">
+            <option value="2" selected>Small allocation (&lt;20%)</option>
+            <option value="3">No direct equity</option>
+            <option value="1">Large allocation (&gt;50%)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Do you have a retirement corpus plan (NPS/PPF/EPF)?</label>
+          <select id="h-retire" onchange="calcHealth()">
+            <option value="3" selected>Yes, structured plan</option>
+            <option value="1">Partial</option>
+            <option value="0">No retirement plan</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div id="health-result"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 TheFinVerge Services · <a href="index.html">thefinvergeservices.com</a></span>
+  <span>Portfolio Insights · Educational Tool · No Data Stored</span>
+  <span><a href="index.html#contact">📧 Contact Us</a></span>
+</footer>
+
+<script>
+/* ===== HELPERS ===== */
+const fmtIN = n => '₹' + Math.round(Math.abs(n)).toLocaleString('en-IN');
+const fmtL  = n => {
+  n = Math.abs(n);
+  if(n >= 10000000) return '₹'+(n/10000000).toFixed(2)+' Cr';
+  if(n >= 100000)   return '₹'+(n/100000).toFixed(1)+' L';
+  return '₹'+Math.round(n).toLocaleString('en-IN');
+};
+const pct = n => (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
+
+/* ===== TABS ===== */
+function showTab(t){
+  ['pnl','xirr','overlap','sector','health'].forEach(x=>{
+    document.getElementById('tab-'+x).classList.toggle('hidden', x!==t);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['pnl','xirr','overlap','sector','health'][i]===t);
+  });
+}
+
+/* ===== P&L TRACKER ===== */
+let holdings = [];
+
+function addHolding(){
+  const name     = document.getElementById('h-name').value.trim();
+  const type     = document.getElementById('h-type').value;
+  const invested = +document.getElementById('h-invested').value || 0;
+  const current  = +document.getElementById('h-current').value  || 0;
+  const date     = document.getElementById('h-date').value;
+  if(!name || !invested || !current){ alert('Please fill Name, Invested amount, and Current Value.'); return; }
+  holdings.push({ name, type, invested, current, date, id: Date.now() });
+  document.getElementById('h-name').value = '';
+  document.getElementById('h-invested').value = '';
+  document.getElementById('h-current').value = '';
+  renderHoldings();
+}
+
+function removeHolding(id){
+  holdings = holdings.filter(h => h.id !== id);
+  renderHoldings();
+}
+
+function renderHoldings(){
+  const tbody = document.getElementById('holdings-tbody');
+  const summary = document.getElementById('portfolio-summary');
+  if(holdings.length === 0){
+    tbody.innerHTML = `<tr id="empty-row"><td colspan="9" style="text-align:center;color:var(--slate);padding:32px;font-size:0.85rem">Add your first holding above to see your portfolio analysis ↑</td></tr>`;
+    summary.classList.add('hidden');
+    return;
+  }
+  summary.classList.remove('hidden');
+  const totalCurrent = holdings.reduce((a,h) => a + h.current, 0);
+
+  tbody.innerHTML = holdings.map(h => {
+    const pnl     = h.current - h.invested;
+    const retPct  = ((h.current - h.invested) / h.invested * 100);
+    const weight  = (h.current / totalCurrent * 100).toFixed(1);
+    let cagr = '—';
+    if(h.date){
+      const days = (new Date() - new Date(h.date)) / (1000*60*60*24);
+      const yrs  = days / 365;
+      if(yrs > 0.08) cagr = ((Math.pow(h.current/h.invested, 1/yrs) - 1)*100).toFixed(1)+'%';
+    }
+    const cls = pnl >= 0 ? 'pnl-pos' : 'pnl-neg';
+    return `<tr>
+      <td><b>${h.name}</b></td>
+      <td style="font-size:0.75rem;color:var(--slate)">${h.type}</td>
+      <td style="font-family:var(--font-mono)">${fmtIN(h.invested)}</td>
+      <td style="font-family:var(--font-mono)">${fmtIN(h.current)}</td>
+      <td class="${cls}">${pnl>=0?'+':''}${fmtIN(pnl)}</td>
+      <td class="${cls}">${pct(retPct)}</td>
+      <td class="${cls}">${cagr}</td>
+      <td style="font-family:var(--font-mono);color:var(--slate)">${weight}%</td>
+      <td><button class="btn-danger" onclick="removeHolding(${h.id})">✕</button></td>
+    </tr>`;
+  }).join('');
+
+  updateSummary(totalCurrent);
+}
+
+function updateSummary(totalCurrent){
+  const totalInvested = holdings.reduce((a,h) => a + h.invested, 0);
+  const totalPnL      = totalCurrent - totalInvested;
+  const pnlPct        = (totalPnL / totalInvested * 100).toFixed(2);
+  const best          = holdings.reduce((a,b) => ((b.current-b.invested)/b.invested > (a.current-a.invested)/a.invested ? b : a), holdings[0]);
+
+  document.getElementById('pm-invested').textContent = fmtL(totalInvested);
+  document.getElementById('pm-current').textContent  = fmtL(totalCurrent);
+  const pnlEl = document.getElementById('pm-pnl');
+  pnlEl.textContent = fmtL(totalPnL);
+  pnlEl.style.color = totalPnL >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('pm-pnl-pct').textContent = (totalPnL>=0?'+':'')+pnlPct+'% overall';
+  document.getElementById('pm-best').textContent = best.name.length > 16 ? best.name.slice(0,14)+'…' : best.name;
+  document.getElementById('pm-best-sub').textContent = '+'+((best.current-best.invested)/best.invested*100).toFixed(1)+'% return';
+
+  // Verdict
+  const vbox  = document.getElementById('pnl-verdict');
+  const vicon = document.getElementById('pnl-v-icon');
+  const vtit  = document.getElementById('pnl-v-title');
+  const vdsc  = document.getElementById('pnl-v-desc');
+  const overall = +pnlPct;
+
+  if(overall >= 15){
+    vbox.className='verdict good';vicon.textContent='🚀';
+    vtit.textContent='Strong Portfolio Performance';
+    vdsc.textContent=`Your portfolio is up ${pnlPct}% overall. ${best.name} is your star performer. Consider reviewing asset allocation and rebalancing if any single holding now exceeds 30% of your portfolio.`;
+  } else if(overall >= 0){
+    vbox.className='verdict info';vicon.textContent='📊';
+    vtit.textContent='Portfolio in Positive Territory';
+    vdsc.textContent=`You're up ${pnlPct}% overall. Stay invested — equity typically delivers 12-15% CAGR over 5+ year periods. Avoid making changes based on short-term movements.`;
+  } else {
+    vbox.className='verdict warn';vicon.textContent='⚠️';
+    vtit.textContent='Portfolio Currently in Loss — Stay Calm';
+    vdsc.textContent=`Your portfolio is down ${Math.abs(overall).toFixed(2)}%. This is normal in equity markets. If your investment thesis is intact, consider this a buying opportunity. Do not panic-sell. Review your asset allocation with a professional.`;
+  }
+}
+
+function exportCSV(){
+  const headers = ['Name','Type','Invested','Current Value','PnL','Return%'];
+  const rows    = holdings.map(h => {
+    const pnl = h.current - h.invested;
+    const ret = ((h.current-h.invested)/h.invested*100).toFixed(2);
+    return [h.name,h.type,h.invested,h.current,pnl,ret+'%'].join(',');
+  });
+  const csv  = [headers.join(','), ...rows].join('\n');
+  const link = document.createElement('a');
+  link.href  = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  link.download = 'TheFinVerge_Portfolio.csv';
+  link.click();
+}
+
+function clearAll(){
+  if(confirm('Clear all holdings?')){ holdings = []; renderHoldings(); }
+}
+
+/* ===== XIRR CALCULATOR ===== */
+let xirrRows = [];
+
+function addXIRRRow(type){
+  const id    = Date.now();
+  const today = new Date().toISOString().split('T')[0];
+  const amt   = type === 'current' ? '' : '-10000';
+  const label = type === 'current' ? 'Current portfolio value (positive)' : 'Investment amount (negative)';
+  xirrRows.push(id);
+
+  const div = document.createElement('div');
+  div.id    = 'xrow-'+id;
+  div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:8px;align-items:center';
+  div.innerHTML = `
+    <input type="date" id="xd-${id}" value="${today}" style="background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.85rem;outline:none;width:100%"/>
+    <input type="number" id="xa-${id}" value="${amt}" placeholder="${label}" style="background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.85rem;outline:none;width:100%"/>
+    <button class="btn-danger" onclick="removeXIRRRow(${id})">✕</button>`;
+  document.getElementById('xirr-rows').appendChild(div);
+}
+
+function removeXIRRRow(id){
+  document.getElementById('xrow-'+id)?.remove();
+  xirrRows = xirrRows.filter(r => r !== id);
+}
+
+function loadXIRRExample(){
+  document.getElementById('xirr-rows').innerHTML = '';
+  xirrRows = [];
+  const base = new Date('2024-04-01');
+  for(let i = 0; i < 12; i++){
+    const d   = new Date(base);
+    d.setMonth(d.getMonth() + i);
+    const id  = Date.now() + i;
+    xirrRows.push(id);
+    const dateStr = d.toISOString().split('T')[0];
+    const div = document.createElement('div');
+    div.id    = 'xrow-'+id;
+    div.style.cssText = 'display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:8px;align-items:center';
+    div.innerHTML = `
+      <input type="date" id="xd-${id}" value="${dateStr}" style="background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.85rem;outline:none;width:100%"/>
+      <input type="number" id="xa-${id}" value="-10000" style="background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.85rem;outline:none;width:100%"/>
+      <button class="btn-danger" onclick="removeXIRRRow(${id})">✕</button>`;
+    document.getElementById('xirr-rows').appendChild(div);
+  }
+  // Current value row
+  const cvid = Date.now() + 13;
+  xirrRows.push(cvid);
+  const today = new Date().toISOString().split('T')[0];
+  const div2  = document.createElement('div');
+  div2.id     = 'xrow-'+cvid;
+  div2.style.cssText = 'display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:8px;align-items:center';
+  div2.innerHTML = `
+    <input type="date" id="xd-${cvid}" value="${today}" style="background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-size:0.85rem;outline:none;width:100%"/>
+    <input type="number" id="xa-${cvid}" value="135000" style="background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--green);font-size:0.85rem;outline:none;width:100%"/>
+    <button class="btn-danger" onclick="removeXIRRRow(${cvid})">✕</button>`;
+  document.getElementById('xirr-rows').appendChild(div2);
+}
+
+function calcXIRR(){
+  const cashflows = [], dates = [];
+  for(const id of xirrRows){
+    const d = document.getElementById('xd-'+id)?.value;
+    const a = +document.getElementById('xa-'+id)?.value;
+    if(d && a){ dates.push(new Date(d)); cashflows.push(a); }
+  }
+  if(cashflows.length < 2){ alert('Add at least 2 cash flow entries (investments + current value)'); return; }
+
+  // XIRR via Newton-Raphson
+  function xnpv(rate, cfs, dts){
+    const d0 = dts[0];
+    return cfs.reduce((s,cf,i) => s + cf / Math.pow(1+rate, (dts[i]-d0)/(365*24*3600*1000)), 0);
+  }
+  function xirr(cfs, dts, guess=0.1){
+    let rate = guess;
+    for(let i = 0; i < 200; i++){
+      const f  = xnpv(rate, cfs, dts);
+      const df = xnpv(rate+0.0001, cfs, dts);
+      const nr = rate - f / ((df-f)/0.0001);
+      if(Math.abs(nr-rate) < 1e-7){ return nr; }
+      rate = nr;
+    }
+    return rate;
+  }
+
+  try {
+    const r = xirr(cashflows, dates) * 100;
+    const el  = document.getElementById('xirr-result');
+    const lbl = document.getElementById('xirr-label');
+    const interp = document.getElementById('xirr-interpretation');
+    el.textContent = r.toFixed(2)+'% p.a.';
+    el.style.color = r >= 0 ? 'var(--green)' : 'var(--red)';
+    lbl.textContent = 'XIRR — Annualised Return';
+
+    let msg = '', cls = '';
+    if(r >= 18){ msg = '🚀 Excellent returns! Significantly above market average (Nifty 50 ~12% CAGR). Your timing and fund selection has worked well.'; cls='good'; }
+    else if(r >= 12){ msg = '✅ Good returns. In line with long-term equity market average. Stay invested and let compounding work.'; cls='good'; }
+    else if(r >= 8){ msg = '📊 Decent returns. Slightly below equity market average. Review fund selection — consider switching to index funds if active funds aren\'t outperforming.'; cls='info'; }
+    else if(r >= 0){ msg = '⚠️ Below average returns. Consider reviewing fund quality, investment duration, and timing. Consult a financial professional.'; cls='warn'; }
+    else { msg = '❌ Negative XIRR. Your portfolio is currently in loss. This can be normal in short periods. If invested for 3+ years with negative XIRR, review your fund choices.'; cls='warn'; }
+
+    interp.innerHTML = `<div class="verdict ${cls}"><div class="verdict-icon">${r>=12?'📈':r>=0?'📊':'📉'}</div><div class="verdict-text"><h3>XIRR: ${r.toFixed(2)}% p.a.</h3><p>${msg}</p></div></div>`;
+    interp.classList.remove('hidden');
+  } catch(e){
+    document.getElementById('xirr-result').textContent = 'Error — check inputs';
+    document.getElementById('xirr-result').style.color = 'var(--red)';
+  }
+}
+
+/* ===== MF OVERLAP ===== */
+const FUND_HOLDINGS = {
+  axis_bluechip:    ['HDFC Bank','Infosys','ICICI Bank','TCS','Reliance','Bajaj Finance','HUL','Kotak Bank','Maruti','L&T'],
+  mirae_largecap:   ['HDFC Bank','ICICI Bank','Infosys','TCS','Reliance','Axis Bank','HUL','Wipro','Maruti','L&T'],
+  sbi_bluechip:     ['HDFC Bank','Infosys','ICICI Bank','Reliance','TCS','HUL','Axis Bank','Bajaj Finance','Maruti','Titan'],
+  hdfc_top100:      ['HDFC Bank','ICICI Bank','Infosys','Reliance','TCS','Axis Bank','L&T','Wipro','HUL','SBI'],
+  icici_bluechip:   ['HDFC Bank','ICICI Bank','Infosys','Reliance','TCS','Bajaj Finance','HUL','Axis Bank','L&T','Kotak Bank'],
+  parag_flexi:      ['HDFC Bank','ICICI Bank','Bajaj Finance','ITC','Infosys','Coal India','HCL Tech','Persistent','Google','Microsoft'],
+  axis_midcap:      ['Coforge','Persistent','PI Industries','Astral','Voltas','Divi\'s','Trent','Max Healthcare','Schaeffler','Cummins'],
+  kotak_emerging:   ['Persistent','Coforge','Trent','Max Healthcare','Navin Fluorine','PI Industries','Aarti Ind','Sona BLW','Voltas','Astral'],
+  nippon_smallcap:  ['KPIT Tech','Radico Khaitan','NCC','Aarti Ind','Navin Fluorine','Kalpataru','IDFC First','RBL Bank','Sona BLW','Trident'],
+  sbi_smallcap:     ['Lemon Tree','Blue Star','Craftsman','Chalet Hotels','KPIT Tech','Finolex Cables','Welspun','Grindwell','Brigade','Sona BLW'],
+};
+const FUND_NAMES = {
+  axis_bluechip:'Axis Bluechip',mirae_largecap:'Mirae Large Cap',sbi_bluechip:'SBI Bluechip',
+  hdfc_top100:'HDFC Top 100',icici_bluechip:'ICICI Pru Bluechip',parag_flexi:'Parag Parikh Flexi',
+  axis_midcap:'Axis Midcap',kotak_emerging:'Kotak Emerging',nippon_smallcap:'Nippon Small Cap',sbi_smallcap:'SBI Small Cap'
+};
+
+function calcOverlap(){
+  const f1 = document.getElementById('fund1').value;
+  const f2 = document.getElementById('fund2').value;
+  const f3 = document.getElementById('fund3').value;
+  const res = document.getElementById('overlap-result');
+  if(!f1 || !f2){ res.innerHTML='<div style="color:var(--slate);text-align:center;padding:20px">Select at least 2 funds to see overlap</div>'; return; }
+  if(f1 === f2){ res.innerHTML='<div class="warn-box"><b>Warning:</b> You selected the same fund twice. Select 2 different funds.</div>'; return; }
+
+  const funds = [f1,f2,...(f3?[f3]:[])];
+  const holdings = funds.map(f => new Set(FUND_HOLDINGS[f]));
+  let html = '';
+
+  // Pairwise overlap
+  for(let i=0;i<funds.length;i++){
+    for(let j=i+1;j<funds.length;j++){
+      const common = [...holdings[i]].filter(s => holdings[j].has(s));
+      const overlap = Math.round(common.length / Math.max(holdings[i].size,holdings[j].size)*100);
+      const cls = overlap>=60?'high':overlap>=30?'med':'low';
+      const msg = overlap>=60?'High Overlap — Consider removing one fund':overlap>=30?'Moderate Overlap — Acceptable':'Low Overlap — Good Diversification';
+      html += `<div class="card" style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+          <div style="font-size:0.9rem;font-weight:600">${FUND_NAMES[funds[i]]} <span style="color:var(--slate)">vs</span> ${FUND_NAMES[funds[j]]}</div>
+          <span class="overlap-tag ${cls}">${overlap}% Overlap</span>
+        </div>
+        <div style="font-size:0.78rem;color:var(--slate);margin-bottom:10px">${msg}</div>
+        <div style="font-size:0.78rem;color:var(--slate-light);margin-bottom:8px"><b style="color:var(--white)">Common stocks (${common.length}):</b></div>
+        <div>${common.length > 0 ? common.map(s=>`<span class="overlap-tag ${cls}">${s}</span>`).join('') : '<span style="color:var(--green);font-size:0.78rem">No common holdings — great diversification!</span>'}</div>
+      </div>`;
+    }
+  }
+
+  // Verdict
+  const allCommon = funds.length > 2 ? [...holdings[0]].filter(s => holdings.every(h => h.has(s))) : [];
+  if(funds.length > 2 && allCommon.length > 0){
+    html += `<div class="warn-box"><b>All 3 funds hold these stocks in common:</b> ${allCommon.join(', ')} — You have ${allCommon.length} stocks across all 3 funds, paying 3x expense ratio for the same exposure.</div>`;
+  }
+
+  res.innerHTML = html;
+}
+
+/* ===== SECTOR ALLOCATION ===== */
+let sectorData = {};
+const SECTOR_COLORS = {
+  'Financial Services':'#4a9eff','Information Technology':'#c9a84c','FMCG':'#4caf82',
+  'Healthcare / Pharma':'#e05252','Energy / Oil & Gas':'#f59e42','Automobiles':'#a78bfa',
+  'Capital Goods':'#34d399','Metals & Mining':'#94a3b8','Real Estate':'#f472b6',
+  'Telecom':'#60a5fa','Consumer Durables':'#fbbf24','Infrastructure':'#6ee7b7','Other':'#8a9ab5'
+};
+
+function addSector(){
+  const name  = document.getElementById('sec-name').value.trim();
+  const sec   = document.getElementById('sec-sector').value;
+  const value = +document.getElementById('sec-value').value || 0;
+  if(!name || !value){ alert('Enter name and value'); return; }
+  if(!sectorData[sec]) sectorData[sec] = { total:0, items:[] };
+  sectorData[sec].total += value;
+  sectorData[sec].items.push({ name, value });
+  document.getElementById('sec-name').value  = '';
+  document.getElementById('sec-value').value = '';
+  renderSectors();
+}
+
+function renderSectors(){
+  const total = Object.values(sectorData).reduce((a,s) => a+s.total, 0);
+  if(total === 0) return;
+  const sorted = Object.entries(sectorData).sort((a,b) => b[1].total - a[1].total);
+
+  let html = `<div style="margin-bottom:20px">`;
+  sorted.forEach(([sec, data]) => {
+    const p   = (data.total/total*100).toFixed(1);
+    const col = SECTOR_COLORS[sec] || '#8a9ab5';
+    html += `<div class="sector-row">
+      <div class="sector-name">${sec}</div>
+      <div class="sector-track">
+        <div class="sector-fill" style="width:${p}%;background:${col}20;color:${col};border:1px solid ${col}40">${fmtIN(data.total)}</div>
+      </div>
+      <div class="sector-pct">${p}%</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Concentration warnings
+  const warnings = sorted.filter(([,d]) => (d.total/total*100) > 35);
+  if(warnings.length > 0){
+    html += `<div class="warn-box"><b>Concentration Risk:</b> ${warnings.map(([s,d]) => `${s} (${(d.total/total*100).toFixed(1)}%)`).join(', ')} ${warnings.length > 1 ? 'are' : 'is'} over 35% of your portfolio. Consider reducing concentration.</div>`;
+  } else {
+    html += `<div class="note-box"><b>Good Diversification!</b> No single sector exceeds 35% of your portfolio. This reduces sector-specific risk.</div>`;
+  }
+
+  // Top sector details
+  const [topSec, topData] = sorted[0];
+  html += `<div style="font-size:0.78rem;color:var(--slate);margin-top:4px">Total Portfolio Value: <b style="color:var(--white)">${fmtIN(total)}</b> · Largest Sector: <b style="color:var(--gold-400)">${topSec} (${(topData.total/total*100).toFixed(1)}%)</b></div>`;
+
+  document.getElementById('sector-result').innerHTML = html;
+}
+
+/* ===== PORTFOLIO HEALTH ===== */
+function calcHealth(){
+  const funds     = +document.getElementById('h-funds').value;
+  const alloc     = +document.getElementById('h-alloc').value;
+  const emergency = +document.getElementById('h-emergency').value;
+  const review    = +document.getElementById('h-review').value;
+  const insurance = +document.getElementById('h-insurance').value;
+  const goals     = +document.getElementById('h-goals').value;
+  const direct    = +document.getElementById('h-direct').value;
+  const retire    = +document.getElementById('h-retire').value;
+
+  // Scoring
+  const fundScore = funds===2?10:funds===1?8:funds===3?6:3;
+  const allocScore= alloc===2?10:alloc===3?8:alloc===1?5:7;
+  const scores = [fundScore, allocScore, emergency*3.33, review*3.33, insurance*3.33, goals*3.33, direct*3.33, retire*3.33];
+  const total  = Math.round(scores.reduce((a,b)=>a+b,0) / scores.length);
+
+  const color = total >= 75 ? 'var(--green)' : total >= 50 ? 'var(--gold-400)' : 'var(--red)';
+  const grade = total >= 85 ? 'A — Excellent' : total >= 70 ? 'B — Good' : total >= 55 ? 'C — Average' : total >= 40 ? 'D — Needs Work' : 'F — Critical';
+
+  const tips = [];
+  if(funds >= 3) tips.push('⚠️ You hold too many funds — simplify to 3-4 well-diversified funds to reduce overlap and complexity');
+  if(funds === 1) tips.push('💡 Consider adding a mid-cap or international fund for diversification');
+  if(emergency <= 1) tips.push('🚨 Build an emergency fund of 3-6 months expenses in a liquid fund before investing');
+  if(insurance === 0) tips.push('🚨 Get term insurance immediately — 10x annual income is the recommended cover');
+  if(goals === 0) tips.push('💡 Link your SIPs to specific financial goals — this improves discipline and prevents premature withdrawal');
+  if(retire === 0) tips.push('💡 Start a retirement plan — NPS, PPF, or a dedicated retirement mutual fund');
+  if(review === 0) tips.push('⚠️ Reviewing portfolio monthly creates anxiety and leads to poor decisions — quarterly is ideal');
+
+  document.getElementById('health-result').innerHTML = `
+    <div style="display:flex;align-items:center;gap:32px;margin-bottom:20px;flex-wrap:wrap">
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:3.5rem;font-weight:700;color:${color};line-height:1">${total}</div>
+        <div style="font-size:0.78rem;color:var(--slate);margin-top:4px">out of 100</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:4px">Grade: ${grade}</div>
+        <div style="font-size:0.82rem;color:var(--slate-light);max-width:400px">${total>=75?'Your portfolio fundamentals are solid. Keep investing consistently and review annually.':total>=50?'Good foundation but a few key areas need attention. Focus on the recommendations below.':'Your portfolio needs significant restructuring. Please consult a qualified financial professional.'}</div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--slate-light);margin-bottom:6px"><span>Health Score</span><span>${total}/100</span></div>
+      <div class="progress-track" style="height:12px">
+        <div class="progress-fill" style="width:${total}%;background:${color}"></div>
+      </div>
+    </div>
+    ${tips.length > 0 ? `<div class="slbl" style="margin-top:20px">Recommendations</div>${tips.map(t=>`<div style="padding:10px 14px;background:var(--navy-950);border:1px solid var(--border-soft);border-radius:8px;font-size:0.82rem;color:var(--slate-light);margin-bottom:8px;line-height:1.6">${t}</div>`).join('')}` : '<div class="note-box"><b>Great job!</b> Your portfolio fundamentals are strong. No major issues detected.</div>'}
+    <div class="cta-band" style="margin-top:20px">
+      <div><h3>Want a detailed portfolio review?</h3><p>Book a consultation for personalised recommendations based on your actual portfolio.</p></div>
+      <a href="index.html#contact" class="btn-gold">Book Review →</a>
+    </div>`;
+}
+
+/* ===== INIT ===== */
+// Set today's date as default for holding
+document.getElementById('h-date').value = new Date().toISOString().split('T')[0];
+// Init health score
+calcHealth();
+// Pre-load 2 XIRR rows
+addXIRRRow();
+addXIRRRow('current');
+</script>
+<!-- 
+  ============================================
+  THEFINVERGE AI CHATBOT WIDGET
+  Add this code just before </body> on ALL pages
+  - index.html
+  - calculator.html
+  - capital-gains.html
+  - sip-planner.html
+  - portfolio.html
+  ============================================
+-->
+
+<!-- SUPABASE (already loaded on index.html — skip if already present) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+/* ============ CHATBOT STYLES ============ */
+#tfv-chat-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(201,168,76,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+}
+#tfv-chat-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.55);
+}
+#tfv-chat-btn svg { width: 28px; height: 28px; fill: #040d1e; }
+
+/* Notification dot */
+#tfv-notif {
+  position: absolute;
+  top: 2px; right: 2px;
+  width: 14px; height: 14px;
+  background: #e05252;
+  border-radius: 50%;
+  border: 2px solid #040d1e;
+  animation: pulse-notif 2s ease infinite;
+}
+@keyframes pulse-notif {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* Chat window */
+#tfv-chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9998;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  max-height: 580px;
+  background: #070f26;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  transform-origin: bottom right;
+}
+#tfv-chat-window.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85) translateY(20px);
+}
+
+/* Header */
+#tfv-chat-head {
+  background: linear-gradient(135deg, #0d1f45, #102258);
+  border-radius: 20px 20px 0 0;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.tfv-avatar {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.tfv-head-info h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 700; color: #f4f6fa;
+  margin-bottom: 2px;
+}
+.tfv-head-info span {
+  font-size: 0.72rem; color: #4caf82;
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.tfv-online-dot {
+  width: 6px; height: 6px;
+  background: #4caf82; border-radius: 50%;
+  animation: pulse-notif 2s ease infinite;
+}
+#tfv-close-btn {
+  margin-left: auto;
+  background: rgba(255,255,255,0.08);
+  border: none; color: #8a9ab5;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+#tfv-close-btn:hover { background: rgba(255,255,255,0.15); color: #f4f6fa; }
+
+/* Messages */
+#tfv-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.2) transparent;
+}
+#tfv-messages::-webkit-scrollbar { width: 4px; }
+#tfv-messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 2px; }
+
+.tfv-msg {
+  display: flex;
+  gap: 8px;
+  animation: msgIn 0.3s ease both;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tfv-msg.user { flex-direction: row-reverse; }
+
+.tfv-msg-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+}
+.tfv-msg.bot .tfv-msg-avatar  { background: linear-gradient(135deg,#c9a84c,#d4b96a); color: #040d1e; font-weight: 700; }
+.tfv-msg.user .tfv-msg-avatar { background: rgba(74,158,255,0.2); color: #4a9eff; }
+
+.tfv-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.83rem;
+  line-height: 1.55;
+  font-family: 'DM Sans', sans-serif;
+}
+.tfv-msg.bot  .tfv-bubble { background: #0d1f45; border: 1px solid rgba(255,255,255,0.07); color: #b0bfd4; border-radius: 4px 14px 14px 14px; }
+.tfv-msg.user .tfv-bubble { background: linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.1)); border: 1px solid rgba(201,168,76,0.25); color: #f4f6fa; border-radius: 14px 4px 14px 14px; }
+
+/* Quick replies */
+.tfv-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 16px 12px;
+}
+.tfv-qr {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: #d4b96a;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tfv-qr:hover { background: rgba(201,168,76,0.18); transform: translateY(-1px); }
+
+/* Typing indicator */
+.tfv-typing .tfv-bubble {
+  display: flex; align-items: center; gap: 4px; padding: 12px 16px;
+}
+.tfv-typing .tfv-bubble span {
+  width: 6px; height: 6px;
+  background: #8a9ab5; border-radius: 50%;
+  animation: typing-dot 1.2s ease infinite;
+}
+.tfv-typing .tfv-bubble span:nth-child(2) { animation-delay: 0.2s; }
+.tfv-typing .tfv-bubble span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-dot {
+  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+  30%          { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Input */
+#tfv-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#tfv-input {
+  flex: 1;
+  background: #040d1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #f4f6fa;
+  font-size: 0.83rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+#tfv-input:focus { border-color: #c9a84c; }
+#tfv-input::placeholder { color: #8a9ab5; }
+#tfv-send-btn {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  border: none; border-radius: 10px;
+  cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+#tfv-send-btn:hover { transform: scale(1.05); }
+#tfv-send-btn svg { width: 18px; height: 18px; fill: #040d1e; }
+#tfv-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Lead form inside chat */
+.tfv-lead-form {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 4px 0;
+}
+.tfv-lead-form input, .tfv-lead-form select {
+  width: 100%;
+  background: #040d1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #f4f6fa;
+  font-size: 0.8rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  margin-bottom: 8px;
+}
+.tfv-lead-form input:focus, .tfv-lead-form select:focus { border-color: #c9a84c; }
+.tfv-lead-form select option { background: #070f26; }
+.tfv-submit-btn {
+  width: 100%;
+  background: #c9a84c;
+  color: #040d1e;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tfv-submit-btn:hover { background: #d4b96a; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  #tfv-chat-window { right: 12px; bottom: 90px; width: calc(100vw - 24px); }
+  #tfv-chat-btn    { right: 16px; bottom: 20px; }
+}
+</style>
+
+<!-- CHAT BUTTON -->
+<button id="tfv-chat-btn" onclick="toggleChat()" aria-label="Open TheFinVerge Assistant">
+  <div id="tfv-notif"></div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 20.9a1 1 0 0 0 1.257 1.257l3.732-.892A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Zm-1 13H8a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm4-4H8a1 1 0 0 1 0-2h7a1 1 0 0 1 0 2Z"/>
+  </svg>
+</button>
+
+<!-- CHAT WINDOW -->
+<div id="tfv-chat-window" class="hidden">
+
+  <!-- HEADER -->
+  <div id="tfv-chat-head">
+    <div class="tfv-avatar">💼</div>
+    <div class="tfv-head-info">
+      <h4>TheFinVerge Assistant</h4>
+      <span><div class="tfv-online-dot"></div>Online · CA Final + ACCA Expert</span>
+    </div>
+    <button id="tfv-close-btn" onclick="toggleChat()">✕</button>
+  </div>
+
+  <!-- MESSAGES -->
+  <div id="tfv-messages"></div>
+
+  <!-- QUICK REPLIES -->
+  <div class="tfv-quick-replies" id="tfv-qr-wrap"></div>
+
+  <!-- INPUT -->
+  <div id="tfv-input-area">
+    <textarea id="tfv-input" rows="1" placeholder="Ask me about tax, ITR, SIP, capital gains..." onkeydown="handleKey(event)"></textarea>
+    <button id="tfv-send-btn" onclick="sendMessage()" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<script>
+/* =============================================
+   THEFINVERGE AI CHATBOT
+   Replace YOUR_SUPABASE_URL and YOUR_ANON_KEY
+   with your actual Supabase credentials
+============================================= */
+
+// ---- CONFIG ----
+const TFV_SUPABASE_URL  = 'https://YOUR_PROJECT_ID.supabase.co';
+const TFV_SUPABASE_KEY  = 'YOUR_ANON_PUBLIC_KEY';
+const TFV_ANTHROPIC_KEY = ''; // Leave empty — API calls go through your backend
+
+// ---- STATE ----
+let chatOpen      = false;
+let chatHistory   = [];
+let leadCaptured  = false;
+let isTyping      = false;
+
+// ---- SUPABASE ----
+let sbClient = null;
+try {
+  const { createClient } = supabase;
+  sbClient = createClient(TFV_SUPABASE_URL, TFV_SUPABASE_KEY);
+} catch(e) { console.warn('Supabase not loaded yet'); }
+
+// ---- TOGGLE ----
+function toggleChat(){
+  chatOpen = !chatOpen;
+  const win  = document.getElementById('tfv-chat-window');
+  const notif= document.getElementById('tfv-notif');
+  win.classList.toggle('hidden', !chatOpen);
+  notif.style.display = 'none';
+  if(chatOpen && chatHistory.length === 0) initChat();
+  if(chatOpen) setTimeout(()=>document.getElementById('tfv-input').focus(), 300);
+}
+
+// ---- INIT ----
+function initChat(){
+  addBotMessage(`👋 Hi! I'm the **TheFinVerge Assistant** — powered by AI and backed by CA Final + ACCA expertise.
+
+I can help you with:
+• 📋 **ITR Filing** — which form, which regime, deadlines
+• 💰 **Capital Gains** — STCG, LTCG, indexation calculations
+• 📈 **SIP & Investments** — how much to invest, which funds
+• 🧮 **Tax Saving** — 80C, 80D, HRA, NPS tips
+• 🏢 **GST & Compliance** — registration, return filing
+
+What would you like help with today?`);
+
+  setQuickReplies([
+    '📋 ITR Filing Help',
+    '💰 Capital Gains Tax',
+    '📈 SIP Calculator',
+    '🧮 Tax Saving Tips',
+    '📞 Book Consultation',
+  ]);
+
+  // Show notification after 30 seconds if chat not opened
+  setTimeout(()=>{
+    if(!chatOpen){
+      document.getElementById('tfv-notif').style.display = 'block';
+    }
+  }, 30000);
+}
+
+// ---- ADD MESSAGES ----
+function addBotMessage(text, html=false){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg bot';
+  div.innerHTML = `
+    <div class="tfv-msg-avatar">F</div>
+    <div class="tfv-bubble">${html ? text : formatText(text)}</div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+function addUserMessage(text){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg user';
+  div.innerHTML = `
+    <div class="tfv-bubble">${escapeHtml(text)}</div>
+    <div class="tfv-msg-avatar">👤</div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+function showTyping(){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg bot tfv-typing';
+  div.id = 'tfv-typing-indicator';
+  div.innerHTML = `<div class="tfv-msg-avatar">F</div><div class="tfv-bubble"><span></span><span></span><span></span></div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+function hideTyping(){
+  document.getElementById('tfv-typing-indicator')?.remove();
+}
+
+// ---- QUICK REPLIES ----
+function setQuickReplies(items){
+  const wrap = document.getElementById('tfv-qr-wrap');
+  wrap.innerHTML = items.map(q =>
+    `<button class="tfv-qr" onclick="quickReply('${q.replace(/'/g,"\\'")}')"><span>${q}</span></button>`
+  ).join('');
+}
+
+function quickReply(text){
+  document.getElementById('tfv-qr-wrap').innerHTML = '';
+  processUserInput(text);
+}
+
+// ---- SEND ----
+function handleKey(e){
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+}
+
+function sendMessage(){
+  const input = document.getElementById('tfv-input');
+  const text  = input.value.trim();
+  if(!text || isTyping) return;
+  input.value = '';
+  processUserInput(text);
+}
+
+// ---- PROCESS INPUT ----
+async function processUserInput(userText){
+  addUserMessage(userText);
+  document.getElementById('tfv-qr-wrap').innerHTML = '';
+
+  // Check for lead capture triggers
+  const lower = userText.toLowerCase();
+  if(lower.includes('book') || lower.includes('consultation') || lower.includes('consult') ||
+     lower.includes('contact') || lower.includes('help me') || lower.includes('file my') ||
+     lower.includes('itr') && lower.includes('file')){
+    if(!leadCaptured){
+      setTimeout(()=>showLeadForm(), 600);
+      return;
+    }
+  }
+
+  // AI Response
+  isTyping = true;
+  document.getElementById('tfv-send-btn').disabled = true;
+  showTyping();
+
+  chatHistory.push({ role: 'user', content: userText });
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 600,
+        system: `You are TheFinVerge Assistant — an AI financial assistant for TheFinVerge Services, run by a CA Final + ACCA qualified professional based in India.
+
+Your expertise:
+- Indian Income Tax — ITR filing, old vs new regime, FY 2025-26 (AY 2026-27), Income Tax Act 2025 effective April 2026
+- Capital Gains Tax — STCG (20% equity), LTCG (12.5%), ₹1.25L exemption, CII 376 for FY 2025-26, indexation for pre-July 2024 property
+- Mutual Funds — SIP, XIRR, NAV, expense ratio, fund categories, overlap
+- GST — registration, GSTR-1, GSTR-3B, composition scheme
+- Financial Planning — SIP calculations, goal planning, retirement corpus
+- Tax Saving — 80C (₹1.5L), 80D (₹25K), HRA, NPS 80CCD, home loan interest
+
+IMPORTANT RULES:
+1. Only answer India-specific finance and tax questions
+2. Keep answers concise — 3-5 lines max for chat
+3. Always add: "For personalised advice, book a free consultation at thefinvergeservices.com"
+4. Use ₹ symbol, Indian number format (lakhs, crores)
+5. If asked about specific investment recommendations, say you cannot advise without SEBI IA registration but can explain concepts
+6. Be friendly and professional — you represent a CA firm
+7. Use simple language — explain jargon when used
+8. If someone asks to file ITR or book a consultation, say "Let me connect you with our team — I'll collect your details"`,
+        messages: chatHistory
+      })
+    });
+
+    const data  = await response.json();
+    const reply = data.content?.[0]?.text || 'I apologize, I could not process that. Please try again or contact us directly.';
+
+    hideTyping();
+    chatHistory.push({ role: 'assistant', content: reply });
+    addBotMessage(reply);
+
+    // Set contextual quick replies
+    if(lower.includes('itr') || lower.includes('income tax') || lower.includes('tax')){
+      setQuickReplies(['Old vs New Regime?','80C deductions?','ITR deadline?','Book Filing Help']);
+    } else if(lower.includes('sip') || lower.includes('mutual fund') || lower.includes('invest')){
+      setQuickReplies(['How much SIP needed?','Best fund types?','XIRR explained?','Book Portfolio Review']);
+    } else if(lower.includes('capital gain') || lower.includes('shares') || lower.includes('stock')){
+      setQuickReplies(['LTCG exemption?','Property gains?','Tax harvesting?','Calculate My Tax']);
+    } else {
+      setQuickReplies(['📋 ITR Filing','💰 Capital Gains','📈 SIP Planning','📞 Book Consultation']);
+    }
+
+  } catch(err){
+    hideTyping();
+    addBotMessage(`I'm having trouble connecting right now. Please try again in a moment, or reach out directly at **hello@thefinvergeservices.com** — we typically respond within 2 hours.`);
+    setQuickReplies(['Try Again','📞 Book Consultation']);
+  }
+
+  isTyping = false;
+  document.getElementById('tfv-send-btn').disabled = false;
+}
+
+// ---- LEAD FORM ----
+function showLeadForm(){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg bot';
+  div.innerHTML = `
+    <div class="tfv-msg-avatar">F</div>
+    <div class="tfv-bubble" style="max-width:92%">
+      <div style="margin-bottom:10px;font-weight:600;color:#f4f6fa">Great! Let me connect you with our team 🎯</div>
+      <div class="tfv-lead-form">
+        <input type="text"  id="cf-name"    placeholder="Your name *"/>
+        <input type="email" id="cf-email"   placeholder="Email address *"/>
+        <input type="tel"   id="cf-phone"   placeholder="Phone number (optional)"/>
+        <select id="cf-service">
+          <option value="">What do you need help with? *</option>
+          <option>ITR Filing (Salaried)</option>
+          <option>ITR Filing (Business / Freelancer)</option>
+          <option>Capital Gains Tax</option>
+          <option>Portfolio Review</option>
+          <option>GST Compliance</option>
+          <option>Financial Planning</option>
+          <option>Tax Notice Help</option>
+          <option>Other</option>
+        </select>
+        <button class="tfv-submit-btn" onclick="submitChatLead()">Get Free Consultation →</button>
+      </div>
+    </div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+async function submitChatLead(){
+  const name    = document.getElementById('cf-name')?.value.trim();
+  const email   = document.getElementById('cf-email')?.value.trim();
+  const phone   = document.getElementById('cf-phone')?.value.trim();
+  const service = document.getElementById('cf-service')?.value;
+
+  if(!name || !email || !service){
+    alert('Please fill your name, email, and select a service.');
+    return;
+  }
+
+  try {
+    if(sbClient){
+      await sbClient.from('leads').insert([{
+        first_name: name.split(' ')[0],
+        last_name:  name.split(' ').slice(1).join(' ') || '',
+        email, phone, service,
+        source: 'chatbot',
+        created_at: new Date().toISOString()
+      }]);
+    }
+  } catch(e){ console.warn('Lead save failed', e); }
+
+  leadCaptured = true;
+
+  // Remove form and show success
+  const formMsg = document.getElementById('tfv-messages').lastElementChild;
+  formMsg.querySelector('.tfv-bubble').innerHTML = `
+    <div style="text-align:center;padding:8px">
+      <div style="font-size:1.5rem;margin-bottom:8px">✅</div>
+      <div style="font-weight:700;color:#f4f6fa;margin-bottom:4px">Thank you, ${name.split(' ')[0]}!</div>
+      <div style="font-size:0.78rem;color:#b0bfd4">We'll reach out within 24 hours. Check your inbox for a confirmation.</div>
+    </div>`;
+
+  setTimeout(()=>{
+    addBotMessage(`Perfect ${name.split(' ')[0]}! 🎉 I've noted your enquiry for **${service}**. Our CA team will reach out within **24 hours**.
+
+In the meantime, you can:
+• Use our **free Tax Calculator** → calculator.html
+• Try the **Capital Gains Calculator** → capital-gains.html
+• Plan your SIPs → sip-planner.html
+
+Is there anything else I can help you with?`);
+    setQuickReplies(['Tax Calculator','Capital Gains','SIP Planner','Nothing, thanks!']);
+  }, 1000);
+}
+
+// ---- HELPERS ----
+function formatText(text){
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#f4f6fa">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:0.82em">$1</code>')
+    .replace(/•\s/g, '• ')
+    .replace(/\n/g, '<br/>');
+}
+
+function escapeHtml(text){
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function scrollToBottom(){
+  const msgs = document.getElementById('tfv-messages');
+  setTimeout(()=>{ msgs.scrollTop = msgs.scrollHeight; }, 50);
+}
+
+// Auto-open after 45 seconds if user hasn't opened
+setTimeout(()=>{
+  if(!chatOpen && !sessionStorage.getItem('tfv_chat_dismissed')){
+    document.getElementById('tfv-notif').style.display = 'block';
+  }
+}, 45000);
+
+// Track close
+document.getElementById('tfv-close-btn').addEventListener('click', ()=>{
+  sessionStorage.setItem('tfv_chat_dismissed', '1');
+});
+</script>
+
+</body>
+</html>

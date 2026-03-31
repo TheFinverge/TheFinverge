@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Capital Gains Calculator FY 2025-26 | TheFinVerge Services</title>
+<meta name="description" content="Free Capital Gains Tax Calculator India — STCG & LTCG for Equity, Mutual Funds, Real Estate, Gold, Debt Funds. FY 2025-26 AY 2026-27. Income Tax Act 2025. Budget 2026 confirmed no changes."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy-950:#040d1e; --navy-900:#070f26; --navy-800:#0d1f45;
+  --navy-700:#102258; --navy-600:#1a3270;
+  --gold-500:#c9a84c; --gold-400:#d4b96a; --gold-300:#e0ce97;
+  --gold-glow:rgba(201,168,76,0.15);
+  --slate:#8a9ab5; --slate-light:#b0bfd4;
+  --white:#f4f6fa; --white-dim:rgba(244,246,250,0.06);
+  --green:#4caf82; --green-dim:rgba(76,175,130,0.12);
+  --red:#e05252; --red-dim:rgba(224,82,82,0.12);
+  --blue:#4a9eff;
+  --border:rgba(201,168,76,0.2); --border-soft:rgba(255,255,255,0.07);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius:12px; --radius-lg:18px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--navy-950);color:var(--white);overflow-x:hidden;line-height:1.6;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 48px;background:rgba(4,13,30,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--gold-500)}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{color:var(--slate-light);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold-400)}
+.nav-back{background:var(--white-dim);border:1px solid var(--border-soft);color:var(--slate-light)!important;padding:8px 16px;border-radius:6px;font-size:0.8rem!important;transition:all 0.2s!important}
+.nav-back:hover{border-color:var(--border)!important;color:var(--gold-400)!important}
+
+/* HERO */
+.hero-band{position:relative;z-index:1;background:linear-gradient(135deg,var(--navy-800) 0%,var(--navy-700) 100%);border-bottom:1px solid var(--border);padding:48px 48px 40px;overflow:hidden}
+.hero-band::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);border-radius:50%}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:0.72rem;color:var(--slate);margin-bottom:16px;letter-spacing:0.5px}
+.breadcrumb a{color:var(--gold-400);text-decoration:none}
+.hero-band h1{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:10px}
+.hero-band h1 span{color:var(--gold-500)}
+.hero-band p{color:var(--slate-light);font-size:1rem;max-width:560px}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.hbadge{font-family:var(--font-mono);font-size:0.7rem;font-weight:500;padding:5px 12px;border-radius:50px;letter-spacing:0.3px}
+.hbadge.live{background:var(--green-dim);border:1px solid rgba(76,175,130,0.3);color:var(--green)}
+.hbadge.gold{background:var(--gold-glow);border:1px solid var(--border);color:var(--gold-400)}
+.hbadge.warn{background:rgba(224,82,82,0.1);border:1px solid rgba(224,82,82,0.25);color:var(--red)}
+
+/* BODY */
+.page-body{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 48px 80px}
+
+/* ASSET SELECTOR */
+.asset-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px}
+.asset-btn{background:var(--navy-800);border:1px solid var(--border-soft);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:all 0.2s}
+.asset-btn:hover{border-color:var(--border);transform:translateY(-2px)}
+.asset-btn.active{border-color:var(--gold-500);background:var(--gold-glow);box-shadow:0 0 20px rgba(201,168,76,0.1)}
+.asset-btn .icon{font-size:1.8rem;margin-bottom:8px;display:block}
+.asset-btn .name{font-size:0.78rem;font-weight:600;color:var(--white)}
+.asset-btn .sub{font-size:0.65rem;color:var(--slate);margin-top:2px;font-family:var(--font-mono)}
+
+/* CARDS */
+.card{background:var(--navy-800);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;transition:border-color 0.3s}
+.card:hover{border-color:var(--border)}
+.card-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card-sub{font-size:0.82rem;color:var(--slate);margin-bottom:20px;line-height:1.5}
+
+/* SECTION LABEL */
+.slbl{font-family:var(--font-mono);font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-500);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* FORM */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:4px}
+.fg label{font-size:0.78rem;font-weight:500;color:var(--slate-light)}
+.fg label small{font-weight:400;color:var(--slate);font-family:var(--font-mono);font-size:0.7rem}
+.fg input,.fg select{background:var(--navy-950);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;color:var(--white);font-family:var(--font-body);font-size:0.88rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
+.fg input:focus,.fg select:focus{border-color:var(--gold-500);box-shadow:0 0 0 3px var(--gold-glow)}
+.fg select option{background:var(--navy-900)}
+
+/* NOTE BOXES */
+.note-box{background:rgba(74,158,255,0.06);border:1px solid rgba(74,158,255,0.2);border-radius:8px;padding:10px 14px;font-size:0.78rem;color:var(--slate-light);line-height:1.6;margin-bottom:14px}
+.note-box b{color:var(--blue)}
+.warn-box{background:rgba(224,82,82,0.06);border:1px solid rgba(224,82,82,0.2);border-radius:8px;padding:10px 14px;font-size:0.78rem;color:var(--slate-light);line-height:1.6;margin-bottom:14px}
+.warn-box b{color:var(--red)}
+.success-box{background:var(--green-dim);border:1px solid rgba(76,175,130,0.3);border-radius:8px;padding:10px 14px;font-size:0.78rem;color:var(--slate-light);line-height:1.6;margin-bottom:14px}
+.success-box b{color:var(--green)}
+
+/* METRICS */
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.metric-card{background:var(--navy-800);border:1px solid var(--border-soft);border-radius:var(--radius);padding:18px 16px;text-align:center;transition:all 0.3s}
+.metric-card:hover{border-color:var(--border)}
+.metric-lbl{font-size:0.72rem;color:var(--slate);margin-bottom:6px;font-weight:500;letter-spacing:0.3px}
+.metric-val{font-family:var(--font-display);font-size:1.5rem;font-weight:700;line-height:1}
+.metric-sub{font-size:0.68rem;color:var(--slate);margin-top:4px;font-family:var(--font-mono)}
+
+/* RESULT */
+.result-card{background:var(--navy-800);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;box-shadow:0 0 40px rgba(201,168,76,0.08)}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.85rem}
+.result-row:last-child{border-bottom:none}
+.result-row .rk{color:var(--slate-light)}
+.result-row .rv{font-family:var(--font-mono);font-weight:500}
+.result-row.total{padding-top:14px;margin-top:4px;border-top:1px solid var(--border)}
+.result-row.total .rk{color:var(--white);font-weight:600;font-size:0.9rem}
+.result-row.total .rv{font-size:1rem}
+
+/* VERDICT */
+.verdict{border-radius:var(--radius-lg);padding:22px 24px;margin:16px 0;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.verdict.tax{background:rgba(224,82,82,0.07);border:1px solid rgba(224,82,82,0.2)}
+.verdict.notax{background:var(--green-dim);border:1px solid rgba(76,175,130,0.25)}
+.verdict.info{background:var(--gold-glow);border:1px solid var(--border)}
+.verdict-icon{font-size:1.8rem;flex-shrink:0}
+.verdict-text h3{font-size:1rem;font-weight:600;margin-bottom:4px}
+.verdict-text p{font-size:0.82rem;color:var(--slate-light);line-height:1.65}
+
+/* RATE TABLE */
+table{width:100%;border-collapse:collapse}
+thead th{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--slate);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border-soft)}
+tbody td{padding:10px 14px;font-size:0.83rem;border-bottom:1px solid rgba(255,255,255,0.04)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--white-dim)}
+.rate-pill{display:inline-block;font-family:var(--font-mono);font-size:0.72rem;padding:2px 8px;border-radius:4px;font-weight:500}
+.r0{background:rgba(76,175,130,0.1);color:var(--green)}
+.r12{background:rgba(201,168,76,0.12);color:var(--gold-400)}
+.r20{background:rgba(224,130,82,0.15);color:#e08252}
+.r30{background:rgba(224,82,82,0.15);color:var(--red)}
+.rslab{background:rgba(74,158,255,0.1);color:var(--blue)}
+
+/* INDEXATION COMPARISON */
+.idx-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.idx-card{background:var(--navy-950);border:1px solid var(--border-soft);border-radius:var(--radius);padding:18px}
+.idx-card h4{font-size:0.82rem;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
+.idx-card.winner{border-color:var(--green);background:rgba(76,175,130,0.05)}
+.idx-card.winner h4{color:var(--green)}
+.idx-row{display:flex;justify-content:space-between;font-size:0.78rem;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.idx-row:last-child{border-bottom:none}
+.idx-row .ik{color:var(--slate)}
+.idx-row .iv{font-family:var(--font-mono);font-weight:500}
+
+/* TAB */
+.tab-bar{display:flex;gap:4px;margin-bottom:28px;background:var(--white-dim);border:1px solid var(--border-soft);border-radius:10px;padding:4px;width:fit-content}
+.tab-btn{font-family:var(--font-body);font-size:0.85rem;font-weight:500;padding:9px 20px;border-radius:7px;border:none;cursor:pointer;background:transparent;color:var(--slate);transition:all 0.2s}
+.tab-btn.active{background:var(--navy-800);color:var(--white);border:1px solid var(--border)}
+.tab-btn:hover:not(.active){color:var(--gold-400)}
+
+/* HARVESTING */
+.harvest-tip{background:var(--navy-800);border:1px solid var(--border-soft);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:all 0.3s}
+.harvest-tip:hover{border-color:var(--border)}
+.harvest-tip h4{font-size:0.85rem;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.harvest-tip p{font-size:0.78rem;color:var(--slate-light);line-height:1.6}
+.tip-badge{font-size:0.65rem;font-family:var(--font-mono);padding:2px 8px;border-radius:50px}
+.tb-gold{background:var(--gold-glow);color:var(--gold-400);border:1px solid var(--border)}
+.tb-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,130,0.3)}
+.tb-red{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,0.3)}
+
+/* CTA */
+.cta-band{background:linear-gradient(135deg,var(--navy-800),var(--navy-700));border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:32px;flex-wrap:wrap}
+.cta-band h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.cta-band p{font-size:0.82rem;color:var(--slate-light)}
+.btn-gold{background:var(--gold-500);color:var(--navy-950);padding:12px 24px;border-radius:8px;font-weight:700;font-size:0.88rem;text-decoration:none;white-space:nowrap;transition:all 0.2s;border:none;cursor:pointer;font-family:var(--font-body)}
+.btn-gold:hover{background:var(--gold-400);transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,0.3)}
+
+/* DISCLAIMER */
+.disclaimer{background:rgba(201,168,76,0.04);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;font-size:0.76rem;color:var(--slate);line-height:1.6;margin-top:20px}
+.disclaimer b{color:var(--gold-400)}
+.divider{height:1px;background:var(--border-soft);margin:20px 0}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;font-size:0.78rem;color:var(--slate);flex-wrap:wrap;gap:12px}
+footer a{color:var(--gold-400);text-decoration:none}
+
+/* HIDDEN */
+.hidden{display:none!important}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  .hero-band{padding:36px 24px}
+  .page-body{padding:28px 24px 60px}
+  .asset-grid{grid-template-columns:repeat(3,1fr)}
+  .g2,.g3{grid-template-columns:1fr 1fr}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  .idx-grid{grid-template-columns:1fr}
+  .cta-band{flex-direction:column;align-items:flex-start}
+  footer{flex-direction:column;padding:20px 24px}
+}
+@media(max-width:600px){
+  .asset-grid{grid-template-columns:repeat(2,1fr)}
+  .g2,.g3{grid-template-columns:1fr}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  .tab-bar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">The<span>FinVerge</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="calculator.html">Tax Calculator</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html" class="nav-back">← Back to Home</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span>/</span>
+      <a href="index.html#tools">Tools</a><span>/</span>
+      <span>Capital Gains Calculator</span>
+    </div>
+    <h1>Capital Gains Calculator<br/><span>STCG &amp; LTCG — All Assets</span></h1>
+    <p>Calculate your exact capital gains tax on equity, mutual funds, real estate, gold and debt funds for FY 2025-26 (AY 2026-27). Governed by Income Tax Act 2025 effective 1 April 2026. Budget 2026 confirmed zero rate changes.</p>
+    <div class="hero-badges">
+      <span class="hbadge live">● Live Calculator</span>
+      <span class="hbadge gold">FY 2025-26 · AY 2026-27 · Income Tax Act 2025</span>  
+      <span class="hbadge gold">Indexation Benefit Included</span>
+      <span class="hbadge warn">⚠ Grandfathering Pre-2018 Equity</span>
+      <span class="hbadge live">● Income Tax Act 2025 Active 1 Apr 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="page-body">
+
+  <!-- TABS -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('calc')">Calculator</button>
+    <button class="tab-btn" onclick="showTab('rates')">Rate Reference</button>
+    <button class="tab-btn" onclick="showTab('harvest')">Tax Harvesting Tips</button>
+  </div>
+
+  <!-- ===== CALCULATOR TAB ===== -->
+  <div id="tab-calc">
+
+    <!-- ASSET SELECTOR -->
+    <div class="card">
+      <div class="card-title">📌 Step 1 — Select Asset Type</div>
+      <div class="asset-grid">
+        <div class="asset-btn active" onclick="selectAsset('equity')" id="btn-equity">
+          <span class="icon">📈</span>
+          <div class="name">Equity Shares</div>
+          <div class="sub">Listed / NSE / BSE</div>
+        </div>
+        <div class="asset-btn" onclick="selectAsset('equity_mf')" id="btn-equity_mf">
+          <span class="icon">💼</span>
+          <div class="name">Equity Mutual Fund</div>
+          <div class="sub">ELSS / Index / Flexi</div>
+        </div>
+        <div class="asset-btn" onclick="selectAsset('debt_mf')" id="btn-debt_mf">
+          <span class="icon">🏦</span>
+          <div class="name">Debt Mutual Fund</div>
+          <div class="sub">Liquid / Bond / FMP</div>
+        </div>
+        <div class="asset-btn" onclick="selectAsset('realestate')" id="btn-realestate">
+          <span class="icon">🏠</span>
+          <div class="name">Real Estate</div>
+          <div class="sub">Property / Land</div>
+        </div>
+        <div class="asset-btn" onclick="selectAsset('gold')" id="btn-gold">
+          <span class="icon">🪙</span>
+          <div class="name">Gold / Silver</div>
+          <div class="sub">Physical / ETF / SGBs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASSET-SPECIFIC NOTE -->
+    <div id="asset-note"></div>
+
+    <!-- INPUT CARD -->
+    <div class="card">
+      <div class="card-title">📋 Step 2 — Enter Transaction Details</div>
+
+      <div class="slbl">Purchase Details</div>
+      <div class="g3">
+        <div class="fg">
+          <label>Purchase Price / Cost (₹) <small>Total amount paid</small></label>
+          <input type="number" id="buy_price" value="500000" step="1000" oninput="calc()"/>
+        </div>
+        <div class="fg">
+          <label>Date of Purchase</label>
+          <input type="date" id="buy_date" value="2020-04-01" oninput="calc()"/>
+        </div>
+        <div class="fg" id="improvement-wrap">
+          <label>Cost of Improvement (₹) <small>Renovation / legal costs (real estate)</small></label>
+          <input type="number" id="improvement" value="0" step="1000" oninput="calc()"/>
+        </div>
+      </div>
+
+      <div class="slbl">Sale Details</div>
+      <div class="g3">
+        <div class="fg">
+          <label>Sale Price / Proceeds (₹) <small>Total amount received</small></label>
+          <input type="number" id="sell_price" value="900000" step="1000" oninput="calc()"/>
+        </div>
+        <div class="fg">
+          <label>Date of Sale</label>
+          <input type="date" id="sell_date" value="2025-10-01" oninput="calc()"/>
+        </div>
+        <div class="fg">
+          <label>Transfer Expenses (₹) <small>Brokerage / stamp duty / legal</small></label>
+          <input type="number" id="transfer_exp" value="5000" step="500" oninput="calc()"/>
+        </div>
+      </div>
+
+      <!-- Real estate specific -->
+      <div id="realestate-opts" class="hidden">
+        <div class="slbl">Real Estate Options</div>
+        <div class="g2">
+          <div class="fg">
+            <label>Taxpayer Type <small>Affects indexation eligibility</small></label>
+            <select id="taxpayer_type" onchange="calc()">
+              <option value="individual">Individual / HUF</option>
+              <option value="other">Company / Firm / Other</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Section 54 Exemption Claimed (₹) <small>Reinvestment in new property</small></label>
+            <input type="number" id="sec54" value="0" step="10000" oninput="calc()"/>
+          </div>
+        </div>
+        <div class="fg" style="margin-top:8px">
+          <label>Section 54EC Bond Investment (₹) <small>NHAI / REC bonds, max ₹50L, within 6 months</small></label>
+          <input type="number" id="sec54ec" value="0" step="10000" oninput="calc()"/>
+        </div>
+      </div>
+
+      <!-- Equity specific -->
+      <div id="equity-opts">
+        <div class="slbl">Equity / Equity MF Details</div>
+        <div class="g2">
+          <div class="fg">
+            <label>Other LTCG this year (₹) <small>From other equity sales — for ₹1.25L exemption calc</small></label>
+            <input type="number" id="other_ltcg" value="0" step="5000" oninput="calc()"/>
+          </div>
+          <div class="fg">
+            <label>Grandfathering — Fair Market Value on 31 Jan 2018 (₹) <small>For pre-2018 purchases only. Leave 0 if post-Jan 2018</small></label>
+            <input type="number" id="fmv_2018" value="0" step="1000" oninput="calc()"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Income tax slab (for debt funds / STCG at slab) -->
+      <div id="slab-opts" class="hidden">
+        <div class="slbl">Your Income Tax Slab <small style="text-transform:none;letter-spacing:0;color:var(--slate)">(needed for slab-rate assets)</small></div>
+        <div class="g2">
+          <div class="fg">
+            <label>Applicable Tax Slab Rate</label>
+            <select id="tax_slab" onchange="calc()">
+              <option value="0">0% (income below exemption)</option>
+              <option value="0.05">5%</option>
+              <option value="0.10">10%</option>
+              <option value="0.15">15%</option>
+              <option value="0.20">20%</option>
+              <option value="0.25">25%</option>
+              <option value="0.30" selected>30%</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- METRICS -->
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-lbl">Purchase Cost</div>
+        <div class="metric-val" id="m-cost" style="color:var(--gold-400)">—</div>
+        <div class="metric-sub" id="m-cost-sub">indexed if applicable</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Capital Gain</div>
+        <div class="metric-val" id="m-gain">—</div>
+        <div class="metric-sub" id="m-gain-sub">before exemptions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Holding Period</div>
+        <div class="metric-val" id="m-hold" style="color:var(--blue)">—</div>
+        <div class="metric-sub" id="m-hold-type">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Tax Payable</div>
+        <div class="metric-val" id="m-tax" style="color:var(--red)">—</div>
+        <div class="metric-sub">incl. 4% cess</div>
+      </div>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="result-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+        <div style="font-family:var(--font-display);font-size:1.05rem;font-weight:700">📊 Detailed Calculation</div>
+        <span id="cg-type-badge" style="font-family:var(--font-mono);font-size:0.72rem;padding:5px 12px;border-radius:50px;background:var(--gold-glow);border:1px solid var(--border);color:var(--gold-400)">—</span>
+      </div>
+
+      <div id="result-rows"></div>
+
+      <!-- Real estate indexation comparison -->
+      <div id="idx-comparison" class="hidden">
+        <div class="divider"></div>
+        <div style="font-size:0.82rem;font-weight:600;color:var(--white);margin-bottom:4px">🏠 Indexation Comparison — Choose the Lower Tax</div>
+        <div style="font-size:0.78rem;color:var(--slate);margin-bottom:12px">For property purchased before 23 July 2024, you can pick whichever option saves more tax.</div>
+        <div class="idx-grid" id="idx-grid-content"></div>
+      </div>
+
+    </div>
+
+    <!-- VERDICT -->
+    <div class="verdict info" id="verdict-box">
+      <div class="verdict-icon" id="v-icon">💡</div>
+      <div class="verdict-text">
+        <h3 id="v-title">—</h3>
+        <p id="v-desc">—</p>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <b>Disclaimer:</b> This calculator is for educational purposes only based on Finance Act 2024 & 2025 rules applicable for FY 2025-26. CII values used: FY 2024-25 = 363, FY 2025-26 = 376. Surcharge on high-income taxpayers not included. Section 112A grandfathering calculations are indicative. Always consult a Chartered Accountant before filing ITR. TheFinVerge Services is not a SEBI-registered Investment Adviser.
+    </div>
+
+    <div class="cta-band">
+      <div>
+        <h3>Need help filing your capital gains in ITR?</h3>
+        <p>Capital gains reporting is the most error-prone section of ITR-2 and ITR-3. Get it done right by a CA Final professional.</p>
+      </div>
+      <a href="index.html#contact" class="btn-gold">Book Consultation →</a>
+    </div>
+
+  </div>
+
+  <!-- ===== RATES TAB ===== -->
+  <div id="tab-rates" class="hidden">
+    <div class="card">
+      <div class="card-title">📋 Capital Gains Tax Rates — FY 202-26 (AY 2026-27)</div>
+      <div class="card-sub">Governed by Income Tax Act 2025 (effective 1 April 2026). Budget 2026 confirmed zero changes to capital gains rates, holding periods, or exemptions for FY 2025-26.</div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Asset Type</th><th>Holding Period</th><th>Type</th><th>Tax Rate</th><th>Key Note</th></tr></thead>
+          <tbody>
+            <tr><td><b>Listed Equity Shares</b></td><td>≤ 12 months</td><td>STCG</td><td><span class="rate-pill r20">20%</span></td><td>STT paid, Section 111A</td></tr>
+            <tr><td><b>Listed Equity Shares</b></td><td>&gt; 12 months</td><td>LTCG</td><td><span class="rate-pill r12">12.5%</span></td><td>₹1.25L exempt, Section 112A</td></tr>
+            <tr><td><b>Equity Mutual Funds</b></td><td>≤ 12 months</td><td>STCG</td><td><span class="rate-pill r20">20%</span></td><td>STT paid</td></tr>
+            <tr><td><b>Equity Mutual Funds</b></td><td>&gt; 12 months</td><td>LTCG</td><td><span class="rate-pill r12">12.5%</span></td><td>₹1.25L exempt</td></tr>
+            <tr><td><b>Debt MF (bought before 1 Apr 2023)</b></td><td>≤ 36 months</td><td>STCG</td><td><span class="rate-pill rslab">Slab Rate</span></td><td>No STT</td></tr>
+            <tr><td><b>Debt MF (bought before 1 Apr 2023)</b></td><td>&gt; 36 months</td><td>LTCG</td><td><span class="rate-pill r12">12.5%</span></td><td>No indexation from Budget 2024</td></tr>
+            <tr><td><b>Debt MF (bought after 1 Apr 2023)</b></td><td>Any period</td><td>Always STCG</td><td><span class="rate-pill rslab">Slab Rate</span></td><td>Regardless of holding period</td></tr>
+            <tr><td><b>Real Estate</b></td><td>≤ 24 months</td><td>STCG</td><td><span class="rate-pill rslab">Slab Rate</span></td><td>Added to total income</td></tr>
+            <tr><td><b>Real Estate (sold from 23 Jul 2024)</b></td><td>&gt; 24 months</td><td>LTCG</td><td><span class="rate-pill r12">12.5%</span></td><td>No indexation (new default)</td></tr>
+            <tr><td><b>Real Estate (bought before 23 Jul 2024)</b></td><td>&gt; 24 months</td><td>LTCG</td><td><span class="rate-pill r20">20% with indexation</span> <b>OR</b> <span class="rate-pill r12">12.5%</span></td><td>Choose lower — Individual/HUF only</td></tr>
+            <tr><td><b>Gold / Silver (Physical)</b></td><td>≤ 24 months</td><td>STCG</td><td><span class="rate-pill rslab">Slab Rate</span></td><td>—</td></tr>
+            <tr><td><b>Gold / Silver (Physical)</b></td><td>&gt; 24 months</td><td>LTCG</td><td><span class="rate-pill r12">12.5%</span></td><td>No indexation from Budget 2024</td></tr>
+            <tr><td><b>SGBs — Original Subscriber</b></td><td>Maturity</td><td>LTCG</td><td><span class="rate-pill r0">Exempt</span></td><td>Tax-free on maturity</td></tr>
+            <tr><td><b>SGBs — Secondary Market</b></td><td>Any</td><td>Capital Gains</td><td><span class="rate-pill r12">12.5%</span></td><td>Taxable from 1 Apr 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 Holding Period Reference</div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Asset</th><th>Short-Term (STCG)</th><th>Long-Term (LTCG)</th></tr></thead>
+          <tbody>
+            <tr><td>Listed equity shares / equity MF</td><td>≤ 12 months</td><td>&gt; 12 months</td></tr>
+            <tr><td>Unlisted equity shares</td><td>≤ 24 months</td><td>&gt; 24 months</td></tr>
+            <tr><td>Real estate / land / building</td><td>≤ 24 months</td><td>&gt; 24 months</td></tr>
+            <tr><td>Gold / silver / jewellery</td><td>≤ 24 months</td><td>&gt; 24 months</td></tr>
+            <tr><td>Debt MF (bought before 1 Apr 2023)</td><td>≤ 36 months</td><td>&gt; 36 months</td></tr>
+            <tr><td>Debt MF (bought after 1 Apr 2023)</td><td colspan="2" style="color:var(--red)">Always STCG at slab rate — irrespective of holding period</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Cost Inflation Index (CII) — For Indexation Calculation</div>
+      <div class="note-box"><b>Note:</b> Indexation is now available ONLY for real estate purchased before 23 July 2024, and only for individuals/HUFs. For all other assets, indexation has been removed effective Budget 2024.</div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Financial Year</th><th>CII Value</th><th>Financial Year</th><th>CII Value</th></tr></thead>
+          <tbody>
+            <tr><td>2001-02 (Base Year)</td><td>100</td><td>2014-15</td><td>240</td></tr>
+            <tr><td>2005-06</td><td>117</td><td>2015-16</td><td>254</td></tr>
+            <tr><td>2008-09</td><td>137</td><td>2017-18</td><td>272</td></tr>
+            <tr><td>2010-11</td><td>167</td><td>2020-21</td><td>301</td></tr>
+            <tr><td>2011-12</td><td>184</td><td>2022-23</td><td>331</td></tr>
+            <tr><td>2012-13</td><td>200</td><td>2023-24</td><td>348</td></tr>
+            <tr><td>2013-14</td><td>220</td><td>2024-25</td><td>363</td></tr>
+            <tr><td style="color:var(--gold-400);font-weight:600">2025-26</td><td style="color:var(--gold-400);font-weight:600">376 (confirmed — CBDT notification 1 July 2025)</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <b>Source:</b> Finance Act 2024, Finance Act 2025, CBDT notifications. Rates effective 23 July 2024 onwards. Budget 2026 made no changes to capital gains rates. For educational reference only.
+    </div>
+  </div>
+
+  <!-- ===== TAX HARVESTING TAB ===== -->
+  <div id="tab-harvest" class="hidden">
+    <div class="card">
+      <div class="card-title">🌾 Tax Harvesting Strategies — FY 2025-26</div>
+      <div class="card-sub">Legal ways to reduce your capital gains tax liability. These are widely used strategies — not loopholes.</div>
+
+      <div class="harvest-tip">
+        <h4>💡 Book ₹1.25 Lakh LTCG Every Year — Equity <span class="tip-badge tb-green">HIGH IMPACT</span></h4>
+        <p>LTCG on equity shares and equity mutual funds up to ₹1.25 lakh per financial year is completely tax-free under Section 112A. If your total gains are above this, book ₹1.25L worth of gains every March and re-buy the same stock/fund next day. This resets your cost basis and saves up to ₹15,625 in tax per year (12.5% on ₹1.25L).</p>
+      </div>
+
+      <div class="harvest-tip">
+        <h4>📉 Set Off Capital Losses Against Gains <span class="tip-badge tb-gold">MUST DO</span></h4>
+        <p>If any of your stocks or funds are sitting at a loss, sell them before 31 March to book the loss. STCL (short-term capital loss) can be set off against both STCG and LTCG. LTCL (long-term capital loss) can only be set off against LTCG. Unabsorbed losses can be carried forward for 8 years — but only if you file your ITR on time.</p>
+      </div>
+
+      <div class="harvest-tip">
+        <h4>🏠 Choose Between Indexation or Flat Rate for Old Property <span class="tip-badge tb-green">PROPERTY OWNERS</span></h4>
+        <p>If you're selling property purchased before 23 July 2024, you can choose between 12.5% without indexation OR 20% with indexation (CII-based). For properties held for 10+ years, the indexed cost is usually much higher, making 20% with indexation far better. Use the Calculator tab to compare both and pick the lower tax option. This option is available only to individuals and HUFs.</p>
+      </div>
+
+      <div class="harvest-tip">
+        <h4>🏛️ Section 54EC — Reinvest in NHAI / REC Bonds <span class="tip-badge tb-gold">REAL ESTATE</span></h4>
+        <p>After selling property, reinvest up to ₹50 lakh in NHAI or REC capital gains bonds within 6 months to claim full exemption on LTCG under Section 54EC. These bonds have a 5-year lock-in period but give ~5.25% interest (taxable). Useful if you don't want to reinvest in another property.</p>
+      </div>
+
+      <div class="harvest-tip">
+        <h4>🏡 Section 54 — Buy New House to Save Property LTCG <span class="tip-badge tb-green">REAL ESTATE</span></h4>
+        <p>If you sell a residential property, reinvest the capital gains in a new residential house within 2 years (or construct within 3 years) to claim full exemption under Section 54. The new property must be in India and you cannot sell it within 3 years. You can also park the money in Capital Gains Account Scheme (CGAS) till you invest.</p>
+      </div>
+
+      <div class="harvest-tip">
+        <h4>⚡ Avoid Debt MF for New Investments <span class="tip-badge tb-red">CAUTION</span></h4>
+        <p>Debt mutual funds purchased after 1 April 2023 are always taxed at your slab rate (up to 30%) regardless of holding period. For debt allocation, consider fixed deposits, PPF, RBI Floating Rate Bonds, or SGBs instead — which may give better post-tax returns depending on your slab rate.</p>
+      </div>
+
+      <div class="harvest-tip">
+        <h4>📅 Time Your Sales Wisely — April vs March <span class="tip-badge tb-gold">TIMING TIP</span></h4>
+        <p>If you plan to sell equity in March, consider waiting till April 1. This pushes the capital gain to the next financial year, giving you a fresh ₹1.25L LTCG exemption and delaying the tax by a full year. Similarly, if you have large gains in a single year, spread sales across two financial years to maximize exemptions.</p>
+      </div>
+
+    </div>
+
+    <div class="cta-band">
+      <div>
+        <h3>Want a personalised tax harvesting strategy?</h3>
+        <p>Every portfolio is different. Book a consultation to identify tax-saving opportunities specific to your holdings.</p>
+      </div>
+      <a href="index.html#contact" class="btn-gold">Book Consultation →</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 TheFinVerge Services · <a href="index.html">thefinvergeservices.com</a></span>
+  <span>Capital Gains Calculator · FY 2025-26 · Budget 2026 Updated</span>
+  <span><a href="index.html#contact">📧 Contact Us</a></span>
+</footer>
+
+<script>
+/* ---- Helpers ---- */
+const fmtIN = n => '₹' + Math.round(Math.abs(n)).toLocaleString('en-IN');
+const fmtL  = n => {
+  n = Math.abs(n);
+  if(n >= 10000000) return '₹'+(n/10000000).toFixed(2)+' Cr';
+  if(n >= 100000)   return '₹'+(n/100000).toFixed(1)+' L';
+  return '₹'+Math.round(n).toLocaleString('en-IN');
+};
+
+/* ---- CII Table ---- */
+const CII = {
+  2001:100,2002:105,2003:109,2004:113,2005:117,2006:122,2007:129,
+  2008:137,2009:148,2010:167,2011:184,2012:200,2013:220,2014:240,
+  2015:254,2016:264,2017:272,2018:280,2019:289,2020:301,2021:317,
+  2022:331,2023:348,2024:363,2025:376
+};
+function getCII(year){ return CII[year] || CII[2025]; }
+
+/* ---- Current asset ---- */
+let currentAsset = 'equity';
+
+function selectAsset(a){
+  currentAsset = a;
+  document.querySelectorAll('.asset-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-'+a).classList.add('active');
+  document.getElementById('realestate-opts').classList.toggle('hidden', a !== 'realestate');
+  document.getElementById('equity-opts').classList.toggle('hidden', a !== 'equity' && a !== 'equity_mf');
+  document.getElementById('slab-opts').classList.toggle('hidden', a !== 'debt_mf');
+  document.getElementById('improvement-wrap').classList.toggle('hidden', a !== 'realestate');
+  updateAssetNote(a);
+  calc();
+}
+
+function updateAssetNote(a){
+  const notes = {
+    equity: `<div class="note-box"><b>Listed Equity Shares:</b> STCG (held ≤1 year) = 20% | LTCG (held >1 year) = 12.5% on gains above ₹1.25L exemption. Grandfathering applies for shares bought before 31 Jan 2018 — enter FMV on 31 Jan 2018 below.</div>`,
+    equity_mf: `<div class="note-box"><b>Equity Mutual Funds:</b> STCG (held ≤1 year) = 20% | LTCG (held >1 year) = 12.5% on gains above ₹1.25L exemption. ELSS has 3-year lock-in — always LTCG on redemption.</div>`,
+    debt_mf: `<div class="warn-box"><b>Important — Debt Mutual Funds:</b> Funds purchased AFTER 1 April 2023 are ALWAYS taxed at your slab rate regardless of holding period (no LTCG benefit). Funds purchased BEFORE 1 April 2023 — LTCG (>3 years) taxed at 12.5% without indexation.</div>`,
+    realestate: `<div class="note-box"><b>Real Estate:</b> STCG (held ≤2 years) = Slab rate. LTCG (held >2 years) = 12.5% without indexation. <b>Special rule:</b> For property purchased BEFORE 23 July 2024, individuals/HUFs can choose between 12.5% (no indexation) OR 20% (with indexation) — whichever is lower. Both options are shown below.</div>`,
+    gold: `<div class="note-box"><b>Gold / Silver:</b> STCG (held ≤2 years) = Slab rate. LTCG (held >2 years) = 12.5% without indexation. For SGBs — original subscribers get tax-free maturity; secondary market investors pay capital gains tax from 1 April 2026.</div>`
+  };
+  document.getElementById('asset-note').innerHTML = notes[a] || '';
+}
+
+/* ---- Tab switching ---- */
+function showTab(t){
+  ['calc','rates','harvest'].forEach(x => {
+    document.getElementById('tab-'+x).classList.toggle('hidden', x !== t);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['calc','rates','harvest'][i] === t);
+  });
+}
+
+/* ---- Holding period ---- */
+function holdingMonths(buyDate, sellDate){
+  const b = new Date(buyDate), s = new Date(sellDate);
+  return (s.getFullYear() - b.getFullYear()) * 12 + (s.getMonth() - b.getMonth());
+}
+function getBuyFY(dateStr){
+  const d = new Date(dateStr);
+  return d.getMonth() >= 3 ? d.getFullYear() : d.getFullYear() - 1;
+}
+function getSellFY(dateStr){
+  const d = new Date(dateStr);
+  return d.getMonth() >= 3 ? d.getFullYear() : d.getFullYear() - 1;
+}
+
+/* ---- Main calc ---- */
+function calc(){
+  const buyPrice   = +document.getElementById('buy_price').value   || 0;
+  const sellPrice  = +document.getElementById('sell_price').value  || 0;
+  const buyDate    = document.getElementById('buy_date').value;
+  const sellDate   = document.getElementById('sell_date').value;
+  const transferEx = +document.getElementById('transfer_exp').value || 0;
+  const improve    = +document.getElementById('improvement').value  || 0;
+  const otherLTCG  = +document.getElementById('other_ltcg').value   || 0;
+  const fmv2018    = +document.getElementById('fmv_2018').value     || 0;
+  const sec54      = +document.getElementById('sec54').value        || 0;
+  const sec54ec    = +document.getElementById('sec54ec').value      || 0;
+  const slabRate   = +document.getElementById('tax_slab').value     || 0.30;
+
+  if(!buyDate || !sellDate){ return; }
+
+  const months     = holdingMonths(buyDate, sellDate);
+  const years      = (months / 12).toFixed(1);
+  const buyFY      = getBuyFY(buyDate);
+  const sellFY     = getSellFY(sellDate);
+  const isBeforeJul2024 = new Date(buyDate) < new Date('2024-07-23');
+
+  let isLT = false, taxRate = 0, rows = [], taxAmt = 0;
+  let gain = 0, costBasis = buyPrice;
+  let typeLabel = '', cgTypeBadge = '';
+
+  document.getElementById('idx-comparison').classList.add('hidden');
+
+  /* ===== EQUITY / EQUITY MF ===== */
+  if(currentAsset === 'equity' || currentAsset === 'equity_mf'){
+    isLT = months > 12;
+    const netSale = sellPrice - transferEx;
+
+    if(isLT){
+      // Grandfathering — cost = max(actual cost, min(FMV on 31 Jan 2018, sale price))
+      let grandfatheredCost = buyPrice;
+      if(fmv2018 > 0 && new Date(buyDate) < new Date('2018-01-31')){
+        grandfatheredCost = Math.max(buyPrice, Math.min(fmv2018, sellPrice));
+      }
+      costBasis = grandfatheredCost;
+      gain = netSale - grandfatheredCost;
+      const exemption = Math.max(0, 125000 - otherLTCG);
+      const taxableGain = Math.max(0, gain - exemption);
+      taxAmt = Math.round(taxableGain * 0.125 * 1.04);
+      taxRate = 12.5;
+      typeLabel = 'LTCG — 12.5%';
+      cgTypeBadge = '📈 Long-Term Capital Gain';
+      rows = [
+        {k:'Sale proceeds (net of transfer expenses)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition'+(fmv2018>0?' (grandfathered)':''), v: fmtIN(grandfatheredCost)},
+        {k:'Long-term capital gain (gross)', v: fmtIN(gain), highlight: gain >= 0},
+        {k:`LTCG exemption (₹1.25L − ₹${Math.round(otherLTCG/1000)}K already used)`, v: fmtIN(exemption)},
+        {k:'Taxable LTCG', v: fmtIN(taxableGain)},
+        {k:'Tax @ 12.5%', v: fmtIN(taxableGain * 0.125)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(taxableGain * 0.125 * 0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    } else {
+      gain = netSale - buyPrice;
+      taxAmt = Math.round(Math.max(0, gain) * 0.20 * 1.04);
+      taxRate = 20;
+      typeLabel = 'STCG — 20%';
+      cgTypeBadge = '⚡ Short-Term Capital Gain';
+      rows = [
+        {k:'Sale proceeds (net of transfer expenses)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition', v: fmtIN(buyPrice)},
+        {k:'Short-term capital gain', v: fmtIN(gain), highlight: gain >= 0},
+        {k:'Tax @ 20% (Section 111A)', v: fmtIN(Math.max(0,gain) * 0.20)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gain) * 0.20 * 0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    }
+  }
+
+  /* ===== DEBT MF ===== */
+  else if(currentAsset === 'debt_mf'){
+    const postApr2023 = new Date(buyDate) >= new Date('2023-04-01');
+    const netSale = sellPrice - transferEx;
+
+    if(postApr2023 || months <= 36){
+      // Always STCG at slab rate
+      gain = netSale - buyPrice;
+      taxAmt = Math.round(Math.max(0, gain) * slabRate * 1.04);
+      typeLabel = `STCG — Slab ${Math.round(slabRate*100)}%`;
+      cgTypeBadge = '⚡ Short-Term (Slab Rate)';
+      rows = [
+        {k:'Sale proceeds (net)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition', v: fmtIN(buyPrice)},
+        {k:'Capital gain (always STCG for post-Apr 2023 debt MF)', v: fmtIN(gain), highlight: gain >= 0},
+        {k:`Tax @ ${Math.round(slabRate*100)}% (your slab rate)`, v: fmtIN(Math.max(0,gain) * slabRate)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gain) * slabRate * 0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    } else {
+      // Pre-Apr 2023, >36 months: LTCG at 12.5% no indexation
+      gain = netSale - buyPrice;
+      taxAmt = Math.round(Math.max(0, gain) * 0.125 * 1.04);
+      typeLabel = 'LTCG — 12.5%';
+      cgTypeBadge = '📈 Long-Term Capital Gain';
+      rows = [
+        {k:'Sale proceeds (net)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition (pre-Apr 2023 debt MF)', v: fmtIN(buyPrice)},
+        {k:'Long-term capital gain', v: fmtIN(gain), highlight: gain >= 0},
+        {k:'Tax @ 12.5% (no indexation, Budget 2024 rule)', v: fmtIN(Math.max(0,gain) * 0.125)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gain) * 0.125 * 0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    }
+  }
+
+  /* ===== REAL ESTATE ===== */
+  else if(currentAsset === 'realestate'){
+    isLT = months > 24;
+    const netSale = sellPrice - transferEx;
+    const totalCost = buyPrice + improve;
+
+    if(!isLT){
+      gain = netSale - totalCost;
+      taxAmt = Math.round(Math.max(0, gain) * slabRate * 1.04);
+      typeLabel = `STCG — Slab ${Math.round(slabRate*100)}%`;
+      cgTypeBadge = '⚡ Short-Term Capital Gain';
+      rows = [
+        {k:'Sale proceeds (net of expenses)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition', v: fmtIN(buyPrice)},
+        {k:'Cost of improvement', v: fmtIN(improve)},
+        {k:'Total cost', v: fmtIN(totalCost)},
+        {k:'Short-term capital gain (added to income)', v: fmtIN(gain), highlight: gain >= 0},
+        {k:`Tax @ ${Math.round(slabRate*100)}% (your slab rate)`, v: fmtIN(Math.max(0,gain) * slabRate)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gain) * slabRate * 0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    } else {
+      // LTCG — check indexation option
+      const ciiBuy  = getCII(buyFY);
+      const ciiSell = getCII(Math.min(sellFY, 2025));
+      const indexedCost    = Math.round((totalCost * ciiSell) / ciiBuy);
+      const gainNoIndex    = netSale - totalCost;
+      const gainWithIndex  = netSale - indexedCost;
+      const exemptions     = Math.min(sec54 + sec54ec, Math.max(0, gainNoIndex));
+      const exemptionsIdx  = Math.min(sec54 + sec54ec, Math.max(0, gainWithIndex));
+
+      const tax125   = Math.round(Math.max(0, gainNoIndex - exemptions)   * 0.125 * 1.04);
+      const tax20idx = Math.round(Math.max(0, gainWithIndex - exemptionsIdx) * 0.20  * 1.04);
+
+      const canChoose = isBeforeJul2024 && document.getElementById('taxpayer_type').value === 'individual';
+      taxAmt = canChoose ? Math.min(tax125, tax20idx) : tax125;
+      gain   = gainNoIndex;
+      costBasis = totalCost;
+      typeLabel = 'LTCG — 12.5%';
+      cgTypeBadge = '🏠 Long-Term Capital Gain';
+
+      rows = [
+        {k:'Sale proceeds (net of expenses)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition + improvement', v: fmtIN(totalCost)},
+        {k:'Long-term capital gain (without indexation)', v: fmtIN(gainNoIndex), highlight: gainNoIndex >= 0},
+        ...(sec54 + sec54ec > 0 ? [{k:'Exemption claimed (Sec 54 / 54EC)', v: fmtIN(exemptions)}] : []),
+        {k:'Tax @ 12.5% (no indexation)', v: fmtIN(Math.max(0,gainNoIndex-exemptions)*0.125)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gainNoIndex-exemptions)*0.125*0.04)},
+        {k:'Total Tax (Option A — 12.5% no indexation)', v: fmtIN(tax125), total: true},
+      ];
+
+      if(canChoose){
+        document.getElementById('idx-comparison').classList.remove('hidden');
+        document.getElementById('idx-grid-content').innerHTML = `
+          <div class="idx-card ${tax125 <= tax20idx ? 'winner' : ''}">
+            <h4>Option A — 12.5% Without Indexation${tax125 <= tax20idx ? ' ✔ LOWER TAX' : ''}</h4>
+            <div class="idx-row"><span class="ik">Sale proceeds (net)</span><span class="iv">${fmtIN(netSale)}</span></div>
+            <div class="idx-row"><span class="ik">Cost (no indexation)</span><span class="iv">${fmtIN(totalCost)}</span></div>
+            <div class="idx-row"><span class="ik">Capital gain</span><span class="iv">${fmtIN(gainNoIndex)}</span></div>
+            <div class="idx-row"><span class="ik">Exemptions</span><span class="iv">${fmtIN(exemptions)}</span></div>
+            <div class="idx-row"><span class="ik">Taxable gain</span><span class="iv">${fmtIN(Math.max(0,gainNoIndex-exemptions))}</span></div>
+            <div class="idx-row" style="font-weight:600"><span class="ik">Tax @ 12.5% + cess</span><span class="iv" style="color:var(--green)">${fmtIN(tax125)}</span></div>
+          </div>
+          <div class="idx-card ${tax20idx < tax125 ? 'winner' : ''}">
+            <h4>Option B — 20% With Indexation (CII ${ciiBuy}→${ciiSell})${tax20idx < tax125 ? ' ✔ LOWER TAX' : ''}</h4>
+            <div class="idx-row"><span class="ik">Sale proceeds (net)</span><span class="iv">${fmtIN(netSale)}</span></div>
+            <div class="idx-row"><span class="ik">Indexed cost (CII adjusted)</span><span class="iv">${fmtIN(indexedCost)}</span></div>
+            <div class="idx-row"><span class="ik">Capital gain (indexed)</span><span class="iv">${fmtIN(gainWithIndex)}</span></div>
+            <div class="idx-row"><span class="ik">Exemptions</span><span class="iv">${fmtIN(exemptionsIdx)}</span></div>
+            <div class="idx-row"><span class="ik">Taxable gain</span><span class="iv">${fmtIN(Math.max(0,gainWithIndex-exemptionsIdx))}</span></div>
+            <div class="idx-row" style="font-weight:600"><span class="ik">Tax @ 20% + cess</span><span class="iv" style="color:var(--green)">${fmtIN(tax20idx)}</span></div>
+          </div>`;
+      }
+    }
+  }
+
+  /* ===== GOLD ===== */
+  else if(currentAsset === 'gold'){
+    isLT = months > 24;
+    const netSale = sellPrice - transferEx;
+    gain = netSale - buyPrice;
+
+    if(isLT){
+      taxAmt = Math.round(Math.max(0, gain) * 0.125 * 1.04);
+      typeLabel = 'LTCG — 12.5%';
+      cgTypeBadge = '🪙 Long-Term Capital Gain';
+      rows = [
+        {k:'Sale proceeds (net)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition', v: fmtIN(buyPrice)},
+        {k:'Long-term capital gain', v: fmtIN(gain), highlight: gain >= 0},
+        {k:'Tax @ 12.5% (no indexation, Budget 2024)', v: fmtIN(Math.max(0,gain)*0.125)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gain)*0.125*0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    } else {
+      taxAmt = Math.round(Math.max(0, gain) * slabRate * 1.04);
+      typeLabel = `STCG — Slab ${Math.round(slabRate*100)}%`;
+      cgTypeBadge = '⚡ Short-Term Capital Gain';
+      rows = [
+        {k:'Sale proceeds (net)', v: fmtIN(netSale)},
+        {k:'Cost of acquisition', v: fmtIN(buyPrice)},
+        {k:'Short-term capital gain (added to income)', v: fmtIN(gain), highlight: gain >= 0},
+        {k:`Tax @ ${Math.round(slabRate*100)}% (slab rate)`, v: fmtIN(Math.max(0,gain)*slabRate)},
+        {k:'Health & Education Cess @ 4%', v: fmtIN(Math.max(0,gain)*slabRate*0.04)},
+        {k:'Total Tax Payable', v: fmtIN(taxAmt), total: true},
+      ];
+    }
+  }
+
+  /* ---- Render result rows ---- */
+  document.getElementById('result-rows').innerHTML = rows.map(r => `
+    <div class="result-row ${r.total?'total':''}">
+      <span class="rk">${r.k}</span>
+      <span class="rv" style="color:${r.total?(taxAmt===0?'var(--green)':'var(--red)'):(r.highlight!==undefined?(r.highlight?'var(--green)':'var(--red)'):'var(--white)')}">${r.v}</span>
+    </div>`).join('');
+
+  /* ---- Update metrics ---- */
+  document.getElementById('m-cost').textContent = fmtL(costBasis);
+  document.getElementById('m-gain').textContent = fmtL(gain);
+  document.getElementById('m-gain').style.color = gain >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('m-hold').textContent = years + ' yrs';
+  document.getElementById('m-hold-type').textContent = isLT ? 'Long-term' : 'Short-term';
+  document.getElementById('m-tax').textContent = fmtL(taxAmt);
+  document.getElementById('cg-type-badge').textContent = cgTypeBadge;
+
+  /* ---- Verdict ---- */
+  const vbox  = document.getElementById('verdict-box');
+  const vicon = document.getElementById('v-icon');
+  const vtitle= document.getElementById('v-title');
+  const vdesc = document.getElementById('v-desc');
+
+  if(taxAmt === 0){
+    vbox.className = 'verdict notax';
+    vicon.textContent = '✅';
+    vtitle.textContent = 'Zero Tax Payable!';
+    vdesc.textContent = gain <= 0
+      ? 'You have a capital loss. You can carry this forward for 8 years to offset future capital gains.'
+      : 'Your gains fall within the exemption limit. No capital gains tax is payable. Make sure to still report this in Schedule CG of your ITR.';
+  } else if(gain < 0){
+    vbox.className = 'verdict info';
+    vicon.textContent = '📉';
+    vtitle.textContent = 'Capital Loss — Carry Forward';
+    vdesc.textContent = `You have a capital loss of ${fmtL(Math.abs(gain))}. File your ITR on time (before 31 July 2026) to carry this loss forward for up to 8 years. STCL can offset both STCG and LTCG in future years.`;
+  } else {
+    vbox.className = 'verdict tax';
+    vicon.textContent = '🧾';
+    vtitle.textContent = `Tax Payable: ${fmtL(taxAmt)} (${typeLabel} + 4% cess)`;
+    vdesc.textContent = `Report this in Schedule CG of your ${isLT ? 'ITR-2 or ITR-3' : 'ITR-2 or ITR-3'}. Advance tax is required if total tax liability exceeds ₹10,000. Check the Tax Harvesting tab above for legal ways to reduce this amount.`;
+  }
+}
+
+/* ---- Init ---- */
+selectAsset('equity');
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('sell_date').value = today;
+calc();
+</script>
+<!-- 
+  ============================================
+  THEFINVERGE AI CHATBOT WIDGET
+  Add this code just before </body> on ALL pages
+  - index.html
+  - calculator.html
+  - capital-gains.html
+  - sip-planner.html
+  - portfolio.html
+  ============================================
+-->
+
+<!-- SUPABASE (already loaded on index.html — skip if already present) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+/* ============ CHATBOT STYLES ============ */
+#tfv-chat-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(201,168,76,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+}
+#tfv-chat-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.55);
+}
+#tfv-chat-btn svg { width: 28px; height: 28px; fill: #040d1e; }
+
+/* Notification dot */
+#tfv-notif {
+  position: absolute;
+  top: 2px; right: 2px;
+  width: 14px; height: 14px;
+  background: #e05252;
+  border-radius: 50%;
+  border: 2px solid #040d1e;
+  animation: pulse-notif 2s ease infinite;
+}
+@keyframes pulse-notif {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* Chat window */
+#tfv-chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9998;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  max-height: 580px;
+  background: #070f26;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  transform-origin: bottom right;
+}
+#tfv-chat-window.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85) translateY(20px);
+}
+
+/* Header */
+#tfv-chat-head {
+  background: linear-gradient(135deg, #0d1f45, #102258);
+  border-radius: 20px 20px 0 0;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.tfv-avatar {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.tfv-head-info h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 700; color: #f4f6fa;
+  margin-bottom: 2px;
+}
+.tfv-head-info span {
+  font-size: 0.72rem; color: #4caf82;
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.tfv-online-dot {
+  width: 6px; height: 6px;
+  background: #4caf82; border-radius: 50%;
+  animation: pulse-notif 2s ease infinite;
+}
+#tfv-close-btn {
+  margin-left: auto;
+  background: rgba(255,255,255,0.08);
+  border: none; color: #8a9ab5;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+#tfv-close-btn:hover { background: rgba(255,255,255,0.15); color: #f4f6fa; }
+
+/* Messages */
+#tfv-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,168,76,0.2) transparent;
+}
+#tfv-messages::-webkit-scrollbar { width: 4px; }
+#tfv-messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 2px; }
+
+.tfv-msg {
+  display: flex;
+  gap: 8px;
+  animation: msgIn 0.3s ease both;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tfv-msg.user { flex-direction: row-reverse; }
+
+.tfv-msg-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+}
+.tfv-msg.bot .tfv-msg-avatar  { background: linear-gradient(135deg,#c9a84c,#d4b96a); color: #040d1e; font-weight: 700; }
+.tfv-msg.user .tfv-msg-avatar { background: rgba(74,158,255,0.2); color: #4a9eff; }
+
+.tfv-bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.83rem;
+  line-height: 1.55;
+  font-family: 'DM Sans', sans-serif;
+}
+.tfv-msg.bot  .tfv-bubble { background: #0d1f45; border: 1px solid rgba(255,255,255,0.07); color: #b0bfd4; border-radius: 4px 14px 14px 14px; }
+.tfv-msg.user .tfv-bubble { background: linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.1)); border: 1px solid rgba(201,168,76,0.25); color: #f4f6fa; border-radius: 14px 4px 14px 14px; }
+
+/* Quick replies */
+.tfv-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 16px 12px;
+}
+.tfv-qr {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: #d4b96a;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tfv-qr:hover { background: rgba(201,168,76,0.18); transform: translateY(-1px); }
+
+/* Typing indicator */
+.tfv-typing .tfv-bubble {
+  display: flex; align-items: center; gap: 4px; padding: 12px 16px;
+}
+.tfv-typing .tfv-bubble span {
+  width: 6px; height: 6px;
+  background: #8a9ab5; border-radius: 50%;
+  animation: typing-dot 1.2s ease infinite;
+}
+.tfv-typing .tfv-bubble span:nth-child(2) { animation-delay: 0.2s; }
+.tfv-typing .tfv-bubble span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-dot {
+  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+  30%          { transform: translateY(-5px); opacity: 1; }
+}
+
+/* Input */
+#tfv-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#tfv-input {
+  flex: 1;
+  background: #040d1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #f4f6fa;
+  font-size: 0.83rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+#tfv-input:focus { border-color: #c9a84c; }
+#tfv-input::placeholder { color: #8a9ab5; }
+#tfv-send-btn {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  border: none; border-radius: 10px;
+  cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+#tfv-send-btn:hover { transform: scale(1.05); }
+#tfv-send-btn svg { width: 18px; height: 18px; fill: #040d1e; }
+#tfv-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Lead form inside chat */
+.tfv-lead-form {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 4px 0;
+}
+.tfv-lead-form input, .tfv-lead-form select {
+  width: 100%;
+  background: #040d1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #f4f6fa;
+  font-size: 0.8rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  margin-bottom: 8px;
+}
+.tfv-lead-form input:focus, .tfv-lead-form select:focus { border-color: #c9a84c; }
+.tfv-lead-form select option { background: #070f26; }
+.tfv-submit-btn {
+  width: 100%;
+  background: #c9a84c;
+  color: #040d1e;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tfv-submit-btn:hover { background: #d4b96a; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  #tfv-chat-window { right: 12px; bottom: 90px; width: calc(100vw - 24px); }
+  #tfv-chat-btn    { right: 16px; bottom: 20px; }
+}
+</style>
+
+<!-- CHAT BUTTON -->
+<button id="tfv-chat-btn" onclick="toggleChat()" aria-label="Open TheFinVerge Assistant">
+  <div id="tfv-notif"></div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.546 20.9a1 1 0 0 0 1.257 1.257l3.732-.892A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Zm-1 13H8a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm4-4H8a1 1 0 0 1 0-2h7a1 1 0 0 1 0 2Z"/>
+  </svg>
+</button>
+
+<!-- CHAT WINDOW -->
+<div id="tfv-chat-window" class="hidden">
+
+  <!-- HEADER -->
+  <div id="tfv-chat-head">
+    <div class="tfv-avatar">💼</div>
+    <div class="tfv-head-info">
+      <h4>TheFinVerge Assistant</h4>
+      <span><div class="tfv-online-dot"></div>Online · CA Final + ACCA Expert</span>
+    </div>
+    <button id="tfv-close-btn" onclick="toggleChat()">✕</button>
+  </div>
+
+  <!-- MESSAGES -->
+  <div id="tfv-messages"></div>
+
+  <!-- QUICK REPLIES -->
+  <div class="tfv-quick-replies" id="tfv-qr-wrap"></div>
+
+  <!-- INPUT -->
+  <div id="tfv-input-area">
+    <textarea id="tfv-input" rows="1" placeholder="Ask me about tax, ITR, SIP, capital gains..." onkeydown="handleKey(event)"></textarea>
+    <button id="tfv-send-btn" onclick="sendMessage()" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<script>
+/* =============================================
+   THEFINVERGE AI CHATBOT
+   Replace YOUR_SUPABASE_URL and YOUR_ANON_KEY
+   with your actual Supabase credentials
+============================================= */
+
+// ---- CONFIG ----
+const TFV_SUPABASE_URL  = 'https://YOUR_PROJECT_ID.supabase.co';
+const TFV_SUPABASE_KEY  = 'YOUR_ANON_PUBLIC_KEY';
+const TFV_ANTHROPIC_KEY = ''; // Leave empty — API calls go through your backend
+
+// ---- STATE ----
+let chatOpen      = false;
+let chatHistory   = [];
+let leadCaptured  = false;
+let isTyping      = false;
+
+// ---- SUPABASE ----
+let sbClient = null;
+try {
+  const { createClient } = supabase;
+  sbClient = createClient(TFV_SUPABASE_URL, TFV_SUPABASE_KEY);
+} catch(e) { console.warn('Supabase not loaded yet'); }
+
+// ---- TOGGLE ----
+function toggleChat(){
+  chatOpen = !chatOpen;
+  const win  = document.getElementById('tfv-chat-window');
+  const notif= document.getElementById('tfv-notif');
+  win.classList.toggle('hidden', !chatOpen);
+  notif.style.display = 'none';
+  if(chatOpen && chatHistory.length === 0) initChat();
+  if(chatOpen) setTimeout(()=>document.getElementById('tfv-input').focus(), 300);
+}
+
+// ---- INIT ----
+function initChat(){
+  addBotMessage(`👋 Hi! I'm the **TheFinVerge Assistant** — powered by AI and backed by CA Final + ACCA expertise.
+
+I can help you with:
+• 📋 **ITR Filing** — which form, which regime, deadlines
+• 💰 **Capital Gains** — STCG, LTCG, indexation calculations
+• 📈 **SIP & Investments** — how much to invest, which funds
+• 🧮 **Tax Saving** — 80C, 80D, HRA, NPS tips
+• 🏢 **GST & Compliance** — registration, return filing
+
+What would you like help with today?`);
+
+  setQuickReplies([
+    '📋 ITR Filing Help',
+    '💰 Capital Gains Tax',
+    '📈 SIP Calculator',
+    '🧮 Tax Saving Tips',
+    '📞 Book Consultation',
+  ]);
+
+  // Show notification after 30 seconds if chat not opened
+  setTimeout(()=>{
+    if(!chatOpen){
+      document.getElementById('tfv-notif').style.display = 'block';
+    }
+  }, 30000);
+}
+
+// ---- ADD MESSAGES ----
+function addBotMessage(text, html=false){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg bot';
+  div.innerHTML = `
+    <div class="tfv-msg-avatar">F</div>
+    <div class="tfv-bubble">${html ? text : formatText(text)}</div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+function addUserMessage(text){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg user';
+  div.innerHTML = `
+    <div class="tfv-bubble">${escapeHtml(text)}</div>
+    <div class="tfv-msg-avatar">👤</div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+function showTyping(){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg bot tfv-typing';
+  div.id = 'tfv-typing-indicator';
+  div.innerHTML = `<div class="tfv-msg-avatar">F</div><div class="tfv-bubble"><span></span><span></span><span></span></div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+function hideTyping(){
+  document.getElementById('tfv-typing-indicator')?.remove();
+}
+
+// ---- QUICK REPLIES ----
+function setQuickReplies(items){
+  const wrap = document.getElementById('tfv-qr-wrap');
+  wrap.innerHTML = items.map(q =>
+    `<button class="tfv-qr" onclick="quickReply('${q.replace(/'/g,"\\'")}')"><span>${q}</span></button>`
+  ).join('');
+}
+
+function quickReply(text){
+  document.getElementById('tfv-qr-wrap').innerHTML = '';
+  processUserInput(text);
+}
+
+// ---- SEND ----
+function handleKey(e){
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+}
+
+function sendMessage(){
+  const input = document.getElementById('tfv-input');
+  const text  = input.value.trim();
+  if(!text || isTyping) return;
+  input.value = '';
+  processUserInput(text);
+}
+
+// ---- PROCESS INPUT ----
+async function processUserInput(userText){
+  addUserMessage(userText);
+  document.getElementById('tfv-qr-wrap').innerHTML = '';
+
+  // Check for lead capture triggers
+  const lower = userText.toLowerCase();
+  if(lower.includes('book') || lower.includes('consultation') || lower.includes('consult') ||
+     lower.includes('contact') || lower.includes('help me') || lower.includes('file my') ||
+     lower.includes('itr') && lower.includes('file')){
+    if(!leadCaptured){
+      setTimeout(()=>showLeadForm(), 600);
+      return;
+    }
+  }
+
+  // AI Response
+  isTyping = true;
+  document.getElementById('tfv-send-btn').disabled = true;
+  showTyping();
+
+  chatHistory.push({ role: 'user', content: userText });
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 600,
+        system: `You are TheFinVerge Assistant — an AI financial assistant for TheFinVerge Services, run by a CA Final + ACCA qualified professional based in India.
+
+Your expertise:
+- Indian Income Tax — ITR filing, old vs new regime, FY 2025-26 (AY 2026-27), Income Tax Act 2025 effective April 2026
+- Capital Gains Tax — STCG (20% equity), LTCG (12.5%), ₹1.25L exemption, CII 376 for FY 2025-26, indexation for pre-July 2024 property
+- Mutual Funds — SIP, XIRR, NAV, expense ratio, fund categories, overlap
+- GST — registration, GSTR-1, GSTR-3B, composition scheme
+- Financial Planning — SIP calculations, goal planning, retirement corpus
+- Tax Saving — 80C (₹1.5L), 80D (₹25K), HRA, NPS 80CCD, home loan interest
+
+IMPORTANT RULES:
+1. Only answer India-specific finance and tax questions
+2. Keep answers concise — 3-5 lines max for chat
+3. Always add: "For personalised advice, book a free consultation at thefinvergeservices.com"
+4. Use ₹ symbol, Indian number format (lakhs, crores)
+5. If asked about specific investment recommendations, say you cannot advise without SEBI IA registration but can explain concepts
+6. Be friendly and professional — you represent a CA firm
+7. Use simple language — explain jargon when used
+8. If someone asks to file ITR or book a consultation, say "Let me connect you with our team — I'll collect your details"`,
+        messages: chatHistory
+      })
+    });
+
+    const data  = await response.json();
+    const reply = data.content?.[0]?.text || 'I apologize, I could not process that. Please try again or contact us directly.';
+
+    hideTyping();
+    chatHistory.push({ role: 'assistant', content: reply });
+    addBotMessage(reply);
+
+    // Set contextual quick replies
+    if(lower.includes('itr') || lower.includes('income tax') || lower.includes('tax')){
+      setQuickReplies(['Old vs New Regime?','80C deductions?','ITR deadline?','Book Filing Help']);
+    } else if(lower.includes('sip') || lower.includes('mutual fund') || lower.includes('invest')){
+      setQuickReplies(['How much SIP needed?','Best fund types?','XIRR explained?','Book Portfolio Review']);
+    } else if(lower.includes('capital gain') || lower.includes('shares') || lower.includes('stock')){
+      setQuickReplies(['LTCG exemption?','Property gains?','Tax harvesting?','Calculate My Tax']);
+    } else {
+      setQuickReplies(['📋 ITR Filing','💰 Capital Gains','📈 SIP Planning','📞 Book Consultation']);
+    }
+
+  } catch(err){
+    hideTyping();
+    addBotMessage(`I'm having trouble connecting right now. Please try again in a moment, or reach out directly at **hello@thefinvergeservices.com** — we typically respond within 2 hours.`);
+    setQuickReplies(['Try Again','📞 Book Consultation']);
+  }
+
+  isTyping = false;
+  document.getElementById('tfv-send-btn').disabled = false;
+}
+
+// ---- LEAD FORM ----
+function showLeadForm(){
+  const msgs = document.getElementById('tfv-messages');
+  const div  = document.createElement('div');
+  div.className = 'tfv-msg bot';
+  div.innerHTML = `
+    <div class="tfv-msg-avatar">F</div>
+    <div class="tfv-bubble" style="max-width:92%">
+      <div style="margin-bottom:10px;font-weight:600;color:#f4f6fa">Great! Let me connect you with our team 🎯</div>
+      <div class="tfv-lead-form">
+        <input type="text"  id="cf-name"    placeholder="Your name *"/>
+        <input type="email" id="cf-email"   placeholder="Email address *"/>
+        <input type="tel"   id="cf-phone"   placeholder="Phone number (optional)"/>
+        <select id="cf-service">
+          <option value="">What do you need help with? *</option>
+          <option>ITR Filing (Salaried)</option>
+          <option>ITR Filing (Business / Freelancer)</option>
+          <option>Capital Gains Tax</option>
+          <option>Portfolio Review</option>
+          <option>GST Compliance</option>
+          <option>Financial Planning</option>
+          <option>Tax Notice Help</option>
+          <option>Other</option>
+        </select>
+        <button class="tfv-submit-btn" onclick="submitChatLead()">Get Free Consultation →</button>
+      </div>
+    </div>`;
+  msgs.appendChild(div);
+  scrollToBottom();
+}
+
+async function submitChatLead(){
+  const name    = document.getElementById('cf-name')?.value.trim();
+  const email   = document.getElementById('cf-email')?.value.trim();
+  const phone   = document.getElementById('cf-phone')?.value.trim();
+  const service = document.getElementById('cf-service')?.value;
+
+  if(!name || !email || !service){
+    alert('Please fill your name, email, and select a service.');
+    return;
+  }
+
+  try {
+    if(sbClient){
+      await sbClient.from('leads').insert([{
+        first_name: name.split(' ')[0],
+        last_name:  name.split(' ').slice(1).join(' ') || '',
+        email, phone, service,
+        source: 'chatbot',
+        created_at: new Date().toISOString()
+      }]);
+    }
+  } catch(e){ console.warn('Lead save failed', e); }
+
+  leadCaptured = true;
+
+  // Remove form and show success
+  const formMsg = document.getElementById('tfv-messages').lastElementChild;
+  formMsg.querySelector('.tfv-bubble').innerHTML = `
+    <div style="text-align:center;padding:8px">
+      <div style="font-size:1.5rem;margin-bottom:8px">✅</div>
+      <div style="font-weight:700;color:#f4f6fa;margin-bottom:4px">Thank you, ${name.split(' ')[0]}!</div>
+      <div style="font-size:0.78rem;color:#b0bfd4">We'll reach out within 24 hours. Check your inbox for a confirmation.</div>
+    </div>`;
+
+  setTimeout(()=>{
+    addBotMessage(`Perfect ${name.split(' ')[0]}! 🎉 I've noted your enquiry for **${service}**. Our CA team will reach out within **24 hours**.
+
+In the meantime, you can:
+• Use our **free Tax Calculator** → calculator.html
+• Try the **Capital Gains Calculator** → capital-gains.html
+• Plan your SIPs → sip-planner.html
+
+Is there anything else I can help you with?`);
+    setQuickReplies(['Tax Calculator','Capital Gains','SIP Planner','Nothing, thanks!']);
+  }, 1000);
+}
+
+// ---- HELPERS ----
+function formatText(text){
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#f4f6fa">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:0.82em">$1</code>')
+    .replace(/•\s/g, '• ')
+    .replace(/\n/g, '<br/>');
+}
+
+function escapeHtml(text){
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function scrollToBottom(){
+  const msgs = document.getElementById('tfv-messages');
+  setTimeout(()=>{ msgs.scrollTop = msgs.scrollHeight; }, 50);
+}
+
+// Auto-open after 45 seconds if user hasn't opened
+setTimeout(()=>{
+  if(!chatOpen && !sessionStorage.getItem('tfv_chat_dismissed')){
+    document.getElementById('tfv-notif').style.display = 'block';
+  }
+}, 45000);
+
+// Track close
+document.getElementById('tfv-close-btn').addEventListener('click', ()=>{
+  sessionStorage.setItem('tfv_chat_dismissed', '1');
+});
+</script>
+
+</body>
+</html>
