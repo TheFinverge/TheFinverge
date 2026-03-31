@@ -1049,13 +1049,13 @@
 
       <div class="service-card reveal">
         <div class="service-icon">📊</div>
-        <h3>Portfolio Insights <span style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:#d4b96a;font-size:0.65rem;font-family:'JetBrains Mono',monospace;padding:3px 8px;border-radius:50px;vertical-align:middle;margin-left:8px;font-weight:600;">BETA SOON</span></h3>
-        <p>Educational portfolio analysis tools — XIRR tracker, mutual fund overlap checker, and SIP projections. <em style="color:#8a9ab5;font-size:0.82rem;">Advisory services launching post SEBI IA registration.</em></p>
+        <h3>Portfolio Advisory <span style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);color:#d4b96a;font-size:0.65rem;font-family:'JetBrains Mono',monospace;padding:3px 8px;border-radius:50px;vertical-align:middle;margin-left:8px;font-weight:600;">BETA SOON</span></h3>
+        <p>Data-driven portfolio advisory — equity analysis, mutual fund strategy, risk profiling, and forward-looking insights. <em style="color:#8a9ab5;font-size:0.82rem;">Full advisory launching post SEBI IA registration.</em></p>
         <div class="service-tags">
-          <span class="service-tag">XIRR Calculator</span>
-          <span class="service-tag">Fund Overlap Tool</span>
-          <span class="service-tag">SIP Projections</span>
-          <span class="service-tag">Educational Only</span>
+          <span class="service-tag">Equity Analysis</span>
+          <span class="service-tag">MF Strategy</span>
+          <span class="service-tag">Risk Profiling</span>
+          <span class="service-tag">Rebalancing</span>
         </div>
       </div>
 
@@ -1173,8 +1173,7 @@
           <div class="tool-feature">Tax harvesting tips included</div>
           <div class="tool-feature">Equity, real estate, gold, debt funds</div>
           <br/>
-<href="capital-gains.html" class="btn-primary" style="display:inline-block;font-size:0.85rem;padding:10px 20px;background:var(--gold-500);color:var(--navy-950);">Try Calculator →
-
+<a href="capital-gains.html" class="btn-primary" style="display:inline-block;font-size:0.85rem;padding:10px 20px;background:var(--gold-500);color:var(--navy-950);">Try Calculator →</a>
       </div>
       </div>
 
@@ -1194,8 +1193,7 @@
           <div class="tool-feature">Retirement, education, home scenarios</div>
           <div class="tool-feature">Built with Python + SQL backend</div>
           <br/>
-          <a href="#contact" class="btn-primary" style="display:inline-block;font-size:0.85rem;padding:10px 20px;">Plan My Goal →</a>
-        </div>
+<a href="sip-planner.html" class="btn-primary" style="display:inline-block;font-size:0.85rem;padding:10px 20px;background:var(--gold-500);color:var(--navy-950);">Plan My Goal →</a>        </div>
       </div>
     </div>
   </div>
@@ -1461,7 +1459,7 @@
     <div class="footer-col">
       <h4>Connect</h4>
       <ul>
-        <li><a href="mailto:hello@thefinvergeservices.com">📧 hello@thefinvergeservices.com</a></li>
+        <li><a href="mailto:info@thefinvergeservices.com">📧 info@thefinvergeservices.com</a></li>
         <li><a href="https://linkedin.com" target="_blank">🔗 LinkedIn</a></li>
         <li><a href="#insights">📖 Insights Blog</a></li>
         <li><a href="#contact">📞 Book Consultation</a></li>
@@ -1527,8 +1525,8 @@ async function fetchLiveMarketData() {
 
 fetchLiveMarketData();
 setInterval(fetchLiveMarketData, 60 * 1000);
-const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY';
+const SUPABASE_URL = 'https://cdolopmcfllikyjbfhhv.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkb2xvcG1jZmxsaWt5amJmaGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjIyNzgsImV4cCI6MjA5MDUzODI3OH0.5W6_VvM4LNM6FmYRwHyWlnkJ7bQ0G4_K-vwWOFtVJZc';
 
 // Initialize Supabase client
 const { createClient } = supabase;
@@ -1561,23 +1559,42 @@ async function submitLead(e) {
 
   try {
     const { data, error: sbError } = await supabaseClient
-      .from('leads')                // Table name in Supabase
+      .from('Leads')                // Table name in Supabase
       .insert([payload]);
 
     if (sbError) throw sbError;
+
+    // Claude auto-reply email
+    fetch('https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/auto-reply', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({
+        first_name: document.getElementById('fname').value.trim(),
+        last_name:  document.getElementById('lname').value.trim(),
+        email:      document.getElementById('email').value.trim(),
+        phone:      document.getElementById('phone').value.trim(),
+        service:    document.getElementById('service').value,
+        message:    document.getElementById('message').value.trim()
+      })
+    });
 
     success.style.display = 'block';
     document.getElementById('leadForm').reset();
 
   } catch (err) {
     console.error('Supabase error:', err);
-    error.textContent = '⚠️ Something went wrong. Please email us directly at hello@thefinvergeservices.com';
+    error.textContent = '⚠️ Something went wrong. Please email us directly at info@thefinvergeservices.com';
     error.style.display = 'block';
   } finally {
     btn.disabled = false;
     btn.textContent = 'Send Enquiry →';
   }
 }
+
 
 // =============================================
 // COUNTDOWN TO ITR DEADLINE (31 July 2026)
@@ -1649,10 +1666,6 @@ document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click'
   - portfolio.html
   ============================================
 -->
-
-<!-- SUPABASE (already loaded on index.html — skip if already present) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 /* ============ CHATBOT STYLES ============ */
 #tfv-chat-btn {
@@ -1940,7 +1953,7 @@ document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click'
     <div class="tfv-avatar">💼</div>
     <div class="tfv-head-info">
       <h4>TheFinVerge Assistant</h4>
-      <span><div class="tfv-online-dot"></div>Online · CA Final + ACCA Expert</span>
+      <span><div class="tfv-online-dot"></div>Online · Powered by experts</span>
     </div>
     <button id="tfv-close-btn" onclick="toggleChat()">✕</button>
   </div>
@@ -1969,8 +1982,8 @@ document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click'
 ============================================= */
 
 // ---- CONFIG ----
-const TFV_SUPABASE_URL  = 'https://YOUR_PROJECT_ID.supabase.co';
-const TFV_SUPABASE_KEY  = 'YOUR_ANON_PUBLIC_KEY';
+const TFV_SUPABASE_URL  = 'https://cdolopmcfllikyjbfhhv.supabase.co';
+const TFV_SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkb2xvcG1jZmxsaWt5amJmaGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjIyNzgsImV4cCI6MjA5MDUzODI3OH0.5W6_VvM4LNM6FmYRwHyWlnkJ7bQ0G4_K-vwWOFtVJZc';
 const TFV_ANTHROPIC_KEY = ''; // Leave empty — API calls go through your backend
 
 // ---- STATE ----
@@ -2113,31 +2126,70 @@ async function processUserInput(userText){
   chatHistory.push({ role: 'user', content: userText });
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/Chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${TFV_SUPABASE_KEY}`,
+  'apikey': TFV_SUPABASE_KEY
+},
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 600,
-        system: `You are TheFinVerge Assistant — an AI financial assistant for TheFinVerge Services, run by a CA Final + ACCA qualified professional based in India.
+        system: `You are TheFinVerge Assistant — an AI financial assistant for TheFinVerge Services, run by a qualified professional based in Coimbatore, India. ONLY answer India-specific tax, finance, GST, and compliance questions. Politely decline anything unrelated.
 
-Your expertise:
-- Indian Income Tax — ITR filing, old vs new regime, FY 2025-26 (AY 2026-27), Income Tax Act 2025 effective April 2026
-- Capital Gains Tax — STCG (20% equity), LTCG (12.5%), ₹1.25L exemption, CII 376 for FY 2025-26, indexation for pre-July 2024 property
-- Mutual Funds — SIP, XIRR, NAV, expense ratio, fund categories, overlap
-- GST — registration, GSTR-1, GSTR-3B, composition scheme
-- Financial Planning — SIP calculations, goal planning, retirement corpus
-- Tax Saving — 80C (₹1.5L), 80D (₹25K), HRA, NPS 80CCD, home loan interest
+INCOME TAX — FY 2025-26 (AY 2026-27):
+- Income Tax Act 2025 replaces Income Tax Act 1961 effective 1 April 2026
+- Financial Year and Assessment Year replaced by single term Tax Year from April 2026
+- New regime is default. Zero tax up to ₹12L (₹12.75L for salaried after ₹75K std deduction)
+- New regime slabs: 0% up to ₹4L, 5% ₹4-8L, 10% ₹8-12L, 15% ₹12-16L, 20% ₹16-20L, 25% ₹20-24L, 30% above ₹24L
+- Old regime slabs unchanged: 0% up to ₹2.5L, 5% ₹2.5-5L, 20% ₹5-10L, 30% above ₹10L
+- 87A rebate: New regime ₹60,000 up to ₹12L income. Old regime ₹12,500 up to ₹5L income
+- Standard deduction: New regime ₹75,000. Old regime ₹50,000
+- 80C limit ₹1.5L old regime only. 80D ₹25K self or ₹50K senior parents old regime only
+- HRA 50% exemption applies to 8 cities: Delhi, Mumbai, Chennai, Kolkata, Bengaluru, Pune, Hyderabad, Ahmedabad
+- CII for FY 2025-26 is 376 confirmed by CBDT notification 1 July 2025
+- ITR-1 and ITR-2 deadline 31 July 2026. ITR-3 and ITR-4 non-audit deadline 31 August 2026
+- Form 16 replaced by Form 130 from April 2026
+- Budget 2026 made zero changes to income tax slabs or rates
+- 80CCD(2) employer NPS contribution allowed in both old and new regime up to 14% of basic
 
-IMPORTANT RULES:
-1. Only answer India-specific finance and tax questions
-2. Keep answers concise — 3-5 lines max for chat
-3. Always add: "For personalised advice, book a free consultation at thefinvergeservices.com"
-4. Use ₹ symbol, Indian number format (lakhs, crores)
-5. If asked about specific investment recommendations, say you cannot advise without SEBI IA registration but can explain concepts
-6. Be friendly and professional — you represent a CA firm
-7. Use simple language — explain jargon when used
-8. If someone asks to file ITR or book a consultation, say "Let me connect you with our team — I'll collect your details"`,
+CAPITAL GAINS — FY 2025-26:
+- STCG on listed equity and equity MF: 20% under Section 111A
+- LTCG on listed equity and equity MF: 12.5% above ₹1.25L annual exemption under Section 112A
+- LTCG on real estate, gold: 12.5% without indexation from Budget 2024
+- Real estate bought before 23 July 2024: Individual or HUF can choose 12.5% without indexation OR 20% with indexation whichever is lower
+- Debt MF bought after 1 April 2023: Always STCG at slab rate regardless of holding period
+- Debt MF bought before 1 April 2023: LTCG after 36 months at 12.5% without indexation
+- Share buyback from 1 April 2026: Taxed as capital gains not dividend
+- SGBs original subscribers: Exempt on maturity. Secondary market buyers: Capital gains tax from 1 April 2026
+- STT on futures increased to 0.05% and options to 0.15% from 1 April 2026
+- LTCL incurred up to 31 March 2026 can offset STCG in AY 2027-28 — one time relief
+
+GST 2.0 — Effective 22 September 2025:
+- New simplified slabs: 5% essentials, 18% standard, 40% sin and luxury goods
+- Old 12% and 28% slabs removed for most items
+- Individual health and life insurance: Exempt from GST
+- Electronics ACs TVs fridges small cars: Reduced from 28% to 18%
+- Essential food items dairy medicines: 0% or 5%
+- GST Compensation Cess replaced by Health Security Cess from February 2026
+- GSTR-3B auto-populates tax liability breakup from February 2026
+- Updated return ITR-U window extended to 48 months from 24 months
+
+MUTUAL FUNDS AND INVESTMENTS:
+- Not a SEBI-registered Investment Adviser — can explain concepts but not give specific stock or fund recommendations
+- XIRR is the correct measure for SIP returns not simple return percentage
+- LTCG exemption ₹1.25L per year — book gains annually to optimise tax
+- Debt MF post April 2023 always taxed at slab rate — consider PPF NPS or RBI bonds instead
+- GST on mutual fund expense ratio now disclosed separately from October 2025
+
+RESPONSE RULES:
+- Keep answers to 3 to 5 lines maximum for chat
+- Use ₹ symbol and Indian format lakhs and crores
+- Always end with: For personalised advice book a consultation at thefinvergeservices.com
+- Never give specific stock picks or fund recommendations
+- If unsure about a specific rule say please verify on incometax.gov.in or contact our team
+- Be friendly professional and simple — you represent a CA advisory firm`,
         messages: chatHistory
       })
     });
@@ -2162,7 +2214,7 @@ IMPORTANT RULES:
 
   } catch(err){
     hideTyping();
-    addBotMessage(`I'm having trouble connecting right now. Please try again in a moment, or reach out directly at **hello@thefinvergeservices.com** — we typically respond within 2 hours.`);
+    addBotMessage(`I'm having trouble connecting right now. Please try again in a moment, or reach out directly at **info@thefinvergeservices.com** — we typically respond within 2 hours.`);
     setQuickReplies(['Try Again','📞 Book Consultation']);
   }
 
@@ -2214,7 +2266,7 @@ async function submitChatLead(){
 
   try {
     if(sbClient){
-      await sbClient.from('leads').insert([{
+      await sbClient.from('Leads').insert([{
         first_name: name.split(' ')[0],
         last_name:  name.split(' ').slice(1).join(' ') || '',
         email, phone, service,
@@ -2281,4 +2333,4 @@ document.getElementById('tfv-close-btn').addEventListener('click', ()=>{
 </script>
 
 </body>
-</html>
+</html>  
