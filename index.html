@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>TheFinVerge Services | Tax, Finance & Advisory</title>
 <meta name="description" content="Expert tax filing, ITR assistance, portfolio advisory and financial consulting by Qualified professionals."/>
+<meta name="google-site-verification" content="0kMrsifQ7ybMzY3_bKScXVMOiRyxO14zYmVDN_vVwdQ" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -52,7 +54,7 @@
     background: var(--navy-950);
     color: var(--white);
     overflow-x: hidden;
-    line-height: 1.65;
+    line-height: 1.75;
   }
 
   /* ---- GRID TEXTURE ---- */
@@ -208,9 +210,9 @@
   }
 
   .hero-sub {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--slate-light);
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 36px;
     animation: fadeUp 0.8s 0.2s ease both;
   }
@@ -337,16 +339,17 @@
 
   .section-title {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    font-weight: 700;
-    letter-spacing: -1px;
+    font-size: clamp(2.8rem, 4.4vw, 3.8rem);
+    font-weight: 900;
+    letter-spacing: -1.5px;
     line-height: 1.15;
     margin-bottom: 16px;
   }
 
   .section-sub {
     color: var(--slate-light);
-    font-size: 1.05rem;
+    font-size: 1.15rem;
+    font-weight: 500;
     max-width: 540px;
     line-height: 1.7;
     margin-bottom: 60px;
@@ -364,6 +367,8 @@
     display: flex;
     animation: ticker 18s linear infinite;
     white-space: nowrap;
+    will-change: transform;
+    -webkit-animation: ticker 18s linear infinite;
   }
   .ticker-inner span {
     font-family: var(--font-mono);
@@ -377,6 +382,10 @@
   .ticker-inner span .dn { color: var(--red-accent); }
 
   @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @-webkit-keyframes ticker {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
@@ -467,8 +476,8 @@
     font-size: 1.5rem;
     margin-bottom: 20px;
   }
-  .service-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
-  .service-card p  { color: var(--slate-light); font-size: 0.9rem; line-height: 1.65; margin-bottom: 20px; }
+  .service-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+  .service-card p  { color: var(--slate-light); font-size: 0.95rem; line-height: 1.75; margin-bottom: 20px; }
 
   .service-tags {
     display: flex;
@@ -518,8 +527,8 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .tool-card-head h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
-  .tool-card-head p  { font-size: 0.85rem; color: var(--slate); }
+  .tool-card-head h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
+  .tool-card-head p  { font-size: 0.9rem; color: var(--slate); }
   .tool-badge {
     margin-left: auto;
     background: rgba(76,175,130,0.15);
@@ -545,8 +554,9 @@
     gap: 10px;
     padding: 8px 0;
     border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     color: var(--slate-light);
+    font-weight: 500;
   }
   .tool-feature:last-child { border-bottom: none; }
   .tool-feature::before { content: '→'; color: var(--gold-500); font-size: 0.75rem; }
@@ -580,6 +590,33 @@
   .insight-thumb.tax     { background: linear-gradient(135deg, #0f2040, #1a3060); }
   .insight-thumb.invest  { background: linear-gradient(135deg, #0a1e0f, #0d2e15); }
   .insight-thumb.acca    { background: linear-gradient(135deg, #1e0f0f, #2e0d0d); }
+  #homepage-news-grid .insight-card {
+  background: var(--navy-800);
+  border: 1px solid rgba(201,168,76,0.25);
+  position: relative;
+  z-index: 2;
+}
+
+#homepage-news-grid .insight-card h3 {
+  color: var(--white);
+}
+
+#homepage-news-grid .insight-card p {
+  color: var(--slate-light);
+}
+
+#homepage-news-grid .insight-cat {
+  color: var(--gold-400);
+}
+
+#homepage-news-grid .insight-meta {
+  color: var(--slate);
+}
+
+#homepage-news-grid {
+  position: relative;
+  z-index: 2;
+}
 
   .insight-card.featured .insight-thumb { height: 240px; font-size: 4rem; }
 
@@ -595,12 +632,12 @@
   }
   .insight-body h3 {
     font-family: var(--font-display);
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.35;
     margin-bottom: 8px;
   }
-  .insight-body p { font-size: 0.85rem; color: var(--slate-light); line-height: 1.6; }
+  .insight-body p { font-size: 0.9rem; color: var(--slate-light); line-height: 1.75; }
   .insight-meta {
     display: flex;
     align-items: center;
@@ -760,7 +797,7 @@
     margin-bottom: -16px;
     display: block;
   }
-  .testimonial-card p { font-size: 0.9rem; color: var(--slate-light); line-height: 1.7; margin-bottom: 20px; }
+  .testimonial-card p { font-size: 0.95rem; color: var(--slate-light); line-height: 1.8; margin-bottom: 20px; }
   .testimonial-meta { display: flex; align-items: center; gap: 12px; }
   .testimonial-avatar {
     width: 40px; height: 40px;
@@ -831,6 +868,10 @@
     opacity: 1;
     transform: translateY(0);
   }
+  #homepage-news-grid .reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   /* ==================== MODAL ==================== */
   .modal-overlay {
@@ -869,6 +910,36 @@
     cursor: pointer;
     line-height: 1;
   }
+/* ==================== ABOUT SECTION ==================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
 
   /* ==================== RESPONSIVE ==================== */
   @media (max-width: 1024px) {
@@ -879,12 +950,16 @@
     .lead-grid { grid-template-columns: 1fr; gap: 48px; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .nav-cta { padding: 8px 14px; font-size: 0.82rem; }
+    .about-grid { grid-template-columns: 1fr !important; max-width: 680px !important; }
+
   }
 
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
     nav.scrolled { padding: 12px 24px; }
     .nav-links { display: none; }
+    .nav-cta { display: none; }
     .nav-links.open {
       display: flex;
       flex-direction: column;
@@ -912,8 +987,58 @@
     .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
     .form-row { flex-direction: column; gap: 0; }
     .lead-form-card { padding: 28px 20px; }
+    .about-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+
   }
+  @media (max-width: 480px) {
+  nav { padding: 12px 16px; }
+  .nav-logo { font-size: 1.2rem; }
+  .nav-cta { display: none; }
+  .hero { padding: 100px 16px 50px; }
+  .hero h1 { font-size: 2.2rem; letter-spacing: -1px; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-creds { gap: 8px; }
+  .cred-pill { font-size: 0.72rem; padding: 5px 10px; }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-outline { text-align: center; width: 100%; padding: 13px 20px; }
+  .itr-banner { padding: 20px 16px; gap: 16px; }
+  .itr-left h3 { font-size: 1.2rem; }
+  .itr-left p { font-size: 0.82rem; }
+  .countdown-boxes { gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .cbox { min-width: 52px; padding: 8px 10px; }
+  .cbox-num { font-size: 1.3rem; }
+  .cbox-label { font-size: 0.6rem; }
+  .section-inner { padding: 50px 16px; }
+  .section-title { font-size: 1.6rem; }
+  .section-sub { font-size: 0.9rem; }
+  .services-grid { grid-template-columns: 1fr; gap: 16px; }
+  .service-card { padding: 24px 20px; }
+  .tool-showcase { grid-template-columns: 1fr; gap: 16px; }
+  .tool-card-head { padding: 20px 20px 16px; }
+  .tool-card-body { padding: 16px 20px; }
+  .insights-grid { grid-template-columns: 1fr; gap: 16px; }
+  .lead-grid { grid-template-columns: 1fr; gap: 32px; }
+  .lead-form-card { padding: 24px 16px; }
+  .about-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+.about-grid > div:first-child { order: 1; }
+.about-grid > div:last-child { order: 2; }
+  .form-row { flex-direction: column; gap: 0; }
+  .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  footer { padding: 40px 16px 24px; }
+  .ticker-inner span { padding: 0 16px; font-size: 0.7rem; }
+  #tfv-chat-btn { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+  #tfv-chat-window { right: 8px; bottom: 80px; width: calc(100vw - 16px); }
+}
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMCBZSEF9Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EMCBZSEF9Z');
+</script>
 </head>
 <body>
 
@@ -926,7 +1051,10 @@
 <li><a href="calculator.html">Tax Calculator</a></li>
 <li><a href="portfolio.html">Portfolio</a></li>
 <li><a href="capital-gains.html">Capital Gains</a></li>
-    <li><a href="#insights">Insights</a></li>
+<li><a href="sip-planner.html">SIP Planner</a></li>
+<li><a href="news.html">Market Pulse</a></li>
+
+
     <li><a href="#contact">Contact</a></li>
     <li><a href="#contact" class="nav-cta">Get Started →</a></li>
   </ul>
@@ -1114,7 +1242,7 @@
 <section class="tools-section" id="tools">
   <div class="section-inner">
     <span class="section-tag">Digital Tools</span>
-    <h2 class="section-title">Built with Python &amp; SQL.<br/>Free for You.</h2>
+    <h2 class="section-title">Built with Passion &amp; precision<br/>Free for You.</h2>
     <p class="section-sub">Professional-grade financial tools powered by real financial models — not estimates.</p>
 
     <div class="tool-showcase">
@@ -1132,7 +1260,7 @@
           <div class="tool-feature">80C, 80D, HRA, LTA deductions included</div>
           <div class="tool-feature">Salary slabs up to ₹5 Cr</div>
           <div class="tool-feature">Download comparison PDF</div>
-          <div class="tool-feature">Built with Python + Pandas</div>
+          <div class="tool-feature">Built with passion & precision</div>
           <br/>
           <a href="calculator.html" class="btn-primary" style="display:inline-block;font-size:0.85rem;padding:10px 20px;">Try Calculator →</a>
         </div>
@@ -1191,7 +1319,7 @@
           <div class="tool-feature">Inflation-adjusted corpus projection</div>
           <div class="tool-feature">Step-up SIP modeling</div>
           <div class="tool-feature">Retirement, education, home scenarios</div>
-          <div class="tool-feature">Built with Python + SQL backend</div>
+          <div class="tool-feature">Built with Passion & Precision</div>
           <br/>
 <a href="sip-planner.html" class="btn-primary" style="display:inline-block;font-size:0.85rem;padding:10px 20px;background:var(--gold-500);color:var(--navy-950);">Plan My Goal →</a>        </div>
       </div>
@@ -1199,75 +1327,25 @@
   </div>
 </section>
 
-<!-- ===================== INSIGHTS ===================== -->
-<section id="insights" style="background: var(--navy-900);">
+<!-- ===================== NEWS ===================== -->
+<section id="news" style="background: var(--navy-900);">
   <div class="section-inner">
-    <span class="section-tag">Live Insights &amp; Market Updates</span>
+    <span class="section-tag">Market Pulse &amp; News</span>
     <h2 class="section-title">What's Happening in<br/>Finance Right Now.</h2>
-    <p class="section-sub">Live tax updates, market moves, and financial insights — updated regularly so you're always ahead of the curve.</p>
+    <p class="section-sub">Live tax updates, market moves, and financial news — updated regularly so you're always ahead of the curve.</p>
 
-    <div class="insights-grid">
-      <div class="insight-card featured reveal">
-        <div class="insight-thumb tax" style="font-size:5rem;">🔥</div>
-        <div class="insight-body">
-          <span class="insight-cat" style="color:#e05252;">● Live Update — April 2026</span>
-          <h3>Income Tax Act 2025 is Live from 1 April 2026 — 15 Changes Every Taxpayer Must Know</h3>
-          <p>Form 16 replaced by Form 130. "Assessment Year" replaced by "Tax Year". ITR-3 & ITR-4 deadline extended to 31 August. STT on F&O doubled. Here's what changes for you right now.</p>
-          <div class="insight-meta">
-            <span>TheFinVerge</span>
-            <span>•</span>
-            <span>6 min read</span>
-            <span>•</span>
-            <span>Updated 28 March 2026</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="insight-card reveal">
-        <div class="insight-thumb invest">📉</div>
-        <div class="insight-body">
-          <span class="insight-cat">Market Update</span>
-          <h3>Nifty Down 15% From Peak — Should You Pause Your SIP?</h3>
-          <p>FIIs sold ₹60,000 Cr in March. IT & Auto corrected hard. Here's the data-backed answer on what to do with your portfolio right now.</p>
-          <div class="insight-meta">
-            <span>4 min read</span>
-            <span>•</span>
-            <span>March 2026</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="insight-card reveal">
-        <div class="insight-thumb acca" style="background: linear-gradient(135deg, #0a1a0f, #0d2a15);">💰</div>
-        <div class="insight-body">
-          <span class="insight-cat">ITR Season 2026</span>
-          <h3>Zero Tax on ₹12.75 Lakh Salary — Exactly How It Works</h3>
-          <p>New regime, ₹75K std deduction + ₹60K rebate. Most salaried Indians don't know this. Step-by-step breakdown.</p>
-          <div class="insight-meta">
-            <span>3 min read</span>
-            <span>•</span>
-            <span>April 2026</span>
-          </div>
+    <div class="insights-grid" id="homepage-news-grid">
+      <div class="insight-card featured reveal" style="display:flex;align-items:center;justify-content:center;min-height:220px;">
+        <div style="text-align:center;color:var(--slate);">
+          <div style="font-size:2rem;margin-bottom:8px;">⏳</div>
+          <div style="font-size:0.85rem;">Loading latest news...</div>
         </div>
       </div>
     </div>
 
-      <div class="insight-card reveal">
-        <div class="insight-thumb acca" style="background: linear-gradient(135deg, #0a1a0a, #0d2e1a);">📊</div>
-        <div class="insight-body">
-          <span class="insight-cat">Investor Alert — 2026</span>
-          <h3>You Have 5 Mutual Funds. You're Actually Holding Just 1.</h3>
-          <p>Axis Bluechip + Mirae Large Cap + SBI Bluechip = 80% same stocks. Most Indian SIP investors are paying 3x expense ratios for zero diversification. Here's how to fix it in 10 minutes.</p>
-          <div class="insight-meta">
-            <span>TheFinVerge</span>
-            <span>•</span>
-            <span>5 min read</span>
-            <span>•</span>
-            <span>April 2026</span>
-            <a href="index.html#contact" style="color:var(--gold-500);font-size:0.78rem;font-weight:600;text-decoration:none;display:inline-block;margin-top:8px;">Get free portfolio overlap check →</a>
-          </div>
-        </div>
-      </div>
+    <div style="text-align:center;margin-top:40px;position:relative;z-index:2;">
+  <a href="news.html" class="btn-primary">View All News &amp; Market Updates →</a>
+</div>
     </div>
   </div>
 </section>
@@ -1423,6 +1501,142 @@
   </div>
 </section>
 
+<!-- ===================== ABOUT / FOUNDER ===================== -->
+<section style="background:var(--navy-950);position:relative;z-index:1">
+  <div class="section-inner">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:56px">
+      <span class="section-tag">Who We Are</span>
+      <h2 class="section-title">The Mind Behind<br/><span style="color:var(--gold-500)">TheFinVerge</span></h2>
+      <div style="width:48px;height:2px;background:var(--gold-500);margin:12px auto 16px"></div>
+      <p style="font-size:16px;color:var(--slate);max-width:500px;margin:0 auto;line-height:1.7">Built on expertise. Driven by purpose. Rooted in Chennai.</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="about-grid">
+
+      <!-- LEFT -->
+      <div>
+        <!-- Founder Card -->
+        <div style="background:var(--navy-800);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px">
+          <div style="height:3px;background:linear-gradient(90deg,#c9a84c,#d4b96a,#c9a84c)"></div>
+          <div style="padding:32px 24px">
+            <h3 style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--white);margin:0 0 4px;letter-spacing:-0.3px">Vishwa Muthuraman</h3>
+            <p style="font-size:10px;color:var(--gold-500);letter-spacing:2.5px;text-transform:uppercase;margin:0 0 4px;font-family:var(--font-mono)">Founder & CEO</p>
+            <p style="font-size:12px;color:var(--slate);margin:0 0 22px;font-style:italic">Finance & Tax Professional</p>
+            <div style="height:1px;background:var(--border);margin:0 0 20px"></div>
+            <div style="background:var(--gold-glow);border:1px solid var(--border);border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <span style="font-size:14px">📍</span>
+              <div>
+                <div style="font-size:9px;color:var(--gold-500);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-mono)">Based In</div>
+                <div style="font-size:12px;color:var(--slate-light)">Chennai, Tamil Nadu</div>
+              </div>
+            </div>
+            <div style="background:var(--gold-glow);border:1px solid var(--border);border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <span style="font-size:14px">🏢</span>
+              <div>
+                <div style="font-size:9px;color:var(--gold-500);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-mono)">Company</div>
+                <div style="font-size:12px;color:var(--slate-light)">TheFinVerge Services</div>
+              </div>
+            </div>
+            <div style="background:var(--gold-glow);border:1px solid var(--border);border-radius:8px;padding:11px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:14px">💼</span>
+              <div>
+                <div style="font-size:9px;color:var(--gold-500);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-mono)">Focus</div>
+                <div style="font-size:12px;color:var(--slate-light)">Tax · Compliance · Advisory</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kural Card -->
+        <div style="background:var(--navy-800);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden">
+          <div style="height:2px;background:linear-gradient(90deg,#c9a84c,#d4b96a,#c9a84c)"></div>
+          <div style="padding:24px 20px">
+            <div style="font-size:9px;color:var(--gold-500);letter-spacing:2px;text-transform:uppercase;font-family:var(--font-mono);margin-bottom:14px;text-align:center">திருக்குறள் · Kural 621</div>
+            <p style="font-size:15px;color:var(--white);line-height:2.1;margin:0 0 14px;font-family:var(--font-display);font-style:italic;text-align:center">
+              இடுக்கண் வருங்கால் நகுக அதனை<br/>
+              அடுத்துஊர்வது அஃதுஒப்பது இல்
+            </p>
+            <div style="height:1px;background:var(--border);margin:0 0 14px"></div>
+            <p style="font-size:11px;color:var(--slate-light);line-height:1.8;margin:0 0 10px;text-align:center;font-style:italic">
+              "When adversity comes, smile at it.<br/>Nothing equals overcoming it<br/>with such courage."
+            </p>
+            <p style="font-size:9px;color:var(--slate);text-align:center;font-family:var(--font-mono);margin:0;letter-spacing:1px">— Thiruvalluvar · Verse 621</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+        <!-- What is TheFinVerge -->
+        <div style="margin-bottom:24px">
+          <span style="font-size:10px;color:var(--gold-500);letter-spacing:2px;text-transform:uppercase;font-family:var(--font-mono)">What is TheFinVerge?</span>
+          <p style="font-size:15px;color:var(--slate-light);line-height:1.9;margin:10px 0 0">
+            <em style="color:var(--white);font-style:normal">"Verge"</em> means the turning point — the edge where things change for the better. <strong style="color:var(--white)">TheFinVerge is where financial confusion ends and clarity begins.</strong> A Chennai-based advisory built for real people — salaried professionals, startups, small businesses, and first-generation investors who deserve quality advice without the Big 4 price tag.
+          </p>
+        </div>
+
+        <!-- Story -->
+        <div style="background:var(--navy-800);border-left:3px solid var(--gold-500);border-radius:0 12px 12px 0;padding:22px 24px;margin-bottom:24px">
+          <span style="font-size:10px;color:var(--gold-500);letter-spacing:2px;text-transform:uppercase;font-family:var(--font-mono)">Why TheFinVerge Exists</span>
+          <p style="font-size:14px;color:var(--slate-light);line-height:1.95;margin:12px 0 0">
+            <em style="color:var(--white);font-style:normal">This is Vishwa</em> — founder and CEO of TheFinVerge, and someone who has spent years watching finance fail the very people it should serve.<br/><br/>
+            Salaried employees silently overpaying taxes because no one sat down and explained it. Startups collapsing — not from a bad idea, but from compliance blindspots they never saw coming. People putting money into investments they didn't understand and regretting it years later.<br/><br/>
+            And through all of it — firms overcharging for advice that was generic, impersonal, and frankly, not worth the fee. I built TheFinVerge to be the opposite of that.
+          </p>
+        </div>
+
+        <!-- Mission + Vision -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px">
+          <div style="background:var(--navy-900);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px">
+            <div style="font-size:10px;color:var(--gold-500);letter-spacing:2px;font-family:var(--font-mono);margin-bottom:10px">⚡ OUR MISSION</div>
+            <p style="font-size:14px;color:var(--slate-light);line-height:1.8;margin:0">To make honest financial advice accessible to every Indian — so taxes, compliance and investments stop being a source of confusion and start becoming a source of confidence.</p>
+          </div>
+          <div style="background:var(--navy-900);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px">
+            <div style="font-size:10px;color:var(--gold-500);letter-spacing:2px;font-family:var(--font-mono);margin-bottom:10px">🎯 OUR VISION</div>
+            <p style="font-size:14px;color:var(--slate-light);line-height:1.8;margin:0">A financially empowered India — where no one loses money to confusion, no startup dies from compliance ignorance, and everyone has access to advice that genuinely works for them.</p>
+          </div>
+        </div>
+
+        <!-- What We Stand For -->
+        <div style="margin-bottom:28px">
+          <span style="font-size:10px;color:var(--gold-500);letter-spacing:2px;text-transform:uppercase;font-family:var(--font-mono)">What We Stand For</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="color:var(--gold-500);font-size:14px;flex-shrink:0;margin-top:1px">→</span>
+              <span style="font-size:12px;color:var(--slate-light);line-height:1.7">No more overpaying taxes — every rupee saved is a rupee earned</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="color:var(--gold-500);font-size:14px;flex-shrink:0;margin-top:1px">→</span>
+              <span style="font-size:12px;color:var(--slate-light);line-height:1.7">No more startups failing from compliance they never knew about</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="color:var(--gold-500);font-size:14px;flex-shrink:0;margin-top:1px">→</span>
+              <span style="font-size:12px;color:var(--slate-light);line-height:1.7">No more investment regrets from decisions made without knowledge</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:10px">
+              <span style="color:var(--gold-500);font-size:14px;flex-shrink:0;margin-top:1px">→</span>
+              <span style="font-size:12px;color:var(--slate-light);line-height:1.7">No more firms overcharging for advice that isn't worth the fee</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="background:linear-gradient(135deg,var(--navy-800),var(--navy-700));border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <div>
+            <h4 style="font-family:var(--font-display);font-size:16px;color:var(--white);margin:0 0 5px;font-weight:700">Let's talk about your finances.</h4>
+            <p style="font-size:12px;color:var(--slate);margin:0">Book a 10-minute introductory call — no commitment, no jargon.</p>
+          </div>
+          <a href="#contact" class="btn-primary" style="font-size:13px;padding:12px 24px;white-space:nowrap">Book Intro Call →</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
 <!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="footer-grid">
@@ -1461,14 +1675,14 @@
       <ul>
         <li><a href="mailto:info@thefinvergeservices.com">📧 info@thefinvergeservices.com</a></li>
         <li><a href="https://linkedin.com" target="_blank">🔗 LinkedIn</a></li>
-        <li><a href="#insights">📖 Insights Blog</a></li>
+        <li><a href="#news">📖 Market News</a></li>
         <li><a href="#contact">📞 Book Consultation</a></li>
       </ul>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <span>© 2025 TheFinVerge Services. All rights reserved.</span>
+    <span>© 2026 TheFinVerge Services. All rights reserved.</span>
     <span>Built for <strong>thefinvergeservices.com</strong></span>
   </div>
 </footer>
@@ -1484,49 +1698,41 @@
 // Updates every 60 seconds automatically
 // =============================================
 async function fetchLiveMarketData() {
-  const stocks = [
-    { key: 'nifty',  sym: '%5ENSEI',    name: 'NIFTY 50'  },
-    { key: 'sensex', sym: '%5EBSESN',   name: 'SENSEX'    },
-    { key: 'usdinr', sym: 'USDINR%3DX', name: 'USD/INR'   }
-  ];
+  try {
+    const res  = await fetch(
+      'https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/market-data',
+      {
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'apikey': SUPABASE_ANON_KEY
+        }
+      }
+    );
 
-  for (const s of stocks) {
-    try {
-      const proxy = 'https://corsproxy.io/?';
-      const yahoo = `https://query1.finance.yahoo.com/v8/finance/chart/${s.sym}?interval=1d&range=1d`;
-      const res   = await fetch(proxy + encodeURIComponent(yahoo));
-      const json  = await res.json();
-      const meta  = json.chart.result[0].meta;
+    const data = await res.json();
 
-      const price  = meta.regularMarketPrice;
-      const prev   = meta.chartPreviousClose;
-      const diff   = price - prev;
-      const pct    = ((diff / prev) * 100).toFixed(2);
-      const isUp   = diff >= 0;
-
-      const display = s.key === 'usdinr'
-        ? `₹${price.toFixed(2)}`
-        : price.toLocaleString('en-IN', { maximumFractionDigits: 0 });
-
-      const arrow = isUp ? '▲' : '▼';
-      const cls   = isUp ? 'up' : 'dn';
-      const text  = `${s.name} &nbsp;<b class="${cls}">${arrow} ${display} <small>(${isUp ? '+' : ''}${pct}%)</small></b>`;
-
-      document.querySelectorAll(`[data-ticker="${s.key}"]`)
+    for (const key of ['nifty', 'sensex', 'usdinr']) {
+      const s    = data[key];
+      if (!s) continue;
+      const text = `${s.name} &nbsp;<b class="${s.cls}">${s.arrow} ${s.price} <small>(${s.isUp ? '+' : ''}${s.change}%)</small></b>`;
+      document.querySelectorAll(`[data-ticker="${key}"]`)
               .forEach(el => el.innerHTML = text);
-
-    } catch (err) {
-      console.warn('Ticker fetch failed:', s.name);
-      document.querySelectorAll(`[data-ticker="${s.key}"]`)
-              .forEach(el => el.innerHTML = `${s.name} &nbsp;<b>--</b>`);
     }
+
+  } catch(err) {
+    console.warn('Market data fetch failed:', err);
+    ['nifty','sensex','usdinr'].forEach(key => {
+      document.querySelectorAll(`[data-ticker="${key}"]`)
+              .forEach(el => el.innerHTML = `${key.toUpperCase()} &nbsp;<b>--</b>`);
+    });
   }
 }
 
-fetchLiveMarketData();
-setInterval(fetchLiveMarketData, 60 * 1000);
 const SUPABASE_URL = 'https://cdolopmcfllikyjbfhhv.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkb2xvcG1jZmxsaWt5amJmaGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjIyNzgsImV4cCI6MjA5MDUzODI3OH0.5W6_VvM4LNM6FmYRwHyWlnkJ7bQ0G4_K-vwWOFtVJZc';
+
+fetchLiveMarketData();
+setInterval(fetchLiveMarketData, 60 * 1000);
 
 // Initialize Supabase client
 const { createClient } = supabase;
@@ -1565,7 +1771,7 @@ async function submitLead(e) {
     if (sbError) throw sbError;
 
     // Claude auto-reply email
-    fetch('https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/auto-reply', {
+    fetch('https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/hyper-responder', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1584,6 +1790,18 @@ async function submitLead(e) {
 
     success.style.display = 'block';
     document.getElementById('leadForm').reset();
+
+    // WhatsApp confirmation link
+    const waName = document.getElementById('fname').value.trim();
+    const waService = document.getElementById('service').value;
+    const waMsg = encodeURIComponent(`Hi Vishwa! I just submitted an enquiry on TheFinVerge for ${waService}. My name is ${waName}. Looking forward to hearing from you!`);
+    const waLink = document.createElement('a');
+    waLink.href = `https://wa.me/918754038601?text=${waMsg}`;
+    waLink.target = '_blank';
+    waLink.rel = 'noopener';
+    waLink.style.cssText = 'display:block;margin-top:12px;background:#25d366;color:white;padding:10px 16px;border-radius:8px;text-align:center;font-weight:600;font-size:0.85rem;text-decoration:none;';
+    waLink.innerHTML = '💬 Also message us on WhatsApp →';
+    document.getElementById('formSuccess').appendChild(waLink);
 
   } catch (err) {
     console.error('Supabase error:', err);
@@ -1655,17 +1873,7 @@ document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click'
   document.getElementById('navLinks').classList.remove('open');
 }));
 </script>
-<!-- 
-  ============================================
-  THEFINVERGE AI CHATBOT WIDGET
-  Add this code just before </body> on ALL pages
-  - index.html
-  - calculator.html
-  - capital-gains.html
-  - sip-planner.html
-  - portfolio.html
-  ============================================
--->
+
 <style>
 /* ============ CHATBOT STYLES ============ */
 #tfv-chat-btn {
@@ -2136,7 +2344,7 @@ async function processUserInput(userText){
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 600,
-        system: `You are TheFinVerge Assistant — an AI financial assistant for TheFinVerge Services, run by a qualified professional based in Coimbatore, India. ONLY answer India-specific tax, finance, GST, and compliance questions. Politely decline anything unrelated.
+        system: `You are TheFinVerge Assistant — an AI financial assistant for TheFinVerge Services, run by a qualified professionals based in Chennai, India. ONLY answer India-specific tax, finance, GST, and compliance questions. Politely decline anything unrelated.
 
 INCOME TAX — FY 2025-26 (AY 2026-27):
 - Income Tax Act 2025 replaces Income Tax Act 1961 effective 1 April 2026
@@ -2330,7 +2538,163 @@ setTimeout(()=>{
 document.getElementById('tfv-close-btn').addEventListener('click', ()=>{
   sessionStorage.setItem('tfv_chat_dismissed', '1');
 });
-</script>
 
+// =============================================
+// HOMEPAGE NEWS — Load from Supabase posts
+// =============================================
+async function loadHomepageNews() {
+  try {
+    const res = await fetch(
+      'https://cdolopmcfllikyjbfhhv.supabase.co/rest/v1/posts?is_published=eq.true&order=created_at.desc&limit=3',
+      {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        }
+      }
+    );
+    const posts = await res.json();
+    const grid = document.getElementById('homepage-news-grid');
+    if (!grid) return;
+
+    if (!posts || !posts.length) {
+      grid.innerHTML = `<div class="insight-card featured reveal" style="display:flex;align-items:center;justify-content:center;min-height:220px;">
+        <div style="text-align:center;color:var(--slate);">
+          <div style="font-size:2rem;margin-bottom:8px;">📰</div>
+          <div style="font-size:0.85rem;">No posts yet. Check back soon.</div>
+        </div>
+      </div>`;
+      return;
+    }
+
+    const emojis = ['🔥','📉','💰','📊','🏦','📈','⚡'];
+    const thumbClasses = ['tax','invest','acca'];
+
+    grid.innerHTML = posts.map((post, i) => `
+      <div class="insight-card ${i === 0 ? 'featured' : ''} reveal"
+           onclick="showHomeNewsModal(${JSON.stringify(post).replace(/"/g,'&quot;')})"
+           style="cursor:pointer;">
+        <div class="insight-thumb ${thumbClasses[i % 3]}" style="${i===0?'height:240px;font-size:4rem;':''}">
+          ${emojis[i % emojis.length]}
+        </div>
+        <div class="insight-body">
+          <span class="insight-cat">${post.category || 'General'}</span>
+          <h3>${post.title}</h3>
+          <p>${(post.content || '').substring(0, 120)}${(post.content||'').length > 120 ? '...' : ''}</p>
+          <div class="insight-meta">
+            <span>TheFinVerge</span>
+            <span>•</span>
+            <span>${timeAgoHome(post.created_at)}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+  } catch(err) {
+    console.warn('Homepage news load failed:', err);
+  }
+}
+
+function timeAgoHome(dateStr) {
+  if (!dateStr) return '';
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 60000);
+  if (diff < 60) return diff + ' min ago';
+  if (diff < 1440) return Math.floor(diff/60) + ' hr ago';
+  return Math.floor(diff/1440) + ' days ago';
+}
+
+function showHomeNewsModal(post) {
+  const existing = document.getElementById('home-news-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'home-news-modal';
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:3000;
+    background:rgba(4,13,30,0.92);
+    backdrop-filter:blur(12px);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      background:#0d1f45;
+      border:1px solid rgba(201,168,76,0.2);
+      border-radius:20px;
+      padding:40px;
+      max-width:620px;
+      width:100%;
+      position:relative;
+      max-height:88vh;
+      overflow-y:auto;
+    ">
+      <button onclick="document.getElementById('home-news-modal').remove()" style="
+        position:absolute;top:16px;right:20px;
+        background:none;border:none;color:#8a9ab5;
+        font-size:1.4rem;cursor:pointer;
+      ">✕</button>
+
+      <div style="font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:#c9a84c;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">
+        ${post.category || 'General'}
+      </div>
+
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;line-height:1.3;margin-bottom:20px;color:#f4f6fa;">
+        ${post.title}
+      </h3>
+
+      <p style="color:#b0bfd4;font-size:1rem;line-height:1.9;margin-bottom:28px;">
+        ${post.content || ''}
+      </p>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="font-size:0.72rem;color:#8a9ab5;font-family:'JetBrains Mono',monospace;">
+          TheFinVerge · ${timeAgoHome(post.created_at)}
+        </div>
+        <a href="news.html" style="
+          background:#c9a84c;color:#040d1e;
+          padding:9px 20px;border-radius:6px;
+          font-size:0.82rem;font-weight:700;
+          text-decoration:none;
+        ">View All News →</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if(e.target === modal) modal.remove(); });
+}
+
+loadHomepageNews();
+</script>
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/918754038601?text=Hi%20Vishwa!%20I%20found%20TheFinVerge%20and%20would%20like%20to%20know%20more%20about%20your%20services."
+   target="_blank"
+   rel="noopener"
+   id="whatsapp-btn"
+   aria-label="Chat on WhatsApp"
+   style="
+     position:fixed;
+     bottom:100px;
+     right:28px;
+     z-index:9997;
+     width:52px;
+     height:52px;
+     background:#25d366;
+     border-radius:50%;
+     display:flex;
+     align-items:center;
+     justify-content:center;
+     box-shadow:0 4px 20px rgba(37,211,102,0.4);
+     transition:transform 0.2s, box-shadow 0.2s;
+     text-decoration:none;
+   "
+   onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,0.55)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,0.4)'"
+>
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
 </body>
 </html>  
