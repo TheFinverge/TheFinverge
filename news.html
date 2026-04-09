@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Market Pulse & Finance Insights | TheFinVerge Services</title>
+<meta name="description" content="Real-time Indian finance news, market updates, GST & tax alerts, RBI announcements — AI-powered summaries by TheFinVerge Services, Chennai."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMCBZSEF9Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EMCBZSEF9Z');
+</script>
+<style>
+/* ============================================================
+   DESIGN SYSTEM — DEEP NAVY + GOLD
+   Cross-browser compatible — tested Chrome/Edge/Safari/Firefox
+   Responsive — Mobile/Tablet/Laptop/Desktop
+============================================================ */
+:root {
+  --navy-950:#040d1e; --navy-900:#070f26; --navy-800:#0d1f45;
+  --navy-700:#102258; --navy-600:#1a3270;
+  --gold-500:#c9a84c; --gold-400:#d4b96a;
+  --gold-glow:rgba(201,168,76,0.15);
+  --slate:#8a9ab5; --slate-light:#b0bfd4;
+  --white:#f4f6fa;
+  --white-dim:rgba(244,246,250,0.06);
+  --green:#4caf82; --green-dim:rgba(76,175,130,0.12);
+  --red:#e05252; --red-dim:rgba(224,82,82,0.1);
+  --blue:#4a9eff; --blue-dim:rgba(74,158,255,0.08);
+  --border:rgba(201,168,76,0.2);
+  --border-soft:rgba(255,255,255,0.07);
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius:12px; --radius-lg:18px;
+  --transition:0.2s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-body);
+  background:var(--navy-950);
+  color:var(--white);
+  overflow-x:hidden;
+  line-height:1.65;
+  min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-body);cursor:pointer;border:none;outline:none}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:1000;
+  display:-webkit-flex;display:flex;
+  align-items:center;justify-content:space-between;
+  padding:14px 48px;
+  background:rgba(4,13,30,0.92);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--white)}
+.nav-logo span{color:var(--gold-500)}
+.nav-links{display:-webkit-flex;display:flex;gap:24px;list-style:none;align-items:center}
+.nav-links a{color:var(--slate-light);font-size:0.85rem;font-weight:500;transition:color var(--transition)}
+.nav-links a:hover{color:var(--gold-400)}
+.nav-back{background:var(--white-dim);border:1px solid var(--border-soft);padding:7px 14px;border-radius:6px;font-size:0.78rem!important}
+.nav-live{display:-webkit-flex;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.7rem;color:var(--green)}
+.live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;-webkit-animation:pulse 2s infinite;animation:pulse 2s infinite;flex-shrink:0}
+@-webkit-keyframes pulse{0%,100%{opacity:1;-webkit-transform:scale(1)}50%{opacity:0.5;-webkit-transform:scale(0.8)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
+.ham span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:var(--transition);display:block}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  background:linear-gradient(135deg,var(--navy-800),var(--navy-700));
+  border-bottom:1px solid var(--border);
+  padding:48px 48px 36px;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;right:-80px;top:-80px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.hero-inner{max-width:900px;position:relative;z-index:1}
+.hero-tag{
+  display:-webkit-inline-flex;display:inline-flex;
+  align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:0.7rem;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold-400);margin-bottom:16px;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:900;letter-spacing:-1.5px;line-height:1.08;
+  margin-bottom:12px;
+}
+.hero h1 span{color:var(--gold-500)}
+.hero p{color:var(--slate-light);font-size:1rem;margin-bottom:20px;max-width:600px;line-height:1.6}
+.hero-pills{display:-webkit-flex;display:flex;flex-wrap:wrap;gap:8px}
+.hero-pill{
+  background:var(--white-dim);border:1px solid var(--border-soft);
+  padding:5px 12px;border-radius:50px;
+  font-size:0.72rem;font-weight:500;color:var(--slate-light);
+  font-family:var(--font-mono);white-space:nowrap;
+}
+#last-updated{font-family:var(--font-mono);font-size:0.68rem;color:var(--slate);margin-top:12px}
+
+/* ── TICKER ── */
+.ticker-band{
+  background:var(--navy-800);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;padding:11px 0;position:relative;z-index:1;
+}
+.ticker-inner{
+  display:-webkit-flex;display:flex;
+  -webkit-animation:ticker 25s linear infinite;
+  animation:ticker 25s linear infinite;
+  white-space:nowrap;will-change:transform;
+}
+.ticker-inner span{
+  font-family:var(--font-mono);font-size:0.75rem;
+  color:var(--slate-light);padding:0 32px;
+  border-right:1px solid var(--border);
+}
+.ticker-inner span b{color:var(--gold-400)}
+.up{color:var(--green)!important}
+.dn{color:var(--red)!important}
+@-webkit-keyframes ticker{0%{-webkit-transform:translateX(0)}100%{-webkit-transform:translateX(-50%)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── FILTERS ── */
+.filters{
+  position:sticky;top:57px;z-index:99;
+  background:var(--navy-900);
+  border-bottom:1px solid var(--border-soft);
+  padding:12px 48px;
+  display:-webkit-flex;display:flex;
+  align-items:center;gap:8px;flex-wrap:wrap;
+}
+.filter-btn{
+  font-family:var(--font-mono);font-size:0.7rem;
+  padding:7px 14px;border-radius:50px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:transparent;color:var(--slate);
+  transition:all var(--transition);white-space:nowrap;
+}
+.filter-btn.active{background:var(--gold-500);color:var(--navy-950);border-color:var(--gold-500);font-weight:700}
+.filter-btn:hover:not(.active){border-color:var(--gold-400);color:var(--gold-400)}
+
+/* ── SEARCH ── */
+.search-wrap{margin-left:auto;position:relative}
+.search-wrap input{
+  background:var(--white-dim);border:1px solid var(--border-soft);
+  border-radius:8px;padding:7px 12px 7px 32px;
+  color:var(--white);font-family:var(--font-mono);font-size:0.72rem;
+  outline:none;width:180px;transition:all var(--transition);
+}
+.search-wrap input:focus{border-color:var(--gold-500);width:220px}
+.search-wrap::before{
+  content:'🔍';position:absolute;left:9px;top:50%;
+  transform:translateY(-50%);font-size:0.65rem;pointer-events:none;
+}
+
+/* ── PAGE LAYOUT ── */
+.page-body{
+  position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;
+  padding:32px 48px 80px;
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:28px;align-items:start;
+}
+
+/* ── SECTION LABEL ── */
+.slbl{
+  font-family:var(--font-mono);font-size:0.68rem;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold-500);margin:0 0 16px;
+  display:-webkit-flex;display:flex;align-items:center;gap:8px;
+}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border)}
+.ai-tag{
+  background:var(--blue-dim);border:1px solid rgba(74,158,255,0.2);
+  color:var(--blue);font-size:0.6rem;padding:2px 7px;border-radius:3px;
+}
+
+/* ── FEATURED POST ── */
+.featured-post{
+  background:var(--navy-800);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+  margin-bottom:20px;cursor:pointer;
+  transition:all var(--transition);
+}
+.featured-post:hover{transform:translateY(-3px);border-color:var(--gold-500);box-shadow:0 8px 32px rgba(201,168,76,0.12)}
+.post-thumb{
+  height:160px;display:-webkit-flex;display:flex;
+  align-items:center;justify-content:center;
+  font-size:3.5rem;position:relative;overflow:hidden;
+}
+.post-thumb.tax{background:linear-gradient(135deg,#0f2040,#1a3060)}
+.post-thumb.mkt{background:linear-gradient(135deg,#0a1e0f,#0d2e15)}
+.post-thumb.gst{background:linear-gradient(135deg,#1e0f05,#2e1a05)}
+.thumb-badges{position:absolute;top:12px;left:12px;right:12px;display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cat-badge{
+  background:var(--gold-500);color:var(--navy-950);
+  font-size:0.62rem;font-weight:700;padding:4px 10px;
+  border-radius:4px;font-family:var(--font-mono);white-space:nowrap;
+}
+.vishwa-badge{
+  background:var(--green-dim);border:1px solid rgba(76,175,130,0.3);
+  color:var(--green);font-size:0.62rem;padding:4px 10px;
+  border-radius:4px;font-family:var(--font-mono);
+}
+.post-body{padding:20px}
+.post-body h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;margin-bottom:8px;line-height:1.35}
+.post-body p{font-size:0.88rem;color:var(--slate-light);line-height:1.7;margin-bottom:12px}
+.post-meta{display:-webkit-flex;display:flex;flex-wrap:wrap;gap:8px;font-family:var(--font-mono);font-size:0.65rem;color:var(--slate)}
+.post-meta span{display:-webkit-flex;display:flex;align-items:center;gap:4px}
+
+/* ── NEWS GRID ── */
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;margin-bottom:24px;
+}
+.news-card{
+  background:var(--navy-800);border:1px solid var(--border-soft);
+  border-radius:var(--radius);padding:16px;cursor:pointer;
+  transition:all var(--transition);
+  display:-webkit-flex;display:flex;flex-direction:column;
+}
+.news-card:hover{border-color:var(--border);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.news-card-top{display:-webkit-flex;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap}
+.news-cat{font-family:var(--font-mono);font-size:0.63rem;color:var(--gold-400);letter-spacing:0.8px;text-transform:uppercase}
+.sentiment{font-size:0.6rem;font-family:var(--font-mono);padding:3px 8px;border-radius:4px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.s-pos{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,130,0.3)}
+.s-neg{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,0.3)}
+.s-neu{background:var(--white-dim);color:var(--slate);border:1px solid var(--border-soft)}
+.news-card h4{font-family:var(--font-display);font-size:0.9rem;font-weight:700;line-height:1.35;margin-bottom:8px}
+.news-card p{font-size:0.8rem;color:var(--slate-light);line-height:1.65;margin-bottom:10px;flex:1}
+.news-src{display:-webkit-flex;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.62rem;color:var(--slate);flex-wrap:wrap}
+
+/* ── LOAD MORE ── */
+.load-more{text-align:center;padding:16px 0 8px}
+.load-btn{
+  background:transparent;border:1px solid var(--border);
+  color:var(--gold-500);padding:10px 28px;border-radius:8px;
+  font-size:0.8rem;font-family:var(--font-mono);
+  transition:all var(--transition);
+}
+.load-btn:hover{background:var(--gold-500);color:var(--navy-950)}
+
+/* ── SIDEBAR ── */
+.sidebar{display:-webkit-flex;display:flex;flex-direction:column;gap:16px}
+
+/* Vishwa Quick Takes */
+.vishwa-card{background:var(--navy-800);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.vishwa-head{
+  background:linear-gradient(135deg,var(--navy-700),var(--navy-800));
+  padding:14px 16px;display:-webkit-flex;display:flex;
+  align-items:center;gap:10px;border-bottom:1px solid var(--border);
+}
+.v-avatar{
+  width:34px;height:34px;background:var(--gold-500);
+  border-radius:50%;display:-webkit-flex;display:flex;
+  align-items:center;justify-content:center;
+  font-size:0.8rem;font-weight:700;color:var(--navy-950);flex-shrink:0;
+}
+.vishwa-head h4{font-size:0.88rem;font-weight:700;margin-bottom:2px}
+.vishwa-head span{font-size:0.65rem;color:var(--green);font-family:var(--font-mono)}
+.v-post{padding:13px 15px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.v-post:last-child{border-bottom:none}
+.v-cat{font-family:var(--font-mono);font-size:0.6rem;color:var(--gold-400);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px}
+.v-post h5{font-size:0.82rem;font-weight:700;line-height:1.3;margin-bottom:5px}
+.v-post p{font-size:0.75rem;color:var(--slate-light);line-height:1.6;margin-bottom:5px}
+.v-time{font-family:var(--font-mono);font-size:0.6rem;color:var(--slate)}
+
+/* Hot News */
+.hot-card{background:var(--navy-800);border:1px solid rgba(224,82,82,0.2);border-radius:var(--radius-lg);overflow:hidden}
+.hot-head{
+  background:var(--red-dim);padding:11px 14px;
+  display:-webkit-flex;display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(224,82,82,0.15);
+}
+.hot-head span{font-family:var(--font-mono);font-size:0.68rem;color:var(--red);letter-spacing:1px;text-transform:uppercase;font-weight:700}
+.hot-dot{width:7px;height:7px;background:var(--red);border-radius:50%;-webkit-animation:pulse 1s infinite;animation:pulse 1s infinite;flex-shrink:0}
+.hot-item{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.04);display:-webkit-flex;display:flex;gap:10px;align-items:flex-start}
+.hot-item:last-child{border-bottom:none}
+.hot-num{font-family:var(--font-mono);font-size:0.68rem;color:var(--gold-500);font-weight:700;flex-shrink:0;margin-top:1px}
+.hot-item p{font-size:0.78rem;color:var(--slate-light);line-height:1.5}
+
+/* Market Snapshot */
+.market-card{background:var(--navy-800);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px}
+.market-card h4{font-family:var(--font-mono);font-size:0.66rem;color:var(--gold-500);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:-webkit-flex;display:flex;align-items:center;gap:8px}
+.mkt-row{display:-webkit-flex;display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.8rem}
+.mkt-row:last-child{border-bottom:none}
+.mkt-name{color:var(--slate-light);font-size:0.78rem}
+.mkt-val{font-family:var(--font-mono);font-weight:700;font-size:0.78rem}
+.mkt-chg{font-family:var(--font-mono);font-size:0.68rem}
+.mkt-time{font-family:var(--font-mono);font-size:0.6rem;color:var(--slate);margin-top:10px;text-align:right}
+
+/* Claude Insight */
+.claude-card{background:var(--blue-dim);border:1px solid rgba(74,158,255,0.2);border-radius:var(--radius-lg);padding:16px}
+.claude-head{display:-webkit-flex;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.claude-icon{width:28px;height:28px;background:rgba(74,158,255,0.15);border-radius:8px;display:-webkit-flex;display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0}
+.claude-head span{font-size:0.75rem;font-weight:700;color:var(--blue)}
+.claude-card p{font-size:0.78rem;color:var(--slate-light);line-height:1.7;font-style:italic}
+.claude-time{font-family:var(--font-mono);font-size:0.6rem;color:var(--blue);margin-top:8px;opacity:0.8}
+
+/* Empty state */
+.empty{text-align:center;padding:48px 24px;color:var(--slate);font-size:0.85rem}
+.empty .icon{font-size:2.5rem;margin-bottom:12px}
+
+/* Loading spinner */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold-500);border-radius:50%;-webkit-animation:spin 0.8s linear infinite;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:6px}
+@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .page-body{grid-template-columns:1fr 280px;padding:24px 32px 60px}
+  nav{padding:14px 32px}
+  .hero{padding:36px 32px 28px}
+  .filters{padding:12px 32px}
+}
+@media(max-width:900px){
+  .page-body{grid-template-columns:1fr;padding:20px 24px 60px}
+  .sidebar{order:-1}
+  .market-card{display:none}
+  nav{padding:13px 24px}
+  .hero{padding:32px 24px 24px}
+  .filters{padding:10px 24px;top:55px}
+  .news-grid{grid-template-columns:1fr 1fr}
+  .search-wrap{display:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-links.open{
+    display:-webkit-flex;display:flex;flex-direction:column;
+    position:fixed;inset:0;background:var(--navy-950);
+    align-items:center;justify-content:center;gap:28px;z-index:999;
+  }
+  .nav-links.open a{font-size:1.3rem}
+  .ham{display:-webkit-flex;display:flex}
+  .hero h1{font-size:1.9rem}
+  .news-grid{grid-template-columns:1fr}
+  .filters{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px}
+  .filters::-webkit-scrollbar{display:none}
+  .filter-btn{flex-shrink:0}
+}
+@media(max-width:480px){
+  nav{padding:12px 16px}
+  .hero{padding:24px 16px 20px}
+  .hero h1{font-size:1.65rem;letter-spacing:-0.5px}
+  .hero p{font-size:0.9rem}
+  .page-body{padding:16px 16px 60px}
+  .filters{padding:10px 16px}
+  .post-thumb{height:130px;font-size:2.8rem}
+  .post-body{padding:16px}
+  .v-post{padding:11px 13px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">The<span>FinVerge</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#tools">Tools</a></li>
+    <li><a href="calculator.html">Tax Calculator</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html" class="nav-back">← Home</a></li>
+  </ul>
+  <div class="ham" id="ham" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><div class="live-dot"></div> Live Finance Intelligence</div>
+    <h1>Market Pulse &<br/><span>Finance Insights</span></h1>
+    <p>Real-time news · AI-powered summaries · Expert analysis — updated every 15 minutes</p>
+    <div class="hero-pills">
+      <span class="hero-pill">📈 Stock Market</span>
+      <span class="hero-pill">📋 GST & Tax</span>
+      <span class="hero-pill">🏦 RBI & Banking</span>
+      <span class="hero-pill">🏢 Earnings</span>
+      <span class="hero-pill">🏛️ Policy</span>
+      <span class="hero-pill">🌍 Current Affairs</span>
+      <span class="hero-pill">🔥 Hot News</span>
+    </div>
+    <div id="last-updated">⏱ Fetching latest updates...</div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-band">
+  <div class="ticker-inner" id="mkt-ticker">
+    <span>NIFTY 50 &nbsp;<b id="t-nifty">Loading...</b></span>
+    <span>SENSEX &nbsp;<b id="t-sensex">Loading...</b></span>
+    <span>USD/INR &nbsp;<b id="t-usdinr">Loading...</b></span>
+    <span>📌 ITR Deadline: <b>31 July 2026</b></span>
+    <span>New Regime — Zero Tax up to <b>₹12 Lakh</b></span>
+    <span>LTCG: <b>12.5%</b> &nbsp;|&nbsp; STCG Equity: <b>20%</b></span>
+    <span>GST 2.0 — Insurance now <b>Exempt</b></span>
+    <span>NIFTY 50 &nbsp;<b id="t-nifty2">Loading...</b></span>
+    <span>SENSEX &nbsp;<b id="t-sensex2">Loading...</b></span>
+    <span>USD/INR &nbsp;<b id="t-usdinr2">Loading...</b></span>
+    <span>📌 ITR Deadline: <b>31 July 2026</b></span>
+    <span>New Regime — Zero Tax up to <b>₹12 Lakh</b></span>
+    <span>LTCG: <b>12.5%</b> &nbsp;|&nbsp; STCG Equity: <b>20%</b></span>
+    <span>GST 2.0 — Insurance now <b>Exempt</b></span>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-cat="all">All</button>
+  <button class="filter-btn" data-cat="Indian Stock Market">📈 Stock Market</button>
+  <button class="filter-btn" data-cat="GST & Tax Updates">📋 GST & Tax</button>
+  <button class="filter-btn" data-cat="RBI & Banking">🏦 RBI & Banking</button>
+  <button class="filter-btn" data-cat="Company Earnings & Results">🏢 Earnings</button>
+  <button class="filter-btn" data-cat="Budget & Policy News">🏛️ Policy</button>
+  <button class="filter-btn" data-cat="Current Affairs">🌍 Current Affairs</button>
+  <button class="filter-btn" data-cat="Hot News">🔥 Hot</button>
+  <button class="filter-btn" data-cat="vishwa">✍️ By Vishwa</button>
+  <div class="search-wrap">
+    <input type="text" id="search-input" placeholder="Search news..." oninput="filterNews()"/>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+<!-- MAIN FEED -->
+  <div id="main-feed">
+
+    <!-- News Feed FIRST -->
+    <div id="news-section">
+      <div class="slbl">
+        📰 Latest News
+        <span class="ai-tag">🤖 AI Summarised</span>
+      </div>
+      <div class="news-grid" id="news-grid">
+        <div class="news-card" style="grid-column:span 2;padding:32px;text-align:center">
+          <span class="spinner"></span> Loading latest news...
+        </div>
+      </div>
+      <div class="load-more" id="load-more-wrap" style="display:none">
+        <button class="load-btn" onclick="loadMoreNews()">Load More →</button>
+      </div>
+    </div>
+
+    <!-- Vishwa Posts SECOND -->
+    <div id="vishwa-section" style="margin-top:40px">
+      <div class="slbl">✍️ From Vishwa</div>
+      <div id="vishwa-posts">
+        <div class="empty"><div class="icon">✍️</div>Loading posts from Vishwa...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+
+    <!-- Vishwa Quick Takes -->
+    <div class="vishwa-card">
+      <div class="vishwa-head">
+        <div class="v-avatar">V</div>
+        <div>
+          <h4>Vishwa's Quick Takes</h4>
+          <span><div class="live-dot" style="display:inline-block;margin-right:4px"></div>updated live</span>
+        </div>
+      </div>
+      <div id="quick-takes">
+        <div class="v-post"><div class="empty" style="padding:16px">Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- Hot News -->
+    <div class="hot-card">
+      <div class="hot-head">
+        <div class="hot-dot"></div>
+        <span>🔥 Trending Now</span>
+      </div>
+      <div id="hot-news">
+        <div class="hot-item"><span class="hot-num">—</span><p>Loading trending news...</p></div>
+      </div>
+    </div>
+
+    <!-- Market Snapshot -->
+    <div class="market-card">
+      <h4>
+        📊 Market Snapshot
+        <span style="font-size:0.6rem;color:var(--green);font-weight:400;margin-left:auto">
+          <div class="live-dot" style="display:inline-block;margin-right:3px;width:5px;height:5px"></div>60s refresh
+        </span>
+      </h4>
+      <div id="mkt-snapshot">
+        <div class="mkt-row"><span class="mkt-name">NIFTY 50</span><span class="mkt-val" id="s-nifty">—</span></div>
+        <div class="mkt-row"><span class="mkt-name">SENSEX</span><span class="mkt-val" id="s-sensex">—</span></div>
+        <div class="mkt-row"><span class="mkt-name">BANK NIFTY</span><span class="mkt-val" id="s-banknifty">—</span></div>
+        <div class="mkt-row"><span class="mkt-name">USD/INR</span><span class="mkt-val" id="s-usdinr">—</span></div>
+        <div class="mkt-row"><span class="mkt-name">GOLD (MCX)</span><span class="mkt-val" id="s-gold">—</span></div>
+      </div>
+      <div class="mkt-time" id="mkt-time">Fetching...</div>
+    </div>
+
+    <!-- Claude Daily Insight -->
+    <div class="claude-card">
+      <div class="claude-head">
+        <div class="claude-icon">🤖</div>
+        <span>Claude's Market Insight</span>
+      </div>
+      <p id="claude-insight">Generating today's market insight...</p>
+      <div class="claude-time" id="claude-time"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="position:relative;z-index:1;background:var(--navy-900);border-top:1px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:var(--slate)">
+  <span>© 2026 TheFinVerge Services · <a href="index.html" style="color:var(--gold-400)">thefinvergeservices.com</a></span>
+  <span>Market Pulse · AI-Powered News · Updated Every 15 Minutes</span>
+  <span><a href="index.html#contact" style="color:var(--gold-400)">📞 Book Intro Call</a></span>
+</footer>
+
+<script>
+/* =============================================
+   THEFINVERGE NEWS PAGE
+   Supabase + Market Data + Auto Refresh
+============================================= */
+const SUPABASE_URL = 'https://cdolopmcfllikyjbfhhv.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkb2xvcG1jZmxsaWt5amJmaGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NjIyNzgsImV4cCI6MjA5MDUzODI3OH0.5W6_VvM4LNM6FmYRwHyWlnkJ7bQ0G4_K-vwWOFtVJZc';
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let allNews = [];
+let allPosts = [];
+let currentFilter = 'all';
+let newsPage = 1;
+const PAGE_SIZE = 6;
+
+const CATEGORY_ICONS = {
+  'Indian Stock Market': '📈',
+  'GST & Tax Updates': '📋',
+  'RBI & Banking': '🏦',
+  'Company Earnings & Results': '🏢',
+  'Budget & Policy News': '🏛️',
+  'Current Affairs': '🌍',
+  'Hot News': '🔥',
+  'General': '📰'
+};
+
+const THUMB_CLASSES = {
+  'Indian Stock Market': 'mkt',
+  'GST & Tax Updates': 'gst',
+  'RBI & Banking': 'tax',
+  'Company Earnings & Results': 'mkt',
+  'Budget & Policy News': 'tax',
+  'Current Affairs': 'mkt',
+  'Hot News': 'gst',
+  'General': 'tax'
+};
+
+const THUMB_EMOJIS = {
+  'Indian Stock Market': '📈',
+  'GST & Tax Updates': '📋',
+  'RBI & Banking': '🏦',
+  'Company Earnings & Results': '🏢',
+  'Budget & Policy News': '🏛️',
+  'Current Affairs': '🌍',
+  'Hot News': '🔥',
+  'General': '📰'
+};
+
+function timeAgo(dateStr) {
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diff = Math.floor((now - d) / 1000);
+  if (diff < 60) return 'Just now';
+  if (diff < 3600) return Math.floor(diff/60) + ' min ago';
+  if (diff < 86400) return Math.floor(diff/3600) + ' hr ago';
+  return d.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function escHtml(str) {
+  return str ? str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
+}
+
+/* ── MARKET DATA ── */
+async function fetchMarketData() {
+  try {
+    const res = await fetch(
+      'https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/market-data',
+      { headers: { 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'apikey': SUPABASE_ANON_KEY } }
+    );
+    const data = await res.json();
+
+    const keys = [
+      { key:'nifty', elIds:['t-nifty','t-nifty2','s-nifty'], name:'NIFTY 50' },
+      { key:'sensex', elIds:['t-sensex','t-sensex2','s-sensex'], name:'SENSEX' },
+      { key:'usdinr', elIds:['t-usdinr','t-usdinr2','s-usdinr'], name:'USD/INR' }
+    ];
+
+    for (const k of keys) {
+      const s = data[k.key];
+      if (!s) continue;
+      const tickerText = `${s.arrow} ${s.price} <small>(${s.isUp ? '+' : ''}${s.change}%)</small>`;
+      const cls = s.isUp ? 'up' : 'dn';
+      k.elIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.innerHTML = tickerText; el.className = cls; }
+      });
+    }
+
+    // Bank Nifty placeholder
+    const bnEl = document.getElementById('s-banknifty');
+    if (bnEl) { bnEl.innerHTML = '—'; bnEl.className = 'mkt-val'; }
+
+    // Gold placeholder
+    const goldEl = document.getElementById('s-gold');
+    if (goldEl) { goldEl.innerHTML = '—'; goldEl.className = 'mkt-val'; }
+
+    const now = new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+    const timeEl = document.getElementById('mkt-time');
+    if (timeEl) timeEl.textContent = `Updated at ${now} IST`;
+
+  } catch(e) {
+    console.warn('Market data error:', e);
+  }
+}
+
+/* ── POSTS FROM SUPABASE ── */
+async function fetchPosts() {
+  try {
+    const { data, error } = await sb
+      .from('posts')
+      .select('*')
+      .eq('is_published', true)
+      .order('created_at', { ascending: false })
+      .limit(10);
+
+    if (error) throw error;
+    allPosts = data || [];
+    renderVishwaPosts();
+    renderQuickTakes();
+    renderFeaturedPost();
+  } catch(e) {
+    console.warn('Posts fetch error:', e);
+    renderFallbackPosts();
+  }
+}
+
+function renderFallbackPosts() {
+  const fallback = [
+    {
+      title: 'Income Tax Act 2025 is Live — What Actually Changed for You',
+      content: 'Most articles talk about section numbers. Let me cut through the noise and tell you exactly what this means for your salary, ITR filing, and tax saving strategy for FY 2026-27. Key changes: Tax Year replaces AY/FY, Form 130 replaces Form 16, ITR-3/4 deadline extended to 31 August.',
+      category: 'Budget & Policy News',
+      is_featured: true,
+      created_at: new Date().toISOString()
+    },
+    {
+      title: 'New Form 130 replaces Form 16 — Collect it from your employer by June 2026',
+      content: 'Under Income Tax Act 2025, Form 16 is now Form 130. Same purpose, new format. Ask HR to issue it in the new format only.',
+      category: 'GST & Tax Updates',
+      is_featured: false,
+      created_at: new Date(Date.now() - 3600000).toISOString()
+    },
+    {
+      title: 'LTCG exemption resets on 1 April — Book ₹1.25L gains before end of this week',
+      content: 'New FY means your ₹1.25L LTCG exemption is fresh. If you have unrealised equity gains consider booking now to start the new year with a clean slate.',
+      category: 'Indian Stock Market',
+      is_featured: false,
+      created_at: new Date(Date.now() - 7200000).toISOString()
+    }
+  ];
+  allPosts = fallback;
+  renderVishwaPosts();
+  renderQuickTakes();
+  renderFeaturedPost();
+}
+
+function renderFeaturedPost() {
+  const featured = allPosts.find(p => p.is_featured) || allPosts[0];
+  if (!featured) return;
+  const section = document.getElementById('vishwa-section');
+  const thumbCls = THUMB_CLASSES[featured.category] || 'tax';
+  const thumbEmoji = THUMB_EMOJIS[featured.category] || '📰';
+  const catIcon = CATEGORY_ICONS[featured.category] || '📰';
+
+  const html = `
+    <div class="slbl">✍️ From Vishwa</div>
+    <div class="featured-post" onclick="showPostModal(${featured.id})" style="cursor:pointer;">
+      <div class="post-thumb ${thumbCls}">
+        ${thumbEmoji}
+        <div class="thumb-badges">
+          <span class="cat-badge">${catIcon} ${escHtml(featured.category)}</span>
+          <span class="vishwa-badge">✍️ By Vishwa</span>
+        </div>
+      </div>
+      <div class="post-body">
+        <h3>${escHtml(featured.title)}</h3>
+        <p>${escHtml(featured.content?.substring(0, 180))}${(featured.content?.length || 0) > 180 ? '...' : ''}</p>
+        <div class="post-meta">
+          <span>TheFinVerge</span>
+          <span>•</span>
+          <span>${timeAgo(featured.created_at)}</span>
+          ${featured.is_featured ? '<span style="color:var(--green)">★ Featured</span>' : ''}
+        </div>
+      </div>
+    </div>`;
+
+  section.innerHTML = html;
+
+  const others = allPosts.filter(p => p !== featured).slice(0, 3);
+  if (others.length > 0) {
+    const grid = document.createElement('div');
+    grid.className = 'news-grid';
+    grid.style.marginBottom = '4px';
+    others.forEach(post => {
+      grid.innerHTML += `
+        <div class="news-card" onclick="showPostModal(${post.id})" style="cursor:pointer;">
+          <div class="news-card-top">
+            <span class="news-cat">${CATEGORY_ICONS[post.category] || '📰'} ${escHtml(post.category)}</span>
+            <span class="sentiment s-pos vishwa-badge" style="font-size:0.58rem;padding:2px 6px">✍️ Vishwa</span>
+          </div>
+          <h4>${escHtml(post.title)}</h4>
+          <p>${escHtml(post.content?.substring(0, 120))}...</p>
+          <div class="news-src"><span>${timeAgo(post.created_at)}</span></div>
+        </div>`;
+    });
+    section.appendChild(grid);
+  }
+}
+
+function renderQuickTakes() {
+  const el = document.getElementById('quick-takes');
+  const posts = allPosts.slice(0, 3);
+  if (!posts.length) {
+    el.innerHTML = '<div class="v-post"><p style="padding:12px;color:var(--slate);font-size:0.8rem">No posts yet.</p></div>';
+    return;
+  }
+  el.innerHTML = posts.map(p => `
+    <div class="v-post" onclick="showPostModal(${p.id})" style="cursor:pointer;">
+      <div class="v-cat">${CATEGORY_ICONS[p.category] || '📰'} ${escHtml(p.category)}</div>
+      <h5>${escHtml(p.title)}</h5>
+      <p>${escHtml(p.content?.substring(0, 100))}${(p.content?.length || 0) > 100 ? '...' : ''}</p>
+      <div class="v-time">${timeAgo(p.created_at)}</div>
+    </div>`).join('');
+}
+
+function renderVishwaPosts() {
+  // Already handled in featured post rendering
+}
+
+/* ── NEWS FROM SUPABASE ── */
+async function fetchNews() {
+  try {
+    const { data, error } = await sb
+      .from('news_cache')
+      .select('*')
+      .eq('is_active', true)
+      .order('fetched_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+    allNews = data || [];
+
+    if (allNews.length === 0) {
+      renderFallbackNews();
+    } else {
+      renderNews();
+    }
+
+    const now = new Date().toLocaleString('en-IN', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+    const el = document.getElementById('last-updated');
+    if (el) el.textContent = `⏱ Last updated: ${now} IST · Auto-refreshes every 15 min`;
+
+  } catch(e) {
+    console.warn('News fetch error:', e);
+    renderFallbackNews();
+  }
+}
+
+function renderFallbackNews() {
+  allNews = [
+    { title:'FIIs Pull Out ₹15,000 Cr — What It Means for Your Portfolio', summary:'Foreign investors continued selling Indian equities amid global uncertainty. Mid and small caps took the hardest hit. For long-term SIP investors this is noise — stay invested.', category:'Indian Stock Market', source:'Economic Times', source_url:'#', sentiment:'NEGATIVE', fetched_at:new Date().toISOString() },
+    { title:'RBI Rate Cut — Home Loan EMIs Set to Fall', summary:'The MPC voted to reduce the repo rate. Borrowers with floating rate loans will benefit immediately. This is positive for banking and real estate sectors.', category:'RBI & Banking', source:'RBI', source_url:'#', sentiment:'POSITIVE', fetched_at:new Date(Date.now()-3600000).toISOString() },
+    { title:'GST Council Exempts Health Insurance from Tax', summary:'Individual health and life insurance premiums are now GST exempt. This reduces your annual premium cost significantly — great news for middle class families.', category:'GST & Tax Updates', source:'Business Standard', source_url:'#', sentiment:'POSITIVE', fetched_at:new Date(Date.now()-7200000).toISOString() },
+    { title:'TCS Q4 Results — Revenue Up 4.5% but Margins Under Pressure', summary:'TCS reported steady topline growth but margins contracted due to salary hikes. Deal wins remain strong. Neutral for retail investors holding TCS for long term.', category:'Company Earnings & Results', source:'Moneycontrol', source_url:'#', sentiment:'NEUTRAL', fetched_at:new Date(Date.now()-10800000).toISOString() },
+    { title:'US Tariff Escalation — Impact on Indian IT and Pharma', summary:'New US tariffs on Indian goods could impact exports. IT services and pharma are the most exposed sectors. Monitor your IT sector mutual fund exposure.', category:'Current Affairs', source:'NDTV', source_url:'#', sentiment:'NEGATIVE', fetched_at:new Date(Date.now()-14400000).toISOString() },
+    { title:'CBDT Extends ITR-3 & ITR-4 Deadline to 31 August 2026', summary:'Non-audit taxpayers filing ITR-3 and ITR-4 now have until 31 August. ITR-1 and ITR-2 deadline remains 31 July. Plan accordingly.', category:'Budget & Policy News', source:'Income Tax Dept', source_url:'#', sentiment:'POSITIVE', fetched_at:new Date(Date.now()-18000000).toISOString() },
+    { title:'Sensex Crosses 78,000 — Bull Run Continues Despite Global Headwinds', summary:'Indian markets showing resilience with strong domestic institutional buying. SIP inflows at record ₹26,000 Cr monthly supporting the market floor.', category:'Indian Stock Market', source:'Economic Times', source_url:'#', sentiment:'POSITIVE', fetched_at:new Date(Date.now()-21600000).toISOString() },
+    { title:'GST 2.0 — All You Need to Know About the New Rate Structure', summary:'The new two-slab GST structure (5% and 18%) is now fully operational. Key beneficiaries are insurance, electronics, and small cars. Businesses must update billing systems.', category:'GST & Tax Updates', source:'ClearTax', source_url:'#', sentiment:'POSITIVE', fetched_at:new Date(Date.now()-25200000).toISOString() },
+  ];
+  renderNews();
+}
+
+function getFilteredNews() {
+  const search = document.getElementById('search-input')?.value?.toLowerCase() || '';
+  let filtered = allNews;
+
+  if (currentFilter === 'vishwa') {
+    filtered = allPosts;
+  } else if (currentFilter !== 'all') {
+    filtered = allNews.filter(n => n.category === currentFilter);
+  }
+
+  if (search) {
+    filtered = filtered.filter(n =>
+      n.title?.toLowerCase().includes(search) ||
+      n.summary?.toLowerCase().includes(search) ||
+      n.content?.toLowerCase().includes(search)
+    );
+  }
+
+  return filtered;
+}
+
+function renderNews() {
+  const filtered = getFilteredNews();
+  const grid = document.getElementById('news-grid');
+  const loadMore = document.getElementById('load-more-wrap');
+  const toShow = filtered.slice(0, newsPage * PAGE_SIZE);
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="news-card" style="grid-column:span 2">
+      <div class="empty"><div class="icon">🔍</div>No news found for this filter.</div>
+    </div>`;
+    if (loadMore) loadMore.style.display = 'none';
+    return;
+  }
+
+  grid.innerHTML = toShow.map(n => {
+    const sentCls = n.sentiment === 'POSITIVE' ? 's-pos' : n.sentiment === 'NEGATIVE' ? 's-neg' : 's-neu';
+    const sentEmoji = n.sentiment === 'POSITIVE' ? '▲' : n.sentiment === 'NEGATIVE' ? '▼' : '—';
+    const fullText = n.summary || n.content || '';
+    return `
+      <div class="news-card" onclick="showNewsModal(this)"
+        data-title="${escHtml(n.title)}"
+        data-summary="${escHtml(fullText)}"
+        data-source="${escHtml(n.source || 'TheFinVerge')}"
+        data-time="${escHtml(timeAgo(n.fetched_at || n.created_at))}"
+        data-cat="${escHtml(n.category || 'General')}"
+        data-url="${escHtml(n.source_url || '#')}"
+        style="cursor:pointer;">
+        <div class="news-card-top">
+          <span class="news-cat">${CATEGORY_ICONS[n.category] || '📰'} ${escHtml(n.category || 'General')}</span>
+          <span class="sentiment ${sentCls}">${sentEmoji} ${escHtml(n.sentiment || 'NEUTRAL')}</span>
+        </div>
+        <h4>${escHtml(n.title)}</h4>
+        <p>${escHtml(fullText.substring(0, 150))}${fullText.length > 150 ? '...' : ''}</p>
+        <div class="news-src">
+          <span>${escHtml(n.source || 'TheFinVerge')}</span>
+          <span>•</span>
+          <span>${timeAgo(n.fetched_at || n.created_at)}</span>
+          <span class="ai-tag">🤖 AI</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  if (loadMore) {
+    loadMore.style.display = filtered.length > toShow.length ? 'block' : 'none';
+  }
+}
+
+function loadMoreNews() {
+  newsPage++;
+  renderNews();
+}
+
+function filterNews() {
+  newsPage = 1;
+  renderNews();
+}
+
+/* ── HOT NEWS ── */
+function renderHotNews() {
+  const hot = [
+    ...allNews.filter(n => n.sentiment === 'NEGATIVE').slice(0, 2),
+    ...allNews.filter(n => n.sentiment === 'POSITIVE').slice(0, 2),
+    ...allNews.slice(0, 1)
+  ].slice(0, 5);
+
+  const el = document.getElementById('hot-news');
+  if (!el || !hot.length) return;
+
+  el.innerHTML = hot.map((n, i) => `
+    <div class="hot-item" ${n.source_url && n.source_url !== '#' ? `onclick="window.open('${escHtml(n.source_url)}','_blank')"` : ''} style="cursor:${n.source_url && n.source_url !== '#' ? 'pointer' : 'default'}">
+      <span class="hot-num">0${i+1}</span>
+      <p>${escHtml(n.title?.substring(0, 80))}${(n.title?.length || 0) > 80 ? '...' : ''}</p>
+    </div>`).join('');
+}
+
+/* ── CLAUDE INSIGHT ── */
+async function generateClaudeInsight() {
+  const el = document.getElementById('claude-insight');
+  const timeEl = document.getElementById('claude-time');
+  if (!el) return;
+
+  const cached = sessionStorage.getItem('claude_insight');
+  const cachedTime = sessionStorage.getItem('claude_insight_time');
+  const now = Date.now();
+
+  if (cached && cachedTime && (now - parseInt(cachedTime)) < 3600000) {
+    el.textContent = cached;
+    if (timeEl) timeEl.textContent = 'Generated today · ' + new Date(parseInt(cachedTime)).toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' }) + ' IST';
+    return;
+  }
+
+  try {
+    const headlines = allNews.slice(0, 5).map(n => n.title).join('\n');
+    const res = await fetch('https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/Chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 150,
+        system: 'You are a financial analyst for TheFinVerge Services. Given today\'s top headlines, write a 2-sentence market insight for Indian retail investors. Be specific, actionable, and conversational. No disclaimers.',
+        messages: [{ role: 'user', content: `Today's top finance headlines:\n${headlines}\n\nWrite a 2-sentence insight for Indian retail investors.` }]
+      })
+    });
+    const data = await res.json();
+    const insight = data.content?.[0]?.text || 'Markets remain volatile today. Stay focused on your long-term financial goals and avoid making impulsive decisions based on short-term news.';
+    el.textContent = insight;
+    sessionStorage.setItem('claude_insight', insight);
+    sessionStorage.setItem('claude_insight_time', now.toString());
+    if (timeEl) timeEl.textContent = 'Generated today · ' + new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' }) + ' IST';
+  } catch(e) {
+    el.textContent = 'Markets are evolving. Focus on your fundamentals — file on time, invest consistently, and stay tax-efficient. That\'s what we\'re here for.';
+  }
+}
+
+/* ── FILTER BUTTONS ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentFilter = this.dataset.cat;
+    newsPage = 1;
+
+    const vishwaSection = document.getElementById('vishwa-section');
+    const newsSection = document.getElementById('news-section');
+
+    if (currentFilter === 'vishwa') {
+      if (vishwaSection) vishwaSection.style.display = 'block';
+      if (newsSection) newsSection.style.display = 'none';
+    } else if (currentFilter === 'all') {
+      if (vishwaSection) vishwaSection.style.display = 'block';
+      if (newsSection) newsSection.style.display = 'block';
+      renderNews();
+    } else {
+      if (vishwaSection) vishwaSection.style.display = 'none';
+      if (newsSection) newsSection.style.display = 'block';
+      renderNews();
+    }
+  });
+});
+
+/* ── MOBILE NAV ── */
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').style.boxShadow =
+    window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.4)' : 'none';
+}, { passive: true });
+
+/* ── INIT & AUTO REFRESH ── */
+async function init() {
+  await Promise.all([fetchMarketData(), fetchPosts(), fetchNews()]);
+  renderHotNews();
+  generateClaudeInsight();
+}
+
+init();
+
+// Market: every 60 seconds
+setInterval(fetchMarketData, 60 * 1000);
+
+// News + posts: every 15 minutes
+setInterval(async () => {
+  await Promise.all([fetchPosts(), fetchNews()]);
+  renderHotNews();
+  generateClaudeInsight();
+}, 15 * 60 * 1000);
+// ── NEWS MODAL ──
+function showNewsModal(card) {
+  const title   = card.dataset.title;
+  const summary = card.dataset.summary;
+  const source  = card.dataset.source;
+  const time    = card.dataset.time;
+  const cat     = card.dataset.cat;
+  const url     = card.dataset.url;
+
+  const existing = document.getElementById('news-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'news-modal';
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:3000;
+    background:rgba(4,13,30,0.92);
+    backdrop-filter:blur(12px);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      background:var(--navy-800);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:36px;
+      max-width:600px;
+      width:100%;
+      position:relative;
+      max-height:90vh;
+      overflow-y:auto;
+    ">
+      <button onclick="document.getElementById('news-modal').remove()" style="
+        position:absolute;top:16px;right:20px;
+        background:none;border:none;color:var(--slate);
+        font-size:1.4rem;cursor:pointer;line-height:1;
+      ">✕</button>
+
+      <div style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-500);margin-bottom:12px;">
+        ${CATEGORY_ICONS[cat] || '📰'} ${cat}
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;line-height:1.3;margin-bottom:16px;color:var(--white);">
+        ${title}
+      </h3>
+
+      <p style="color:var(--slate-light);font-size:0.95rem;line-height:1.8;margin-bottom:24px;">
+        ${summary}
+      </p>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--slate);">
+          ${source} · ${time}
+        </div>
+        ${url && url !== '#' ? `
+          <a href="${url}" target="_blank" rel="noopener" style="
+            background:var(--gold-500);color:var(--navy-950);
+            padding:8px 18px;border-radius:6px;
+            font-size:0.8rem;font-weight:700;
+            text-decoration:none;
+          ">Read Full Article →</a>
+        ` : ''}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) modal.remove();
+  });
+}
+// ── POST MODAL ──
+function showPostModal(postId) {
+  const post = allPosts.find(p => p.id == postId);
+  if (!post) return;
+
+  const existing = document.getElementById('post-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'post-modal';
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:3000;
+    background:rgba(4,13,30,0.92);
+    backdrop-filter:blur(12px);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      background:#0d1f45;
+      border:1px solid rgba(201,168,76,0.25);
+      border-radius:20px;
+      padding:40px;
+      max-width:640px;
+      width:100%;
+      position:relative;
+      max-height:88vh;
+      overflow-y:auto;
+    ">
+      <button onclick="document.getElementById('post-modal').remove()" style="
+        position:absolute;top:16px;right:20px;
+        background:none;border:none;color:#8a9ab5;
+        font-size:1.4rem;cursor:pointer;
+      ">✕</button>
+
+      <div style="font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;
+        color:#c9a84c;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">
+        ✍️ By Vishwa · ${escHtml(post.category || 'General')}
+      </div>
+
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;
+        font-weight:800;line-height:1.3;margin-bottom:20px;color:#f4f6fa;">
+        ${escHtml(post.title)}
+      </h3>
+
+      <p style="color:#b0bfd4;font-size:1rem;line-height:1.9;margin-bottom:28px;white-space:pre-line;">
+        ${escHtml(post.content || '')}
+      </p>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;
+        flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);">
+        <div style="font-size:0.72rem;color:#8a9ab5;font-family:'JetBrains Mono',monospace;">
+          TheFinVerge · ${timeAgo(post.created_at)}
+        </div>
+        <a href="index.html#contact" style="
+          background:#c9a84c;color:#040d1e;
+          padding:9px 20px;border-radius:6px;
+          font-size:0.82rem;font-weight:700;
+          text-decoration:none;
+        ">Book a Consultation →</a>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if(e.target === modal) modal.remove(); });
+}
+</script>
+<!-- WHATSAPP BUTTON -->
+<a href="https://wa.me/918754038601?text=Hi%20Vishwa!%20I%20found%20TheFinVerge%20and%20would%20like%20to%20know%20more%20about%20your%20services."
+   target="_blank"
+   rel="noopener"
+   id="whatsapp-btn"
+   aria-label="Chat on WhatsApp"
+   style="
+     position:fixed;
+     bottom:100px;
+     right:28px;
+     z-index:9997;
+     width:52px;
+     height:52px;
+     background:#25d366;
+     border-radius:50%;
+     display:flex;
+     align-items:center;
+     justify-content:center;
+     box-shadow:0 4px 20px rgba(37,211,102,0.4);
+     transition:transform 0.2s, box-shadow 0.2s;
+     text-decoration:none;
+   "
+   onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,0.55)'"
+   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,0.4)'"
+>
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+</body>
+</html>
