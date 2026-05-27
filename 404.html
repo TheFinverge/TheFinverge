@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<title>Page Not Found | TheFinVerge Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f0fdf8;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+nav{position:fixed;top:0;left:0;right:0;background:rgba(6,78,59,0.97);padding:14px 40px;display:flex;align-items:center;justify-between;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;color:#f0fdf4}
+.nav-logo-text span{color:#34d399}
+.icon-wrap{width:80px;height:80px;background:#dcfce7;border:1px solid rgba(5,150,105,0.2);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2.5rem}
+.code{font-family:'JetBrains Mono',monospace;font-size:5rem;font-weight:500;color:#059669;line-height:1;margin-bottom:8px}
+h1{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#0f172a;margin-bottom:12px}
+p{font-size:1rem;color:#4b5563;line-height:1.7;max-width:420px;margin:0 auto 32px}
+.links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.btn-primary{background:#059669;color:#fff;border:none}
+.btn-primary:hover{background:#047857}
+.btn-outline{background:transparent;color:#059669;border:1.5px solid rgba(5,150,105,0.35)}
+.btn-outline:hover{border-color:#059669;background:rgba(5,150,105,0.05)}
+.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:380px;margin:32px auto 0}
+.tool-link{background:#fff;border:1px solid rgba(5,150,105,0.18);border-radius:10px;padding:14px;text-decoration:none;transition:all 0.2s}
+.tool-link:hover{border-color:#059669;transform:translateY(-2px)}
+.tool-link .ico{font-size:1.4rem;display:block;margin-bottom:4px}
+.tool-link .nm{font-size:12px;font-weight:600;color:#0f172a}
+.tool-link .ds{font-size:11px;color:#6b7280;margin-top:2px}
+@media(max-width:480px){.code{font-size:3.5rem}.links{flex-direction:column;align-items:center}.tools{grid-template-columns:1fr}}
+</style>
+<!-- Microsoft Clarity Heatmap -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wxrgzi9ena");
+</script>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="7" fill="#10b981"/><polyline points="7,26 13,18 20,22 29,10" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="29" cy="10" r="2.5" fill="#ffffff"/></svg>
+    <div><div class="nav-logo-text">The<span>FinVerge</span></div></div>
+  </a>
+</nav>
+
+<div style="margin-top:80px">
+  <div class="code">404</div>
+  <div class="icon-wrap">🔍</div>
+  <h1>Page not found</h1>
+  <p>The page you're looking for doesn't exist or may have moved. Try one of the links below or head back home.</p>
+  <div class="links">
+    <a href="index.html" class="btn btn-primary">← Back to Home</a>
+    <a href="index.html#contact" class="btn btn-outline">Book a Consultation</a>
+  </div>
+
+  <div class="tools">
+    <a href="calculator.html" class="tool-link">
+      <span class="ico">🧮</span>
+      <div class="nm">Tax Calculator</div>
+      <div class="ds">Old vs New regime</div>
+    </a>
+    <a href="capital-gains.html" class="tool-link">
+      <span class="ico">📈</span>
+      <div class="nm">Capital Gains</div>
+      <div class="ds">STCG & LTCG tool</div>
+    </a>
+    <a href="sip-planner.html" class="tool-link">
+      <span class="ico">🎯</span>
+      <div class="nm">SIP Planner</div>
+      <div class="ds">Back-calculate SIP</div>
+    </a>
+    <a href="news.html" class="tool-link">
+      <span class="ico">📰</span>
+      <div class="nm">Market Pulse</div>
+      <div class="ds">Live finance news</div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

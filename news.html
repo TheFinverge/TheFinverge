@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+
 <title>Market Pulse & Finance Insights | TheFinVerge Services</title>
 <meta name="description" content="Real-time Indian finance news, market updates, GST & tax alerts, RBI announcements — AI-powered summaries by TheFinVerge Services, Chennai."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.thefinvergeservices.com/news.html"/>
+<meta property="og:title" content="Market Pulse & Finance Insights | TheFinVerge Services"/>
+<meta property="og:description" content="Real-time Indian stock market news, GST & tax updates, RBI policy — AI-powered summaries updated every 15 minutes."/>
+<meta property="og:image" content="https://www.thefinvergeservices.com/og-image.png"/>
+<meta property="og:site_name" content="TheFinVerge Services"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Market Pulse & Finance Insights | TheFinVerge Services"/>
+<meta name="twitter:description" content="Real-time Indian stock market news, GST & tax updates, RBI policy — AI-powered summaries updated every 15 minutes."/>
+<meta name="twitter:image" content="https://www.thefinvergeservices.com/og-image.png"/>
+<link rel="canonical" href="https://www.thefinvergeservices.com/news.html"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -25,24 +37,32 @@
    Responsive — Mobile/Tablet/Laptop/Desktop
 ============================================================ */
 :root {
-  --navy-950:#040d1e; --navy-900:#070f26; --navy-800:#0d1f45;
-  --navy-700:#102258; --navy-600:#1a3270;
-  --gold-500:#c9a84c; --gold-400:#d4b96a;
-  --gold-glow:rgba(201,168,76,0.15);
-  --slate:#8a9ab5; --slate-light:#b0bfd4;
-  --white:#f4f6fa;
-  --white-dim:rgba(244,246,250,0.06);
-  --green:#4caf82; --green-dim:rgba(76,175,130,0.12);
-  --red:#e05252; --red-dim:rgba(224,82,82,0.1);
-  --blue:#4a9eff; --blue-dim:rgba(74,158,255,0.08);
-  --border:rgba(201,168,76,0.2);
-  --border-soft:rgba(255,255,255,0.07);
-  --font-display:'Playfair Display',Georgia,serif;
-  --font-body:'DM Sans',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
-  --radius:12px; --radius-lg:18px;
-  --transition:0.2s ease;
-}
+    --navy-950: #f0fdf8;
+    --navy-900: #f0fdf4;
+    --navy-800: #dcfce7;
+    --navy-700: #bbf7d0;
+    --navy-600: #86efac;
+    --gold-500: #059669;
+    --gold-400: #10b981;
+    --gold-300: #34d399;
+    --gold-glow: rgba(5,150,105,0.1);
+    --slate:     #6b7280;
+    --slate-light: #4b5563;
+    --white:     #0f172a;
+    --white-dim: rgba(15,23,42,0.05);
+    --white-mid: rgba(15,23,42,0.45);
+    --red-accent: #dc2626;
+    --green-accent: #16a34a;
+    --border: rgba(5,150,105,0.2);
+    --border-soft: rgba(5,150,105,0.1);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+    --font-mono:    'JetBrains Mono', monospace;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow-card: 0 4px 24px rgba(15,23,42,0.07);
+    --shadow-gold: 0 0 40px rgba(5,150,105,0.1);
+  }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
@@ -55,8 +75,8 @@ body{
 }
 body::before{
   content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(201,168,76,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(201,168,76,0.025) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(5,150,105,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(5,150,105,0.025) 1px,transparent 1px);
   background-size:60px 60px;pointer-events:none;z-index:0;
 }
 img{max-width:100%;height:auto;display:block}
@@ -69,35 +89,37 @@ nav{
   display:-webkit-flex;display:flex;
   align-items:center;justify-content:space-between;
   padding:14px 48px;
-  background:rgba(4,13,30,0.92);
+  background:rgba(6,78,59,0.85);
   -webkit-backdrop-filter:blur(20px);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
-.nav-logo{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--white)}
-.nav-logo span{color:var(--gold-500)}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-family:var(--font-display);font-size:1.15rem;font-weight:900;color:#f0fdf4;letter-spacing:-0.4px;line-height:1}
+.nav-logo span{color:#34d399}
+.nav-logo-sub{font-family:var(--font-body);font-size:8px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#6ee7b7;margin-top:2px;display:block;line-height:1}
 .nav-links{display:-webkit-flex;display:flex;gap:24px;list-style:none;align-items:center}
-.nav-links a{color:var(--slate-light);font-size:0.85rem;font-weight:500;transition:color var(--transition)}
-.nav-links a:hover{color:var(--gold-400)}
-.nav-back{background:var(--white-dim);border:1px solid var(--border-soft);padding:7px 14px;border-radius:6px;font-size:0.78rem!important}
+.nav-links a{color:#a7f3d0;font-size:0.85rem;font-weight:500;transition:color var(--transition)}
+.nav-links a:hover{color:#ffffff}
+.nav-back:hover{background:rgba(255,255,255,0.15)!important;color:#ffffff!important;border-color:rgba(52,211,153,0.6)!important}
+.nav-back{background:rgba(255,255,255,0.08);border:1px solid rgba(52,211,153,0.35);padding:7px 14px;border-radius:6px;font-size:0.78rem!important;color:#a7f3d0!important;transition:all 0.2s!important}
 .nav-live{display:-webkit-flex;display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:0.7rem;color:var(--green)}
 .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;-webkit-animation:pulse 2s infinite;animation:pulse 2s infinite;flex-shrink:0}
 @-webkit-keyframes pulse{0%,100%{opacity:1;-webkit-transform:scale(1)}50%{opacity:0.5;-webkit-transform:scale(0.8)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
 .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
-.ham span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:var(--transition);display:block}
+.ham span{width:22px;height:2px;background:#ffffff;border-radius:2px;transition:var(--transition);display:block}
 
 /* ── HERO ── */
 .hero{
   position:relative;z-index:1;
-  background:linear-gradient(135deg,var(--navy-800),var(--navy-700));
+  background:linear-gradient(135deg,#064e3b,#065f46);
   border-bottom:1px solid var(--border);
   padding:48px 48px 36px;overflow:hidden;
 }
 .hero::before{
   content:'';position:absolute;right:-80px;top:-80px;
   width:400px;height:400px;
-  background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);
+  background:radial-gradient(circle,rgba(5,150,105,0.08),transparent 70%);
   border-radius:50%;pointer-events:none;
 }
 .hero-inner{max-width:900px;position:relative;z-index:1}
@@ -106,29 +128,30 @@ nav{
   align-items:center;gap:8px;
   font-family:var(--font-mono);font-size:0.7rem;
   letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--gold-400);margin-bottom:16px;
+  color:#34d399;margin-bottom:16px;
 }
 .hero h1{
   font-family:var(--font-display);
   font-size:clamp(1.8rem,4vw,3rem);
   font-weight:900;letter-spacing:-1.5px;line-height:1.08;
-  margin-bottom:12px;
+  margin-bottom:12px;color:#f0fdf4;
 }
-.hero h1 span{color:var(--gold-500)}
-.hero p{color:var(--slate-light);font-size:1rem;margin-bottom:20px;max-width:600px;line-height:1.6}
+.hero h1 span{color:#34d399}
+.hero h1{color:#f0fdf4}
+.hero p{color:#a7f3d0;font-size:1rem;margin-bottom:20px;max-width:600px;line-height:1.6}
 .hero-pills{display:-webkit-flex;display:flex;flex-wrap:wrap;gap:8px}
 .hero-pill{
-  background:var(--white-dim);border:1px solid var(--border-soft);
+  background:rgba(255,255,255,0.08);border:1px solid rgba(52,211,153,0.25);
   padding:5px 12px;border-radius:50px;
-  font-size:0.72rem;font-weight:500;color:var(--slate-light);
+  font-size:0.72rem;font-weight:500;color:#a7f3d0;
   font-family:var(--font-mono);white-space:nowrap;
 }
-#last-updated{font-family:var(--font-mono);font-size:0.68rem;color:var(--slate);margin-top:12px}
+#last-updated{font-family:var(--font-mono);font-size:0.68rem;color:#6ee7b7;margin-top:12px}
 
 /* ── TICKER ── */
 .ticker-band{
-  background:var(--navy-800);
-  border-bottom:1px solid var(--border);
+  background:#ecfdf5;
+  border-bottom:1px solid rgba(5,150,105,0.15);
   overflow:hidden;padding:11px 0;position:relative;z-index:1;
 }
 .ticker-inner{
@@ -139,10 +162,10 @@ nav{
 }
 .ticker-inner span{
   font-family:var(--font-mono);font-size:0.75rem;
-  color:var(--slate-light);padding:0 32px;
-  border-right:1px solid var(--border);
+  color:#374151;padding:0 32px;
+  border-right:1px solid rgba(5,150,105,0.15);
 }
-.ticker-inner span b{color:var(--gold-400)}
+.ticker-inner span b{color:#059669}
 .up{color:var(--green)!important}
 .dn{color:var(--red)!important}
 @-webkit-keyframes ticker{0%{-webkit-transform:translateX(0)}100%{-webkit-transform:translateX(-50%)}}
@@ -151,8 +174,8 @@ nav{
 /* ── FILTERS ── */
 .filters{
   position:sticky;top:57px;z-index:99;
-  background:var(--navy-900);
-  border-bottom:1px solid var(--border-soft);
+  background:#f0fdf4;
+  border-bottom:1px solid rgba(5,150,105,0.15);
   padding:12px 48px;
   display:-webkit-flex;display:flex;
   align-items:center;gap:8px;flex-wrap:wrap;
@@ -160,22 +183,22 @@ nav{
 .filter-btn{
   font-family:var(--font-mono);font-size:0.7rem;
   padding:7px 14px;border-radius:50px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:transparent;color:var(--slate);
+  border:1px solid rgba(5,150,105,0.2);
+  background:transparent;color:#374151;
   transition:all var(--transition);white-space:nowrap;
 }
-.filter-btn.active{background:var(--gold-500);color:var(--navy-950);border-color:var(--gold-500);font-weight:700}
-.filter-btn:hover:not(.active){border-color:var(--gold-400);color:var(--gold-400)}
+.filter-btn.active{background:#059669;color:#ffffff;border-color:#059669;font-weight:700}
+.filter-btn:hover:not(.active){border-color:#059669;color:#059669}
 
 /* ── SEARCH ── */
 .search-wrap{margin-left:auto;position:relative}
 .search-wrap input{
-  background:var(--white-dim);border:1px solid var(--border-soft);
+  background:#ecfdf5;border:1px solid rgba(5,150,105,0.25);
   border-radius:8px;padding:7px 12px 7px 32px;
-  color:var(--white);font-family:var(--font-mono);font-size:0.72rem;
+  color:#064e3b;font-family:var(--font-mono);font-size:0.72rem;
   outline:none;width:180px;transition:all var(--transition);
 }
-.search-wrap input:focus{border-color:var(--gold-500);width:220px}
+.search-wrap input:focus{border-color:#059669;width:220px;box-shadow:0 0 0 3px rgba(5,150,105,0.1)}
 .search-wrap::before{
   content:'🔍';position:absolute;left:9px;top:50%;
   transform:translateY(-50%);font-size:0.65rem;pointer-events:none;
@@ -211,7 +234,7 @@ nav{
   margin-bottom:20px;cursor:pointer;
   transition:all var(--transition);
 }
-.featured-post:hover{transform:translateY(-3px);border-color:var(--gold-500);box-shadow:0 8px 32px rgba(201,168,76,0.12)}
+.featured-post:hover{transform:translateY(-3px);border-color:var(--gold-500);box-shadow:0 8px 32px rgba(5,150,105,0.12)}
 .post-thumb{
   height:160px;display:-webkit-flex;display:flex;
   align-items:center;justify-content:center;
@@ -379,13 +402,90 @@ nav{
   .post-body{padding:16px}
   .v-post{padding:11px 13px}
 }
+
+/* ====== DEFINITIVE MOBILE NAV FIX ====== */
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;z-index:10000;flex-shrink:0}
+.ham span{width:24px;height:2.5px;background:#ffffff;border-radius:2px;transition:all 0.3s ease;display:block}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0;transform:translateX(-10px)}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+@media (max-width: 768px) {
+  nav{padding:12px 16px !important;position:fixed !important;top:0;left:0;right:0;z-index:9999}
+  .ham{display:flex !important}
+  .nav-links{
+    display:none !important;
+    flex-direction:column !important;
+    position:fixed !important;
+    top:0 !important;left:0 !important;right:0 !important;bottom:0 !important;
+    background:rgba(4,40,30,0.99) !important;
+    backdrop-filter:blur(12px) !important;
+    -webkit-backdrop-filter:blur(12px) !important;
+    padding:90px 32px 40px !important;
+    gap:0 !important;
+    z-index:9998 !important;
+    overflow-y:auto !important;
+    list-style:none !important;
+    margin:0 !important;
+    align-items:flex-start !important;
+    width:100% !important;
+    height:100% !important;
+  }
+  .nav-links.open{display:flex !important}
+  .nav-links li{width:100% !important;border-bottom:1px solid rgba(52,211,153,0.12) !important}
+  .nav-links a{
+    font-size:1.15rem !important;
+    padding:16px 4px !important;
+    display:block !important;
+    color:#a7f3d0 !important;
+    text-decoration:none !important;
+    font-weight:500 !important;
+    transition:all 0.15s !important;
+    background:transparent !important;
+    border:none !important;
+  }
+  .nav-links a:active{color:#ffffff !important;padding-left:12px !important}
+  .nav-links .nav-back{
+    background:rgba(52,211,153,0.1) !important;
+    border:1px solid rgba(52,211,153,0.35) !important;
+    border-radius:8px !important;
+    padding:14px 16px !important;
+    margin-top:16px !important;
+    display:block !important;
+    text-align:center !important;
+    color:#a7f3d0 !important;
+    font-size:1rem !important;
+  }
+  .hero-band,.hero{padding-top:80px !important}
+  .page-body{padding-left:16px !important;padding-right:16px !important}
+}
+/* ====== END MOBILE NAV FIX ====== */
 </style>
+<!-- Microsoft Clarity Heatmap -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wxrgzi9ena");
+</script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">The<span>FinVerge</span></a>
+  <a href="index.html" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+  <rect width="36" height="36" rx="7" fill="#10b981"/>
+  <polyline points="7,26 13,18 20,22 29,10" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="29" cy="10" r="2.5" fill="#ffffff"/>
+  <line x1="7" y1="28" x2="29" y2="28" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+    <div>
+      <div>The<span>FinVerge</span></div>
+      <span class="nav-logo-sub">Services</span>
+    </div>
+  </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html#services">Services</a></li>
     <li><a href="index.html#tools">Tools</a></li>
@@ -546,7 +646,7 @@ nav{
 </div>
 
 <!-- FOOTER -->
-<footer style="position:relative;z-index:1;background:var(--navy-900);border-top:1px solid var(--border);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:var(--slate)">
+<footer style="position:relative;z-index:1;background:#f0fdf4;border-top:1px solid rgba(5,150,105,0.15);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem;color:var(--slate)">
   <span>© 2026 TheFinVerge Services · <a href="index.html" style="color:var(--gold-400)">thefinvergeservices.com</a></span>
   <span>Market Pulse · AI-Powered News · Updated Every 15 Minutes</span>
   <span><a href="index.html#contact" style="color:var(--gold-400)">📞 Book Intro Call</a></span>
@@ -612,6 +712,17 @@ function timeAgo(dateStr) {
   return d.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
 }
 
+function cleanText(str) {
+  if (!str) return '';
+  return str
+    .replace(/<!\[CDATA\[(.*?)\]\]>/gs, '$1')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/<[^>]+>/g, '')
+    .trim();
+}
 function escHtml(str) {
   return str ? str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
 }
@@ -642,13 +753,21 @@ async function fetchMarketData() {
       });
     }
 
-    // Bank Nifty placeholder
+    // Bank Nifty
+    const bn = data.banknifty;
     const bnEl = document.getElementById('s-banknifty');
-    if (bnEl) { bnEl.innerHTML = '—'; bnEl.className = 'mkt-val'; }
+    if (bnEl && bn && bn.price !== '--') {
+      bnEl.innerHTML = `${bn.arrow} ${bn.price} <small>(${bn.isUp ? '+' : ''}${bn.change}%)</small>`;
+      bnEl.className = bn.isUp ? 'up' : 'dn';
+    }
 
-    // Gold placeholder
+    // Gold MCX
+    const gld = data.gold;
     const goldEl = document.getElementById('s-gold');
-    if (goldEl) { goldEl.innerHTML = '—'; goldEl.className = 'mkt-val'; }
+    if (goldEl && gld && gld.price !== '--') {
+      goldEl.innerHTML = `${gld.arrow} ${gld.price} <small>(${gld.isUp ? '+' : ''}${gld.change}%)</small>`;
+      goldEl.className = gld.isUp ? 'up' : 'dn';
+    }
 
     const now = new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
     const timeEl = document.getElementById('mkt-time');
@@ -832,15 +951,36 @@ function getFilteredNews() {
 
   if (currentFilter === 'vishwa') {
     filtered = allPosts;
+  } else if (currentFilter === 'Hot News') {
+    // Hot = POSITIVE or NEGATIVE sentiment (most impactful news), sorted by recency
+    filtered = allNews.filter(n => n.sentiment === 'POSITIVE' || n.sentiment === 'NEGATIVE');
   } else if (currentFilter !== 'all') {
-    filtered = allNews.filter(n => n.category === currentFilter);
+    // Broad match — check if category contains the filter keyword
+    const filterMap = {
+      'Indian Stock Market': ['indian stock market','stock market','markets','sensex','nifty'],
+      'GST & Tax Updates':   ['gst','tax','income tax','itr','cbdt','tds'],
+      'RBI & Banking':       ['rbi','banking','bank','monetary','repo','credit'],
+      'Company Earnings & Results': ['earnings','results','quarterly','q1','q2','q3','q4','profit','revenue','tcs','infosys'],
+      'Budget & Policy News': ['budget','policy','government','ministry','sebi','finance'],
+      'Current Affairs':     ['current','geopolitical','global','world','oil','us','china','economy'],
+    };
+    const keywords = filterMap[currentFilter] || [];
+    filtered = allNews.filter(n => {
+      // First try exact category match
+      if (n.category === currentFilter) return true;
+      // Then try keyword match in title/category
+      if (keywords.length) {
+        const text = (n.title + ' ' + n.category + ' ' + (n.summary || '')).toLowerCase();
+        return keywords.some(k => text.includes(k));
+      }
+      return false;
+    });
   }
 
   if (search) {
     filtered = filtered.filter(n =>
-      n.title?.toLowerCase().includes(search) ||
-      n.summary?.toLowerCase().includes(search) ||
-      n.content?.toLowerCase().includes(search)
+      cleanText(n.title || '').toLowerCase().includes(search) ||
+      cleanText(n.summary || n.content || '').toLowerCase().includes(search)
     );
   }
 
@@ -864,22 +1004,20 @@ function renderNews() {
   grid.innerHTML = toShow.map(n => {
     const sentCls = n.sentiment === 'POSITIVE' ? 's-pos' : n.sentiment === 'NEGATIVE' ? 's-neg' : 's-neu';
     const sentEmoji = n.sentiment === 'POSITIVE' ? '▲' : n.sentiment === 'NEGATIVE' ? '▼' : '—';
-    const fullText = n.summary || n.content || '';
     return `
-      <div class="news-card" onclick="showNewsModal(this)"
-        data-title="${escHtml(n.title)}"
-        data-summary="${escHtml(fullText)}"
-        data-source="${escHtml(n.source || 'TheFinVerge')}"
-        data-time="${escHtml(timeAgo(n.fetched_at || n.created_at))}"
-        data-cat="${escHtml(n.category || 'General')}"
-        data-url="${escHtml(n.source_url || '#')}"
-        style="cursor:pointer;">
-        <div class="news-card-top">
+<div class="news-card" onclick="showNewsModal(this)" 
+  data-title="${escHtml(cleanText(n.title))}"
+  data-summary="${escHtml(cleanText(n.summary || n.content || ''))}"
+  data-source="${escHtml(n.source || 'TheFinVerge')}"
+  data-time="${escHtml(timeAgo(n.fetched_at || n.created_at))}"
+  data-cat="${escHtml(n.category || 'General')}"
+  data-url="${escHtml(n.source_url || '#')}"
+  style="cursor:pointer;">        <div class="news-card-top">
           <span class="news-cat">${CATEGORY_ICONS[n.category] || '📰'} ${escHtml(n.category || 'General')}</span>
           <span class="sentiment ${sentCls}">${sentEmoji} ${escHtml(n.sentiment || 'NEUTRAL')}</span>
         </div>
-        <h4>${escHtml(n.title)}</h4>
-        <p>${escHtml(fullText.substring(0, 150))}${fullText.length > 150 ? '...' : ''}</p>
+        <h4>${escHtml(cleanText(n.title))}</h4>
+        <p>${escHtml(cleanText(n.summary || n.content || '').substring(0, 150))}${cleanText(n.summary || n.content || '').length > 150 ? '...' : ''}</p>
         <div class="news-src">
           <span>${escHtml(n.source || 'TheFinVerge')}</span>
           <span>•</span>
@@ -918,7 +1056,7 @@ function renderHotNews() {
   el.innerHTML = hot.map((n, i) => `
     <div class="hot-item" ${n.source_url && n.source_url !== '#' ? `onclick="window.open('${escHtml(n.source_url)}','_blank')"` : ''} style="cursor:${n.source_url && n.source_url !== '#' ? 'pointer' : 'default'}">
       <span class="hot-num">0${i+1}</span>
-      <p>${escHtml(n.title?.substring(0, 80))}${(n.title?.length || 0) > 80 ? '...' : ''}</p>
+      <p>${escHtml(cleanText(n.title)?.substring(0, 80))}${(n.title?.length || 0) > 80 ? '...' : ''}</p>
     </div>`).join('');
 }
 
@@ -1005,11 +1143,107 @@ window.addEventListener('scroll', () => {
     window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.4)' : 'none';
 }, { passive: true });
 
-/* ── INIT & AUTO REFRESH ── */
-async function init() {
+/* ── MANUAL REFRESH ── */
+async function manualRefresh() {
+  const btn = document.getElementById('refresh-btn');
+  if (btn) { btn.textContent = '↻ Refreshing...'; btn.disabled = true; }
   await Promise.all([fetchMarketData(), fetchPosts(), fetchNews()]);
   renderHotNews();
   generateClaudeInsight();
+  if (btn) { btn.textContent = '↻ Refresh'; btn.disabled = false; }
+}
+
+/* ── INIT & AUTO REFRESH ── */
+async function triggerNewsFetch() {
+  try {
+    const res = await fetch(
+      'https://cdolopmcfllikyjbfhhv.supabase.co/functions/v1/fetch-news',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'apikey': SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ source: 'page-load' })
+      }
+    );
+    if (res.ok) {
+      // Wait 4s for edge function to finish writing to news_cache, then reload news
+      setTimeout(async () => {
+        await fetchNews();
+        renderHotNews();
+      }, 4000);
+    }
+  } catch(e) { console.warn('News trigger skipped (edge fn not deployed yet):', e); }
+}
+
+async function maybeAutoGenerateVishwaPost() {
+  // Check if a new Vishwa post should be generated (weekly)
+  try {
+    if (!allPosts.length) return;
+    const latest = new Date(allPosts[0].created_at);
+    const daysSince = (Date.now() - latest) / (1000 * 60 * 60 * 24);
+    if (daysSince < 7) return; // post within last 7 days — skip
+
+    // Get top 5 most positive/significant news from last 7 days
+    const topNews = allNews
+      .filter(n => n.sentiment === 'POSITIVE' || n.sentiment === 'NEGATIVE')
+      .slice(0, 5)
+      .map(n => `- ${cleanText(n.title)} (${n.sentiment})`)
+      .join('\n');
+
+    if (!topNews) return;
+
+    // Call Claude API to generate a Vishwa-style insight post
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        messages: [{
+          role: 'user',
+          content: `You are Vishwa, a CA Final + ACCA qualified financial advisor writing a weekly market insight post for TheFinVerge Services (thefinvergeservices.com). Based on these top Indian finance news from this week:\n${topNews}\n\nWrite a concise, practical weekly insight post (150-200 words) in first person. Focus on what it means for retail investors, ITR filers, or tax payers in India. End with a call to action to book a consultation. Use plain conversational English, no jargon. Return ONLY the post content, no title, no markdown.`
+        }]
+      })
+    });
+    const d = await res.json();
+    const content = d.content?.[0]?.text;
+    if (!content) return;
+
+    // Determine best category from top news
+    const cats = allNews.slice(0,5).map(n => n.category).filter(Boolean);
+    const category = cats[0] || 'Indian Stock Market';
+    const title = `Weekly Market Insights — ${new Date().toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'})}`;
+
+    // Save to Supabase posts table
+    await sb.from('posts').insert({
+      title,
+      content,
+      category,
+      is_published: true,
+      is_featured: false,
+      author: 'Vishwa'
+    });
+
+    // Refresh posts
+    await fetchPosts();
+    console.log('✅ Auto-generated Vishwa weekly post');
+  } catch(e) {
+    console.warn('Auto post skipped:', e);
+  }
+}
+
+async function init() {
+  // Load what we have first (instant)
+  await Promise.all([fetchMarketData(), fetchPosts(), fetchNews()]);
+  renderHotNews();
+  generateClaudeInsight();
+  // Trigger fresh news fetch in background
+  triggerNewsFetch();
+  // Check if Vishwa weekly post is due
+  setTimeout(maybeAutoGenerateVishwaPost, 5000);
 }
 
 init();
@@ -1039,7 +1273,7 @@ function showNewsModal(card) {
   modal.id = 'news-modal';
   modal.style.cssText = `
     position:fixed;inset:0;z-index:3000;
-    background:rgba(4,13,30,0.92);
+    background:rgba(6,78,59,0.85);
     backdrop-filter:blur(12px);
     display:flex;align-items:center;justify-content:center;
     padding:20px;
@@ -1108,7 +1342,7 @@ function showPostModal(postId) {
   modal.id = 'post-modal';
   modal.style.cssText = `
     position:fixed;inset:0;z-index:3000;
-    background:rgba(4,13,30,0.92);
+    background:rgba(6,78,59,0.85);
     backdrop-filter:blur(12px);
     display:flex;align-items:center;justify-content:center;
     padding:20px;
@@ -1116,8 +1350,8 @@ function showPostModal(postId) {
 
   modal.innerHTML = `
     <div style="
-      background:#0d1f45;
-      border:1px solid rgba(201,168,76,0.25);
+      background:#dcfce7;
+      border:1px solid rgba(5,150,105,0.25);
       border-radius:20px;
       padding:40px;
       max-width:640px;
@@ -1128,31 +1362,31 @@ function showPostModal(postId) {
     ">
       <button onclick="document.getElementById('post-modal').remove()" style="
         position:absolute;top:16px;right:20px;
-        background:none;border:none;color:#8a9ab5;
+        background:none;border:none;color:#6b7280;
         font-size:1.4rem;cursor:pointer;
       ">✕</button>
 
       <div style="font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;
-        color:#c9a84c;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">
+        color:#059669;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">
         ✍️ By Vishwa · ${escHtml(post.category || 'General')}
       </div>
 
       <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;
-        font-weight:800;line-height:1.3;margin-bottom:20px;color:#f4f6fa;">
+        font-weight:800;line-height:1.3;margin-bottom:20px;color:#0f172a;">
         ${escHtml(post.title)}
       </h3>
 
-      <p style="color:#b0bfd4;font-size:1rem;line-height:1.9;margin-bottom:28px;white-space:pre-line;">
+      <p style="color:#4b5563;font-size:1rem;line-height:1.9;margin-bottom:28px;white-space:pre-line;">
         ${escHtml(post.content || '')}
       </p>
 
       <div style="display:flex;align-items:center;justify-content:space-between;
         flex-wrap:wrap;gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);">
-        <div style="font-size:0.72rem;color:#8a9ab5;font-family:'JetBrains Mono',monospace;">
+        <div style="font-size:0.72rem;color:#6b7280;font-family:'JetBrains Mono',monospace;">
           TheFinVerge · ${timeAgo(post.created_at)}
         </div>
         <a href="index.html#contact" style="
-          background:#c9a84c;color:#040d1e;
+          background:#059669;color:#ffffff;
           padding:9px 20px;border-radius:6px;
           font-size:0.82rem;font-weight:700;
           text-decoration:none;
@@ -1165,34 +1399,38 @@ function showPostModal(postId) {
   modal.addEventListener('click', e => { if(e.target === modal) modal.remove(); });
 }
 </script>
-<!-- WHATSAPP BUTTON -->
-<a href="https://wa.me/918754038601?text=Hi%20Vishwa!%20I%20found%20TheFinVerge%20and%20would%20like%20to%20know%20more%20about%20your%20services."
-   target="_blank"
-   rel="noopener"
-   id="whatsapp-btn"
-   aria-label="Chat on WhatsApp"
-   style="
-     position:fixed;
-     bottom:100px;
-     right:28px;
-     z-index:9997;
-     width:52px;
-     height:52px;
-     background:#25d366;
-     border-radius:50%;
-     display:flex;
-     align-items:center;
-     justify-content:center;
-     box-shadow:0 4px 20px rgba(37,211,102,0.4);
-     transition:transform 0.2s, box-shadow 0.2s;
-     text-decoration:none;
-   "
-   onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,0.55)'"
-   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,0.4)'"
->
-  <svg viewBox="0 0 24 24" width="28" height="28" fill="white" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-</a>
+
+<script>
+/* DEFINITIVE MOBILE NAV JS */
+(function(){
+  function toggleNav(){
+    var n=document.getElementById('nav-links');
+    var b=document.getElementById('ham-btn');
+    if(!n||!b)return;
+    var isOpen=n.classList.contains('open');
+    if(isOpen){
+      n.classList.remove('open');
+      b.classList.remove('open');
+      document.body.style.overflow='';
+    } else {
+      n.classList.add('open');
+      b.classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+  }
+  function closeNav(){
+    var n=document.getElementById('nav-links');
+    var b=document.getElementById('ham-btn');
+    if(!n||!b)return;
+    n.classList.remove('open');
+    b.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  window.toggleNav=toggleNav;
+  window.closeNav=closeNav;
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav();});
+})();
+</script>
+
 </body>
 </html>

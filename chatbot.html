@@ -1,7 +1,40 @@
 <!-- 
   ============================================
   THEFINVERGE AI CHATBOT WIDGET
-  Add this code just before </body> on ALL pages
+  Add this code just before 
+<script>
+/* DEFINITIVE MOBILE NAV JS */
+(function(){
+  function toggleNav(){
+    var n=document.getElementById('nav-links');
+    var b=document.getElementById('ham-btn');
+    if(!n||!b)return;
+    var isOpen=n.classList.contains('open');
+    if(isOpen){
+      n.classList.remove('open');
+      b.classList.remove('open');
+      document.body.style.overflow='';
+    } else {
+      n.classList.add('open');
+      b.classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+  }
+  function closeNav(){
+    var n=document.getElementById('nav-links');
+    var b=document.getElementById('ham-btn');
+    if(!n||!b)return;
+    n.classList.remove('open');
+    b.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  window.toggleNav=toggleNav;
+  window.closeNav=closeNav;
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav();});
+})();
+</script>
+
+</body> on ALL pages
   - index.html
   - calculator.html
   - capital-gains.html
@@ -22,21 +55,21 @@
   z-index: 9999;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  background: linear-gradient(135deg, #059669, #10b981);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(201,168,76,0.45);
+  box-shadow: 0 4px 24px rgba(5,150,105,0.45);
   transition: transform 0.2s, box-shadow 0.2s;
   border: none;
 }
 #tfv-chat-btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 8px 32px rgba(201,168,76,0.55);
+  box-shadow: 0 8px 32px rgba(5,150,105,0.55);
 }
-#tfv-chat-btn svg { width: 28px; height: 28px; fill: #040d1e; }
+#tfv-chat-btn svg { width: 28px; height: 28px; fill: #ffffff; }
 
 /* Notification dot */
 #tfv-notif {
@@ -45,7 +78,7 @@
   width: 14px; height: 14px;
   background: #e05252;
   border-radius: 50%;
-  border: 2px solid #040d1e;
+  border: 2px solid #059669;
   animation: pulse-notif 2s ease infinite;
 }
 @keyframes pulse-notif {
@@ -62,8 +95,8 @@
   width: 380px;
   max-width: calc(100vw - 40px);
   max-height: 580px;
-  background: #070f26;
-  border: 1px solid rgba(201,168,76,0.25);
+  background: #ffffff;
+  border: 1px solid rgba(5,150,105,0.25);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -79,24 +112,24 @@
 
 /* Header */
 #tfv-chat-head {
-  background: linear-gradient(135deg, #0d1f45, #102258);
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
   border-radius: 20px 20px 0 0;
   padding: 16px 18px;
   display: flex;
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(5,150,105,0.15);
 }
 .tfv-avatar {
   width: 38px; height: 38px;
-  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  background: linear-gradient(135deg, #059669, #10b981);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem; flex-shrink: 0;
 }
 .tfv-head-info h4 {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem; font-weight: 700; color: #f4f6fa;
+  font-size: 0.88rem; font-weight: 700; color: #0f172a;
   margin-bottom: 2px;
 }
 .tfv-head-info span {
@@ -111,15 +144,15 @@
 }
 #tfv-close-btn {
   margin-left: auto;
-  background: rgba(255,255,255,0.08);
-  border: none; color: #8a9ab5;
+  background: rgba(5,150,105,0.08);
+  border: none; color: #064e3b;
   width: 28px; height: 28px;
   border-radius: 50%;
   cursor: pointer; font-size: 1rem;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
-#tfv-close-btn:hover { background: rgba(255,255,255,0.15); color: #f4f6fa; }
+#tfv-close-btn:hover { background: rgba(5,150,105,0.15); color: #064e3b; }
 
 /* Messages */
 #tfv-messages {
@@ -131,10 +164,10 @@
   gap: 12px;
   max-height: 360px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(201,168,76,0.2) transparent;
+  scrollbar-color: rgba(5,150,105,0.2) transparent;
 }
 #tfv-messages::-webkit-scrollbar { width: 4px; }
-#tfv-messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 2px; }
+#tfv-messages::-webkit-scrollbar-thumb { background: rgba(5,150,105,0.2); border-radius: 2px; }
 
 .tfv-msg {
   display: flex;
@@ -153,7 +186,7 @@
   display: flex; align-items: center; justify-content: center;
   font-size: 0.8rem;
 }
-.tfv-msg.bot .tfv-msg-avatar  { background: linear-gradient(135deg,#c9a84c,#d4b96a); color: #040d1e; font-weight: 700; }
+.tfv-msg.bot .tfv-msg-avatar  { background: linear-gradient(135deg, #059669, #10b981); color: #ffffff; font-weight: 700; }
 .tfv-msg.user .tfv-msg-avatar { background: rgba(74,158,255,0.2); color: #4a9eff; }
 
 .tfv-bubble {
@@ -164,8 +197,8 @@
   line-height: 1.55;
   font-family: 'DM Sans', sans-serif;
 }
-.tfv-msg.bot  .tfv-bubble { background: #0d1f45; border: 1px solid rgba(255,255,255,0.07); color: #b0bfd4; border-radius: 4px 14px 14px 14px; }
-.tfv-msg.user .tfv-bubble { background: linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.1)); border: 1px solid rgba(201,168,76,0.25); color: #f4f6fa; border-radius: 14px 4px 14px 14px; }
+.tfv-msg.bot  .tfv-bubble { background: #ecfdf5; border: 1px solid rgba(5,150,105,0.18); color: #064e3b; border-radius: 4px 14px 14px 14px; }
+.tfv-msg.user .tfv-bubble { background: linear-gradient(135deg,rgba(5,150,105,0.2),rgba(5,150,105,0.1)); border: 1px solid rgba(5,150,105,0.25); color: #0f172a; border-radius: 14px 4px 14px 14px; }
 
 /* Quick replies */
 .tfv-quick-replies {
@@ -175,9 +208,9 @@
   padding: 0 16px 12px;
 }
 .tfv-qr {
-  background: rgba(201,168,76,0.08);
-  border: 1px solid rgba(201,168,76,0.25);
-  color: #d4b96a;
+  background: rgba(5,150,105,0.08);
+  border: 1px solid rgba(5,150,105,0.25);
+  color: #10b981;
   padding: 6px 12px;
   border-radius: 50px;
   font-size: 0.75rem;
@@ -187,7 +220,7 @@
   transition: all 0.2s;
   white-space: nowrap;
 }
-.tfv-qr:hover { background: rgba(201,168,76,0.18); transform: translateY(-1px); }
+.tfv-qr:hover { background: rgba(5,150,105,0.18); transform: translateY(-1px); }
 
 /* Typing indicator */
 .tfv-typing .tfv-bubble {
@@ -195,7 +228,7 @@
 }
 .tfv-typing .tfv-bubble span {
   width: 6px; height: 6px;
-  background: #8a9ab5; border-radius: 50%;
+  background: #6b7280; border-radius: 50%;
   animation: typing-dot 1.2s ease infinite;
 }
 .tfv-typing .tfv-bubble span:nth-child(2) { animation-delay: 0.2s; }
@@ -208,64 +241,78 @@
 /* Input */
 #tfv-input-area {
   padding: 12px 16px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(5,150,105,0.15);
   display: flex;
   gap: 8px;
   align-items: center;
 }
 #tfv-input {
   flex: 1;
-  background: #040d1e;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #ecfdf5;
+  border: 1px solid rgba(5,150,105,0.3);
   border-radius: 10px;
   padding: 10px 14px;
-  color: #f4f6fa;
+  color: #064e3b;
   font-size: 0.83rem;
   font-family: 'DM Sans', sans-serif;
   outline: none;
   transition: border-color 0.2s;
   resize: none;
 }
-#tfv-input:focus { border-color: #c9a84c; }
-#tfv-input::placeholder { color: #8a9ab5; }
+#tfv-input:focus { border-color: #059669; }
+#tfv-input::placeholder { color: #6b7280; }
 #tfv-send-btn {
   width: 38px; height: 38px;
-  background: linear-gradient(135deg, #c9a84c, #d4b96a);
+  background: linear-gradient(135deg, #059669, #10b981);
   border: none; border-radius: 10px;
   cursor: pointer; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
 #tfv-send-btn:hover { transform: scale(1.05); }
-#tfv-send-btn svg { width: 18px; height: 18px; fill: #040d1e; }
+#tfv-send-btn svg { width: 18px; height: 18px; fill: #ffffff; }
 #tfv-send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 /* Lead form inside chat */
 .tfv-lead-form {
-  background: rgba(201,168,76,0.06);
-  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(5,150,105,0.06);
+  border: 1px solid rgba(5,150,105,0.2);
   border-radius: 12px;
   padding: 14px;
   margin: 4px 0;
 }
 .tfv-lead-form input, .tfv-lead-form select {
   width: 100%;
-  background: #040d1e;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #ecfdf5;
+  border: 1px solid rgba(5,150,105,0.3);
   border-radius: 8px;
   padding: 8px 12px;
-  color: #f4f6fa;
+  color: #064e3b;
   font-size: 0.8rem;
   font-family: 'DM Sans', sans-serif;
   outline: none;
   margin-bottom: 8px;
 }
-.tfv-lead-form input:focus, .tfv-lead-form select:focus { border-color: #c9a84c; }
-.tfv-lead-form select option { background: #070f26; }
+.tfv-lead-form input:focus, .tfv-lead-form select:focus { border-color: #059669; }
+  .tfv-lead-form select {
+    background: #ecfdf5 !important;
+    color: #064e3b !important;
+    border: 1px solid rgba(5,150,105,0.3) !important;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23059669' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 32px !important;
+  }
+  .tfv-lead-form select option {
+    background: #ecfdf5 !important;
+    color: #064e3b !important;
+  }
 .tfv-submit-btn {
   width: 100%;
-  background: #c9a84c;
-  color: #040d1e;
+  background: #059669;
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   padding: 10px;
@@ -275,13 +322,71 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-.tfv-submit-btn:hover { background: #d4b96a; }
+.tfv-submit-btn:hover { background: #10b981; }
 
 /* Mobile */
 @media (max-width: 480px) {
   #tfv-chat-window { right: 12px; bottom: 90px; width: calc(100vw - 24px); }
   #tfv-chat-btn    { right: 16px; bottom: 20px; }
 }
+
+/* ====== DEFINITIVE MOBILE NAV FIX ====== */
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;z-index:10000;flex-shrink:0}
+.ham span{width:24px;height:2.5px;background:#ffffff;border-radius:2px;transition:all 0.3s ease;display:block}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0;transform:translateX(-10px)}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+@media (max-width: 768px) {
+  nav{padding:12px 16px !important;position:fixed !important;top:0;left:0;right:0;z-index:9999}
+  .ham{display:flex !important}
+  .nav-links{
+    display:none !important;
+    flex-direction:column !important;
+    position:fixed !important;
+    top:0 !important;left:0 !important;right:0 !important;bottom:0 !important;
+    background:rgba(4,40,30,0.99) !important;
+    backdrop-filter:blur(12px) !important;
+    -webkit-backdrop-filter:blur(12px) !important;
+    padding:90px 32px 40px !important;
+    gap:0 !important;
+    z-index:9998 !important;
+    overflow-y:auto !important;
+    list-style:none !important;
+    margin:0 !important;
+    align-items:flex-start !important;
+    width:100% !important;
+    height:100% !important;
+  }
+  .nav-links.open{display:flex !important}
+  .nav-links li{width:100% !important;border-bottom:1px solid rgba(52,211,153,0.12) !important}
+  .nav-links a{
+    font-size:1.15rem !important;
+    padding:16px 4px !important;
+    display:block !important;
+    color:#a7f3d0 !important;
+    text-decoration:none !important;
+    font-weight:500 !important;
+    transition:all 0.15s !important;
+    background:transparent !important;
+    border:none !important;
+  }
+  .nav-links a:active{color:#ffffff !important;padding-left:12px !important}
+  .nav-links .nav-back{
+    background:rgba(52,211,153,0.1) !important;
+    border:1px solid rgba(52,211,153,0.35) !important;
+    border-radius:8px !important;
+    padding:14px 16px !important;
+    margin-top:16px !important;
+    display:block !important;
+    text-align:center !important;
+    color:#a7f3d0 !important;
+    font-size:1rem !important;
+  }
+  .hero-band,.hero{padding-top:80px !important}
+  .page-body{padding-left:16px !important;padding-right:16px !important}
+}
+/* ====== END MOBILE NAV FIX ====== */
 </style>
 
 <!-- CHAT BUTTON -->
@@ -541,7 +646,7 @@ function showLeadForm(){
   div.innerHTML = `
     <div class="tfv-msg-avatar">F</div>
     <div class="tfv-bubble" style="max-width:92%">
-      <div style="margin-bottom:10px;font-weight:600;color:#f4f6fa">Great! Let me connect you with our team 🎯</div>
+      <div style="margin-bottom:10px;font-weight:600;color:#0f172a">Great! Let me connect you with our team 🎯</div>
       <div class="tfv-lead-form">
         <input type="text"  id="cf-name"    placeholder="Your name *"/>
         <input type="email" id="cf-email"   placeholder="Email address *"/>
@@ -594,8 +699,8 @@ async function submitChatLead(){
   formMsg.querySelector('.tfv-bubble').innerHTML = `
     <div style="text-align:center;padding:8px">
       <div style="font-size:1.5rem;margin-bottom:8px">✅</div>
-      <div style="font-weight:700;color:#f4f6fa;margin-bottom:4px">Thank you, ${name.split(' ')[0]}!</div>
-      <div style="font-size:0.78rem;color:#b0bfd4">We'll reach out within 24 hours. Check your inbox for a confirmation.</div>
+      <div style="font-weight:700;color:#0f172a;margin-bottom:4px">Thank you, ${name.split(' ')[0]}!</div>
+      <div style="font-size:0.78rem;color:#4b5563">We'll reach out within 24 hours. Check your inbox for a confirmation.</div>
     </div>`;
 
   setTimeout(()=>{
@@ -614,7 +719,7 @@ Is there anything else I can help you with?`);
 // ---- HELPERS ----
 function formatText(text){
   return text
-    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#f4f6fa">$1</strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#0f172a">$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
     .replace(/`(.*?)`/g, '<code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:0.82em">$1</code>')
     .replace(/•\s/g, '• ')
